@@ -68,8 +68,6 @@ return array(
     'Nexmo\\' => array($vendorDir . '/vonage/client-core/src'),
     'MyCLabs\\Enum\\' => array($vendorDir . '/myclabs/php-enum/src'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
-    'Mehedi\\Paystack\\' => array($vendorDir . '/mehedi-iitdu/laravel-paystack/src'),
-    'MehediIitdu\\CoreComponentRepository\\' => array($vendorDir . '/mehedi-iitdu/core-component-repository/src'),
     'Matrix\\' => array($vendorDir . '/markbaker/matrix/classes/src'),
     'Maatwebsite\\Excel\\' => array($vendorDir . '/maatwebsite/excel/src'),
     'League\\OAuth2\\Server\\' => array($vendorDir . '/league/oauth2-server/src'),
