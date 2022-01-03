@@ -18,6 +18,8 @@
 <meta name="keywords" content="@yield('meta_keywords', $seosetting->keyword)">
 <meta name="author" content="{{ $seosetting->author }}">
 <meta name="sitemap_link" content="{{ $seosetting->sitemap_link }}">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">
 
 @yield('meta')
 
