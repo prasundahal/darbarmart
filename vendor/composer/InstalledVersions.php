@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '744e0f9a2571fa98222ad70c8f52941428dfbdd3',
+    'reference' => '13bce8dc68e6de81aa56773cc71cb2d57b738c22',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -504,7 +504,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '744e0f9a2571fa98222ad70c8f52941428dfbdd3',
+      'reference' => '13bce8dc68e6de81aa56773cc71cb2d57b738c22',
     ),
     'laravel/passport' => 
     array (
@@ -636,6 +636,26 @@ private static $installed = array (
       array (
       ),
       'reference' => 'c66aefcafb4f6c269510e9ac46b82619a904c576',
+    ),
+    'mehedi-iitdu/core-component-repository' => 
+    array (
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
+      'aliases' => 
+      array (
+        0 => '9999999-dev',
+      ),
+      'reference' => '7a9cde6277e0939a2802ab1c8b77766dff95854c',
+    ),
+    'mehedi-iitdu/laravel-paystack' => 
+    array (
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
+      'aliases' => 
+      array (
+        0 => '9999999-dev',
+      ),
+      'reference' => '127e49dc547f74b4f5c5e2bc78f9858cca7a006f',
     ),
     'mockery/mockery' => 
     array (
