@@ -16,6 +16,12 @@ Route::get('/demo/cron_1', 'DemoController@cron_1');
 Route::get('/demo/cron_2', 'DemoController@cron_2');
 
 
+Route::get('clear', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('config:cache');
+});
+
 
 Auth::routes(['verify' => true]);
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
