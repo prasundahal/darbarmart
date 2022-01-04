@@ -58,7 +58,7 @@
                     <label class="col-sm-3 control-label" for="products">{{__('Products')}}</label>
                     <div class="col-sm-9">
                         <select name="products[]" id="products" class="form-control demo-select2" multiple required data-placeholder="Choose Products">
-                            @foreach(\App\Product::all() as $product)
+                            @foreach(\App\Product::where('published',1)->get() as $product)
                                 @php
                                     $flash_deal_product = \App\FlashDealProduct::where('flash_deal_id', $flash_deal->id)->where('product_id', $product->id)->first();
                                 @endphp

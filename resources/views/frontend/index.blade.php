@@ -119,8 +119,10 @@
 
     @php
         $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
+        // dd($flash_deal);
     @endphp
     @if($flash_deal != null && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date)
+    {{-- {{dd($flash_deal)}} --}}
     <section class="mb-4">
         <div class="container">
             <div class="px-2 py-4 p-md-4 bg-white shadow-sm">
@@ -138,10 +140,14 @@
                 <div class="caorusel-box arrow-round gutters-5">
                     <div class="slick-carousel" data-slick-items="6" data-slick-xl-items="5" data-slick-lg-items="4"  data-slick-md-items="3" data-slick-sm-items="2" data-slick-xs-items="2">
                     @foreach ($flash_deal->flash_deal_products as $key => $flash_deal_product)
+                    {{-- {{dd($flash_deal_product)}} --}}
                         @php
                             $product = \App\Product::find($flash_deal_product->product_id);
+                            // dd($product);
+                            // dd($product->published);
                         @endphp
                         @if ($product != null && $product->published != 0)
+                        {{-- {{dd($product)}} --}}
                             <div class="caorusel-card">
                                 <div class="product-card-2 card card-product shop-cards">
                                     <div class="card-body p-0">
