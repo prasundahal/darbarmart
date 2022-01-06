@@ -75,13 +75,15 @@
 {{-- martin edit css --}}
 <link type="text/css" href="{{ asset('frontend/css/martinedit.css') }}" rel="stylesheet" media="all">
 
-{{-- style-new css --}}
-<link type="text/css" href="{{ asset('frontend/css/style-new.css') }}" rel="stylesheet" media="all">
 
 
 
 
 <link type="text/css" href="{{ asset('frontend/css/main.css') }}" rel="stylesheet" media="all">
+
+{{-- style-new css --}}
+<link type="text/css" href="{{ asset('frontend/css/style-new.css') }}" rel="stylesheet" media="all">
+
 
 @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->rtl == 1)
      <!-- RTL -->
