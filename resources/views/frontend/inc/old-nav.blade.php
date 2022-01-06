@@ -82,7 +82,7 @@
     <!-- END Top Bar -->
 
     <!-- mobile menu -->
-    <div class="mobile-side-menu d-lg-none">
+    {{-- <div class="mobile-side-menu d-lg-none">
         <div class="side-menu-overlay opacity-0" onclick="sideMenuClose()"></div>
         <div class="side-menu-wrap opacity-0">
             <div class="side-menu closed">
@@ -389,7 +389,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- end mobile menu -->
 
     <div class="position-relative logo-bar-area">
