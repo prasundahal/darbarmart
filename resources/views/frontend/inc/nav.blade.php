@@ -82,26 +82,26 @@
           </div>
           <div class="d-none d-lg-inline-block">
               <div class="nav-compare-box" id="compare">
-                  <a href="{{ route('compare') }}" class="nav-box-link">
-                      <i class="la la-refresh d-inline-block nav-box-icon"></i>
-                      <span class="nav-box-text d-none d-xl-inline-block">{{__('Compare')}}</span>
+                  <a href="{{ route('compare') }}" class="nav-box-link" style="padding-right: 20px;">
+                      <i class="fa fa-compress text-dark"></i>
+                      {{-- <span class="nav-box-text d-none d-xl-inline-block">{{__('Compare')}}</span> --}}
                       @if(Session::has('compare'))
-                          <span class="nav-box-number">{{ count(Session::get('compare'))}}</span>
+                          <sup class="nav-box-number">{{ count(Session::get('compare'))}}</sup>
                       @else
-                          <span class="nav-box-number">0</span>
+                          <sup class="nav-box-number">0</sup>
                       @endif
                   </a>
               </div>
           </div>
           <div class="d-none d-lg-inline-block">
               <div class="nav-wishlist-box" id="wishlist">
-                  <a href="{{ route('wishlists.index') }}" class="nav-box-link">
-                      <i class="la la-heart-o d-inline-block nav-box-icon"></i>
-                      <span class="nav-box-text d-none d-xl-inline-block">{{__('Wishlist')}}</span>
+                  <a href="{{ route('wishlists.index') }}" class="nav-box-link" style="padding-right: 20px;">
+                      <i class="fa fa-heart text-dark"></i>
+                      {{-- <span class="nav-box-text d-none d-xl-inline-block">{{__('Wishlist')}}</span> --}}
                       @if(Auth::check())
-                          <span class="nav-box-number">{{ count(Auth::user()->wishlists)}}</span>
+                          <sup class="nav-box-number">{{ count(Auth::user()->wishlists)}}</sup>
                       @else
-                          <span class="nav-box-number">0</span>
+                          <sup class="nav-box-number">0</sup>
                       @endif
                   </a>
               </div>
@@ -109,12 +109,12 @@
           <div class="d-inline-block" data-hover="dropdown">
               <div class="nav-cart-box dropdown" id="cart_items">
                   <a href="" class="nav-box-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="la la-shopping-cart d-inline-block nav-box-icon"></i>
-                      <span class="nav-box-text d-none d-xl-inline-block">{{__('Cart')}}</span>
+                      <i class="fa fa-shopping-cart text-dark"></i>
+                      {{-- <span class="nav-box-text d-none d-xl-inline-block">{{__('Cart')}}</span> --}}
                       @if(Session::has('cart'))
-                          <span class="nav-box-number">{{ count(Session::get('cart'))}}</span>
+                          <sup class="nav-box-number">{{ count(Session::get('cart'))}}</sup>
                       @else
-                          <span class="nav-box-number">0</span>
+                          <sup class="nav-box-number">0</sup>
                       @endif
                   </a>
                   <ul class="dropdown-menu dropdown-menu-right px-0">
@@ -168,7 +168,7 @@
                                           <ul class="inline-links inline-links--style-3">
                                               <li class="px-1">
                                                   <a href="{{ route('cart') }}" class="link link--style-1 text-capitalize btn btn-base-1 px-3 py-1">
-                                                      <i class="la la-shopping-cart"></i> {{__('View cart')}}
+                                                      <i class="fa fa-shopping-cart text-dark"></i> {{__('View cart')}}
                                                   </a>
                                               </li>
                                               @if (Auth::check())
@@ -297,7 +297,7 @@
                   </li>
                   <li>
                       <a href="{{ route('cart') }}">
-                          <i class="la la-shopping-cart"></i>
+                          <i class="fa fa-shopping-cart text-dark"></i>
                           <span>{{__('Cart')}}</span>
                           @if(Session::has('cart'))
                               <span class="badge" id="cart_items_sidenav">{{ count(Session::get('cart'))}}</span>

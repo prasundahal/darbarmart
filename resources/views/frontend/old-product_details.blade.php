@@ -33,6 +33,7 @@
 @endsection
 
 @section('content')
+
     <!-- SHOP GRID WRAPPER -->
     <section class="product-details-area gry-bg">
         <div class="container">

@@ -79,9 +79,9 @@
                             <ul class="list-group border rounded mt-5">
                                 <li class="list-group-item">
                                     <div class="icon-block icon-block--style-3 icon-block--style-3-v2">
-                                        <i class="la la-user bg-gray-lighter product_customer"></i>
+                                        <i class="la la-user bg-gray-lighter"></i>
                                         <div class="icon-block-content">
-                                            <h3 class="heading heading-6 strong-500 mb-0">
+                                            <h3 class="heading heading-6 strong-500">
                                                 {{ $customer_product->user->name }}
                                             </h3>
                                         </div>
@@ -89,7 +89,7 @@
                                 </li>
                                 <li class="list-group-item">
                                     <div class="icon-block icon-block--style-3 icon-block--style-3-v2">
-                                        <i class="la la-map-marker bg-gray-lighter product_customer"></i>
+                                        <i class="la la-map-marker bg-gray-lighter"></i>
                                         <div class="icon-block-content">
                                             <h3 class="heading heading-6 strong-500">
                                                 {{ $customer_product->location }}
@@ -99,7 +99,7 @@
                                 </li>
                                 <li class="list-group-item border-bottom-0 c-pointer" onclick="show_number(this)">
                                     <div class="icon-block icon-block--style-3 icon-block--style-3-v2">
-                                        <i class="la la-phone bg-base-1 product_customer"></i>
+                                        <i class="la la-phone bg-base-1"></i>
                                         <div class="icon-block-content">
                                             <h3 class="heading heading-5 strong-700 mb-0">
                                                 <span class="dummy">{{ str_replace(substr($customer_product->user->phone,3),'XXXXXXXX', $customer_product->user->phone) }}</span>
@@ -234,6 +234,7 @@
 
 
 @endsection
+
 @section('script')
     <script type="text/javascript">
         $(document).ready(function() {
