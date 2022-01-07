@@ -87,13 +87,14 @@
         <div class="grid-container slick-slider">
             @foreach (\App\Category::where('featured', 1)->get() as $key => $category)
                 <div class="category_men_block">
+                    <a href="{{ route('products.category', $category->slug) }}">
                     <div class="grid-item">
-
-                    <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->banner) }}" alt="{{ __($category->name) }}" class="img-fluid lazyload img-fit">
+                        <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->banner) }}" alt="{{ __($category->name) }}" class="img-fluid lazyload img-fit">
                     </div>
                     <div class="text_cate">
-                    <h3>{{ __($category->name) }}</h3>
+                        <h3>{{ __($category->name) }}</h3>
                     </div>
+                    </a>
                 </div>
             @endforeach
         </div>
