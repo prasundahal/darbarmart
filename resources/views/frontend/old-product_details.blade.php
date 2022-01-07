@@ -33,6 +33,7 @@
 @endsection
 
 @section('content')
+
     <!-- SHOP GRID WRAPPER -->
     <section class="product-details-area gry-bg">
         <div class="container">
@@ -236,7 +237,7 @@
                                 @endif
 
                                 <!-- Quantity + Add to cart -->
-                                <div class="row no-gutters py-1">
+                                <div class="row no-gutters">
                                     <div class="col-2">
                                         <div class="product-description-label mt-2">{{__('Quantity')}}:</div>
                                     </div>
@@ -262,8 +263,8 @@
 
                                 <hr>
 
-                                <div class="row no-gutters py-2 d-none" id="chosen_price_div">
-                                    <div class="col-2 m-auto">
+                                <div class="row no-gutters pb-3 d-none" id="chosen_price_div">
+                                    <div class="col-2">
                                         <div class="product-description-label">{{__('Total Price')}}:</div>
                                     </div>
                                     <div class="col-10">
@@ -413,10 +414,122 @@
     <section class="gry-bg">
         <div class="container">
             <div class="row">
-                    <div class="col-xl-9">
+                <div class="col-xl-3 d-none d-xl-block">
+                    <div class="seller-info-box mb-3">
+                        <div class="sold-by position-relative">
+                            @if ($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1 && $detailedProduct->user->seller->verification_status == 1)
+                                <div class="position-absolute medal-badge">
+                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" viewBox="0 0 287.5 442.2">
+                                        <polygon style="fill:#F8B517;" points="223.4,442.2 143.8,376.7 64.1,442.2 64.1,215.3 223.4,215.3 "/>
+                                        <circle style="fill:#FBD303;" cx="143.8" cy="143.8" r="143.8"/>
+                                        <circle style="fill:#F8B517;" cx="143.8" cy="143.8" r="93.6"/>
+                                        <polygon style="fill:#FCFCFD;" points="143.8,55.9 163.4,116.6 227.5,116.6 175.6,154.3 195.6,215.3 143.8,177.7 91.9,215.3 111.9,154.3
+                                        60,116.6 124.1,116.6 "/>
+                                    </svg>
+                                </div>
+                            @endif
+                            <div class="title">{{__('Sold By')}}</div>
+                            @if($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
+                                <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}" class="name d-block">{{ $detailedProduct->user->shop->name }}
+                                @if ($detailedProduct->user->seller->verification_status == 1)
+                                    <span class="ml-2"><i class="fa fa-check-circle" style="color:green"></i></span>
+                                @else
+                                    <span class="ml-2"><i class="fa fa-times-circle" style="color:red"></i></span>
+                                @endif
+                                </a>
+                                <div class="location">{{ $detailedProduct->user->shop->address }}</div>
+                            @else
+                                {{ env('APP_NAME') }}
+                            @endif
+                            @php
+                                $total = 0;
+                                $rating = 0;
+                                foreach ($detailedProduct->user->products as $key => $seller_product) {
+                                    $total += $seller_product->reviews->count();
+                                    $rating += $seller_product->reviews->sum('rating');
+                                }
+                            @endphp
+
+                            <div class="rating text-center d-block">
+                                <span class="star-rating star-rating-sm d-block">
+                                    @if ($total > 0)
+                                        {{ renderStarRating($rating/$total) }}
+                                    @else
+                                        {{ renderStarRating(0) }}
+                                    @endif
+                                </span>
+                                <span class="rating-count d-block ml-0">({{ $total }} {{__('customer reviews')}})</span>
+                            </div>
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                            @if($detailedProduct->added_by == 'seller')
+                                <div class="col">
+                                    <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}" class="d-block store-btn">{{__('Visit Store')}}</a>
+                                </div>
+                                <div class="col">
+                                    <ul class="social-media social-media--style-1-v4 text-center">
+                                        <li>
+                                            <a href="{{ $detailedProduct->user->shop->facebook }}" class="facebook" target="_blank" data-toggle="tooltip" data-original-title="Facebook">
+                                                <i class="fa fa-facebook"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ $detailedProduct->user->shop->google }}" class="google" target="_blank" data-toggle="tooltip" data-original-title="Google">
+                                                <i class="fa fa-google"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ $detailedProduct->user->shop->twitter }}" class="twitter" target="_blank" data-toggle="tooltip" data-original-title="Twitter">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ $detailedProduct->user->shop->youtube }}" class="youtube" target="_blank" data-toggle="tooltip" data-original-title="Youtube">
+                                                <i class="fa fa-youtube"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="seller-top-products-box bg-white sidebar-box mb-3">
+                        <div class="box-title">
+                            {{__('Top Selling Products From This Seller')}}
+                        </div>
+                        <div class="box-content">
+                            @foreach (filter_products(\App\Product::where('user_id', $detailedProduct->user_id)->orderBy('num_of_sale', 'desc'))->limit(6)->get() as $key => $top_product)
+                            <div class="mb-3 product-box-3">
+                                <div class="clearfix">
+                                    <div class="product-image float-left">
+                                        <a href="{{ route('product', $top_product->slug) }}">
+                                            <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($top_product->thumbnail_img) }}" alt="{{ __($top_product->name) }}">
+                                        </a>
+                                    </div>
+                                    <div class="product-details float-left">
+                                        <h4 class="title text-truncate">
+                                            <a href="{{ route('product', $top_product->slug) }}" class="d-block">{{ $top_product->name }}</a>
+                                        </h4>
+                                        <div class="star-rating star-rating-sm mt-1">
+                                            {{ renderStarRating($top_product->rating) }}
+                                        </div>
+                                        <div class="price-box">
+                                            <!-- @if(home_base_price($top_product->id) != home_discounted_base_price($top_product->id))
+                                                <del class="old-product-price strong-400">{{ home_base_price($top_product->id) }}</del>
+                                            @endif -->
+                                            <span class="product-price strong-600">{{ home_discounted_base_price($top_product->id) }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9">
                     <div class="product-desc-tab bg-white">
                         <div class="tabs tabs--style-2">
-                            <ul class="nav nav-tabs sticky-top bg-white">
+                            <ul class="nav nav-tabs justify-content-center sticky-top bg-white">
                                 <li class="nav-item">
                                     <a href="#tab_default_1" data-toggle="tab" class="nav-link text-uppercase strong-600 active show">{{__('Description')}}</a>
                                 </li>
@@ -441,7 +554,6 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="mw-100 overflow--hidden">
-                                       
                                                     <?php echo $detailedProduct->description; ?>
                                                 </div>
                                             </div>
@@ -597,18 +709,18 @@
                             </h3>
                         </div>
                         <div class="caorusel-box arrow-round gutters-5">
-                            <div class="slick-carousel" data-slick-items="3" data-slick-xl-items="2" data-slick-lg-items="3"  data-slick-md-items="2" data-slick-sm-items="1" data-slick-xs-items="1"  data-slick-rows="1">
+                            <div class="slick-carousel" data-slick-items="3" data-slick-xl-items="2" data-slick-lg-items="3"  data-slick-md-items="2" data-slick-sm-items="1" data-slick-xs-items="1"  data-slick-rows="2">
                                 @foreach (filter_products(\App\Product::where('subcategory_id', $detailedProduct->subcategory_id)->where('id', '!=', $detailedProduct->id))->limit(10)->get() as $key => $related_product)
-                                 <div class="caorusel-card my-1">
+                                <div class="caorusel-card my-1">
                                     <div class="row no-gutters product-box-2 align-items-center">
-                                        <div class="col-12">
+                                        <div class="col-5">
                                             <div class="position-relative overflow-hidden h-100">
                                                 <a href="{{ route('product', $related_product->slug) }}" class="d-block product-image h-100 text-center">
                                                     <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($related_product->thumbnail_img) }}" alt="{{ __($related_product->name) }}">
                                                 </a>
                                             </div>
                                         </div>
-                                        <div class="col-12 border-left">
+                                        <div class="col-7 border-left">
                                             <div class="p-3">
                                                 <h2 class="product-title mb-0 p-0 text-truncate">
                                                     <a href="{{ route('product', $related_product->slug) }}">{{ __($related_product->name) }}</a>
@@ -639,119 +751,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 d-none d-xl-block">
-                    <div class="seller-info-box mb-3">
-                        <div class="sold-by position-relative">
-                            @if ($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1 && $detailedProduct->user->seller->verification_status == 1)
-                                <div class="position-absolute medal-badge">
-                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" viewBox="0 0 287.5 442.2">
-                                        <polygon style="fill:#F8B517;" points="223.4,442.2 143.8,376.7 64.1,442.2 64.1,215.3 223.4,215.3 "/>
-                                        <circle style="fill:#FBD303;" cx="143.8" cy="143.8" r="143.8"/>
-                                        <circle style="fill:#F8B517;" cx="143.8" cy="143.8" r="93.6"/>
-                                        <polygon style="fill:#FCFCFD;" points="143.8,55.9 163.4,116.6 227.5,116.6 175.6,154.3 195.6,215.3 143.8,177.7 91.9,215.3 111.9,154.3
-                                        60,116.6 124.1,116.6 "/>
-                                    </svg>
-                                </div>
-                            @endif
-                            <div class="title">{{__('Sold By')}}</div>
-                            @if($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
-                                <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}" class="name d-block">{{ $detailedProduct->user->shop->name }}
-                                @if ($detailedProduct->user->seller->verification_status == 1)
-                                    <span class="ml-2"><i class="fa fa-check-circle" style="color:green"></i></span>
-                                @else
-                                    <span class="ml-2"><i class="fa fa-times-circle" style="color:red"></i></span>
-                                @endif
-                                </a>
-                                <div class="location">{{ $detailedProduct->user->shop->address }}</div>
-                            @else
-                                {{ env('APP_NAME') }}
-                            @endif
-                            @php
-                                $total = 0;
-                                $rating = 0;
-                                foreach ($detailedProduct->user->products as $key => $seller_product) {
-                                    $total += $seller_product->reviews->count();
-                                    $rating += $seller_product->reviews->sum('rating');
-                                }
-                            @endphp
-
-                            <div class="rating text-center d-block">
-                                <span class="star-rating star-rating-sm d-block">
-                                    @if ($total > 0)
-                                        {{ renderStarRating($rating/$total) }}
-                                    @else
-                                        {{ renderStarRating(0) }}
-                                    @endif
-                                </span>
-                                <span class="rating-count d-block ml-0">({{ $total }} {{__('customer reviews')}})</span>
-                            </div>
-                        </div>
-                        <div class="row no-gutters align-items-center">
-                            @if($detailedProduct->added_by == 'seller')
-                                <div class="col">
-                                    <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}" class="d-block store-btn">{{__('Visit Store')}}</a>
-                                </div>
-                                <div class="col">
-                                    <ul class="social-media social-media--style-1-v4 text-center">
-                                        <li>
-                                            <a href="{{ $detailedProduct->user->shop->facebook }}" class="facebook" target="_blank" data-toggle="tooltip" data-original-title="Facebook">
-                                                <i class="fa fa-facebook"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ $detailedProduct->user->shop->google }}" class="google" target="_blank" data-toggle="tooltip" data-original-title="Google">
-                                                <i class="fa fa-google"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ $detailedProduct->user->shop->twitter }}" class="twitter" target="_blank" data-toggle="tooltip" data-original-title="Twitter">
-                                                <i class="fa fa-twitter"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ $detailedProduct->user->shop->youtube }}" class="youtube" target="_blank" data-toggle="tooltip" data-original-title="Youtube">
-                                                <i class="fa fa-youtube"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="seller-top-products-box bg-white sidebar-box mb-3">
-                        <div class="box-title">
-                            {{__('Top Selling Products From This Seller')}}
-                        </div>
-                        <div class="box-content">
-                            @foreach (filter_products(\App\Product::where('user_id', $detailedProduct->user_id)->orderBy('num_of_sale', 'desc'))->limit(6)->get() as $key => $top_product)
-                            <div class="mb-3 product-box-3">
-                                <div class="clearfix">
-                                    <div class="product-image float-left">
-                                        <a href="{{ route('product', $top_product->slug) }}">
-                                            <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($top_product->thumbnail_img) }}" alt="{{ __($top_product->name) }}">
-                                        </a>
-                                    </div>
-                                    <div class="product-details float-left">
-                                        <h4 class="title text-truncate">
-                                            <a href="{{ route('product', $top_product->slug) }}" class="d-block">{{ $top_product->name }}</a>
-                                        </h4>
-                                        <div class="star-rating star-rating-sm mt-1">
-                                            {{ renderStarRating($top_product->rating) }}
-                                        </div>
-                                        <div class="price-box">
-                                            <!-- @if(home_base_price($top_product->id) != home_discounted_base_price($top_product->id))
-                                                <del class="old-product-price strong-400">{{ home_base_price($top_product->id) }}</del>
-                                            @endif -->
-                                            <span class="product-price strong-600">{{ home_discounted_base_price($top_product->id) }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            
             </div>
         </div>
     </section>
