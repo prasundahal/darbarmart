@@ -408,7 +408,7 @@
     <script>
         $(document).ready(function(){
             $.post('{{ route('home.section.featured') }}', {_token:'{{ csrf_token() }}'}, function(data){
-                console.log(data);
+                // console.log(data);
                 $('#section_featured').html(data);
                 slickInit();
             });

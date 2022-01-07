@@ -40,7 +40,6 @@ class OrderController extends Controller
                     ->where('order_details.seller_id', Auth::user()->id)
                     ->select('orders.id')
                     ->distinct();
-
         if ($request->payment_status != null){
             $orders = $orders->where('order_details.payment_status', $request->payment_status);
             $payment_status = $request->payment_status;

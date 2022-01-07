@@ -304,7 +304,8 @@
 					<div class="form-group" id="quantity">
 						<label class="col-lg-2 control-label">{{__('Quantity')}}</label>
 						<div class="col-lg-7">
-							<input type="number" min="0" value="{{ $product->current_stock }}" step="1" placeholder="{{__('Quantity')}}" name="current_stock" class="form-control" required>
+							<input type="text" value="{{ $product->current_stock }}" placeholder="{{__('Quantity')}}" name="current_stock1" class="form-control" id="current_stock" onkeypress="return isNumber(event)" required>
+
 						</div>
 					</div>
 					<br>
@@ -714,5 +715,14 @@
 	});
 
 </script>
-
+<script>
+function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+}
+</script>
 @endsection

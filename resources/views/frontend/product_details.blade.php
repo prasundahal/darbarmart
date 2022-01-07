@@ -38,6 +38,7 @@
         <div class="container">
 
             <div class="bg-white">
+                {{-- {{dd($detailedProduct)}} --}}
 
                 <!-- Product gallery and Description -->
                 <div class="row no-gutters cols-xs-space cols-sm-space cols-md-space">
@@ -88,11 +89,12 @@
                                             $qty = 0;
                                             if($detailedProduct->variant_product){
                                                 foreach ($detailedProduct->stocks as $key => $stock) {
+
                                                     $qty += $stock->qty;
                                                 }
                                             }
                                             else{
-                                                $qty = 0 ;
+                                                $qty = $detailedProduct->current_stock ;
                                             }
                                         @endphp
                                         @if ($qty > 0)

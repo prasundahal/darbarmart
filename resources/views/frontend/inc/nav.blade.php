@@ -42,9 +42,9 @@
         <div class="searchbar d-none d-md-block ml-5">
             <form action="{{ route('search') }}" method="GET">
                 <div class="d-flex position-relative">
-                    <div class="d-lg-none search-box-back">
+                    {{-- <div class="d-lg-none search-box-back">
                         <button class="" type="button"><i class="la la-long-arrow-left"></i></button>
-                    </div>
+                    </div> --}}
                     <div class="w-100">
                         {{-- <input type="text" aria-label="Search" id="search" name="q" class="w-100" placeholder="{{__('I am shopping for...')}}" autocomplete="off"> --}}
                         <input class="search_input" type="text" aria-label="Search" id="search" name="q" placeholder="Search..." autocomplete="off"/>
@@ -87,16 +87,20 @@
         <!-- search end  -->
         <!-- search mobile new star  -->
         <div class="search_mobile_men d-block d-md-none">
-          <button class="search_icon_new" type="submit">
-            <i class="fa fa-search"></i>
-          </button>
+            <button class="search_icon_new" type="submit">
+              <i class="fa fa-search"></i>
+            </button>
 
-          <div class="sub_search">
-            <form action="{{ route('search') }}" class="d-flex" method="GET">
-                <input class="search_input" type="text" aria-label="Search" id="search" name="q" placeholder="Search..." autocomplete="off"/>
-                <button type="submit" class="search_icon"><i class="fa fa-search"></i></button>
-            </form>
-          </div>
+            <div class="sub_search">
+              <form action="{{ route('search') }}" method="GET" class="d-flex">
+                <input
+                class="search_input input_box" type="text" aria-label="Search" id="search" name="q" placeholder="Search..." autocomplete="off"
+                />
+                <button class="search_top" type="submit">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </form>
+            </div>
         </div>
         <!-- search mobile new end  -->
       </div>
