@@ -129,16 +129,16 @@
                                 <div class="form-box-content p-3">
                                     <div id="shop-slider-images">
                                         <div class="row">
-                                            <div class="col-md-2">
+                                            <div class="col-md-2 col-12">
                                                 <label>{{__('Slider Images')}} <small>(1400x400)</small></label>
                                             </div>
-                                            <div class="offset-2 offset-md-0 col-10 col-md-10">
+                                            <div class="col-md-10 col-12">
                                                 <div class="row">
                                                     @if ($shop->sliders != null)
                                                         @foreach (json_decode($shop->sliders) as $key => $sliders)
                                                             <div class="col-md-6">
                                                                 <div class="img-upload-preview">
-                                                                    <img loading="lazy"  src="{{ asset($sliders) }}" alt="" class="img-fluid">
+                                                                    <img loading="lazy"  src="{{ asset($sliders) }}" alt="" class="img-fluid h-100">
                                                                     <input type="hidden" name="previous_sliders[]" value="{{ $sliders }}">
                                                                     <button type="button" class="btn btn-danger close-btn remove-files"><i class="fa fa-times"></i></button>
                                                                 </div>

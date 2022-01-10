@@ -82,7 +82,7 @@
             </div>
         </div>
     </section>
-    <section id="category">
+    <section id="category" class="d-md-block d-none">
       <div class="container">
         <div class="grid-container slick-slider">
             @foreach (\App\Category::where('featured', 1)->get() as $key => $category)

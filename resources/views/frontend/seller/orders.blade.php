@@ -58,9 +58,9 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body table-responsive">
                                 @if (count($orders) > 0)
-                                    <table class="table table-sm table-hover table-responsive-md">
+                                    <table class="table table-sm table-hover ">
                                     <thead>
                                         <tr>
                                             <th>#</th>

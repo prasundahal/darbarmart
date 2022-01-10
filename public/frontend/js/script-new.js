@@ -101,3 +101,10 @@ $(document).ready(function() {
 });
 
 // MOBILE SEARCH END 
+
+// HEADER STICKY 
+
+window.addEventListener("scroll", function () {
+  var header = document.querySelector(".header");
+  header.classList.toggle("sticky-bar", window.scrollY > 50);
+});

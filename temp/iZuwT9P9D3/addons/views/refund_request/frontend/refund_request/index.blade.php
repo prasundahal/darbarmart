@@ -40,8 +40,8 @@
                             <div class="card-header py-3">
                                 <h4 class="mb-0 h6">Refund Request</h4>
                             </div>
-                            <div class="card-body">
-                                <table class="table table-sm table-responsive-md mb-0">
+                            <div class="card-body table-responsive">
+                                <table class="table table-sm mb-0">
                                     <thead>
                                         <tr>
                                             <th>#</th>
