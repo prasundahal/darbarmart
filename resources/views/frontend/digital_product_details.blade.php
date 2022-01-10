@@ -631,6 +631,7 @@
                                 @foreach (filter_products(\App\Product::where('subcategory_id', $detailedProduct->subcategory_id)->where('id', '!=', $detailedProduct->id))->limit(10)->get() as $key => $related_product)
                                 <div class="caorusel-card my-1">
                                     <div class="row no-gutters product-box-2 align-items-center">
+                                        
                                         <div class="col-5">
                                             <div class="position-relative overflow-hidden h-100">
                                                 <a href="{{ route('product', $related_product->slug) }}" class="d-block product-image h-100 text-center">

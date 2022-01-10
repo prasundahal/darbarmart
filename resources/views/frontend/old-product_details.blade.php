@@ -804,7 +804,7 @@
                                             <div class="input-group input-group--style-1">
                                                 <input type="email" name="email" class="form-control" placeholder="{{__('Email')}}">
                                                 <span class="input-group-addon">
-                                                    <i class="text-md ion-person"></i>
+                                                    <i class="fa fa-user"></i>
                                                 </span>
                                             </div>
                                         </div>

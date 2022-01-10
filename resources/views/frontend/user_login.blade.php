@@ -1,12 +1,12 @@
 @extends('frontend.layouts.app')
-
+​
 @section('content')
-    <section class="gry-bg py-5">
-        <div class="profile">
+    <section class="gry-bg" id="login_section">
+        <div class="profile login">
             <div class="container">
                 <div class="row">
                     <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-8 mx-auto">
-                        <div class="card">
+                        <div class="card border-0">
                             <div class="text-center px-35 pt-5">
                                 <h1 class="heading heading-4 strong-500">
                                     {{__('Login to your account.')}}
@@ -31,7 +31,7 @@
                                                 </span>
                                             </div>
                                         </div>
-
+​
                                         <div class="form-group">
                                             <div class="input-group input-group--style-1">
                                                 <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{__('Password')}}" name="password" id="password">
@@ -40,7 +40,7 @@
                                                 </span>
                                             </div>
                                         </div>
-
+​
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
@@ -56,8 +56,8 @@
                                                 <a href="{{ route('password.request') }}" class="link link-xs link--style-3">{{__('Forgot password?')}}</a>
                                             </div>
                                         </div>
-
-
+​
+​
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-styled btn-base-1 btn-md w-100">{{ __('Login') }}</button>
                                         </div>
@@ -116,7 +116,7 @@
         </div>
     </section>
 @endsection
-
+​
 @section('script')
     <script type="text/javascript">
         function autoFillSeller(){

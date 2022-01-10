@@ -104,7 +104,7 @@
         </div>
         <!-- search mobile new end  -->
       </div>
-      <div class="logo-bar-icons d-inline-block ml-auto">
+      <div class="logo-bar-icons ml-auto d-md-block d-none">
           {{-- <div class="d-inline-block d-lg-none">
               <div class="nav-search-box">
                   <a href="#" class="nav-box-link">
@@ -115,7 +115,7 @@
           <div class="d-none d-lg-inline-block">
               <div class="nav-compare-box" id="compare">
                   <a href="{{ route('compare') }}" class="nav-box-link" style="padding-right: 20px;">
-                      <i class="fa fa-compress text-dark"></i>
+                  <img data-toggle="tooltip" data-placement="top" title="Compare" src="{{asset('frontend/images/coma.svg')}}" alt="cart-logo" class="img-fluid img_sag">
                       {{-- <span class="nav-box-text d-none d-xl-inline-block">{{__('Compare')}}</span> --}}
                       @if(Session::has('compare'))
                           <sup class="nav-box-number">{{ count(Session::get('compare'))}}</sup>
@@ -128,7 +128,8 @@
           <div class="d-none d-lg-inline-block">
               <div class="nav-wishlist-box" id="wishlist">
                   <a href="{{ route('wishlists.index') }}" class="nav-box-link" style="padding-right: 20px;">
-                      <i class="fa fa-heart text-dark"></i>
+                      <!-- <i class="fa fa-heart text-dark"></i> -->
+                      <img data-toggle="tooltip" data-placement="top" title="Wishlist" src="{{asset('frontend/images/hort.svg')}}" alt="cart-logo" class="img-fluid img_sag">
                       {{-- <span class="nav-box-text d-none d-xl-inline-block">{{__('Wishlist')}}</span> --}}
                       @if(Auth::check())
                           <sup class="nav-box-number">{{ count(Auth::user()->wishlists)}}</sup>
@@ -141,7 +142,8 @@
           <div class="d-inline-block" data-hover="dropdown">
               <div class="nav-cart-box dropdown" id="cart_items">
                   <a href="" class="nav-box-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fa fa-shopping-cart text-dark"></i>
+                      <!-- <i class="fa fa-shopping-cart text-dark"></i> -->
+                      <img data-toggle="tooltip" data-placement="top" title="Cart" src="{{asset('frontend/images/b15beedcaf38913a9969b50753dd2aa1.svg')}}" alt="cart-logo" class="img-fluid img_sag">
                       {{-- <span class="nav-box-text d-none d-xl-inline-block">{{__('Cart')}}</span> --}}
                       @if(Session::has('cart'))
                           <sup class="nav-box-number">{{ count(Session::get('cart'))}}</sup>

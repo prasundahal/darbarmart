@@ -21,7 +21,7 @@
     </div>
 
 
-    <section class="gry-bg py-4">
+    <section class="gry-bg py-4" id="compare_page">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -31,15 +31,15 @@
                         </div>
                         @if(Session::has('compare'))
                             @if(count(Session::get('compare')) > 0)
-                                <div class="card-body">
+                                <div class="card-body table-responsive">
                                     <table class="table table-bordered compare-table mb-0">
                                         <thead>
                                             <tr>
-                                                <th scope="col" style="width:16%" class="font-weight-bold">
+                                                <th scope="col" style="width:20%" class="font-weight-bold">
                                                     {{__('Name')}}
                                                 </th>
                                                 @foreach (Session::get('compare') as $key => $item)
-                                                    <th scope="col" style="width:28%" class="font-weight-bold">
+                                                    <th scope="col" style="width:36%" class="font-weight-bold">
                                                         <a href="{{ route('product', \App\Product::find($item)->slug) }}">{{ \App\Product::find($item)->name }}</a>
                                                     </th>
                                                 @endforeach
@@ -90,7 +90,7 @@
                                                 <th scope="row"></th>
                                                 @foreach (Session::get('compare') as $key => $item)
                                                     <td class="text-center py-4">
-                                                        <button type="button" class="btn btn-base-1 btn-circle btn-icon-left" onclick="showAddToCartModal({{ $item }})">
+                                                        <button type="button" class="btn btn-base-1 btn-circle btn-icon-left px-3" onclick="showAddToCartModal({{ $item }})">
                                                             <i class="icon ion-android-cart"></i>{{__('Add to cart')}}
                                                         </button>
                                                     </td>
