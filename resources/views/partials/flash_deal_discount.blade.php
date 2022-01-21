@@ -1,3 +1,5 @@
+{{-- {{ dd(get_defined_vars()) }} --}}
+@if($product_ids != '')
 @if(count($product_ids) > 0)
     <label class="col-sm-3 control-label">{{__('Discounts')}}</label>
     <div class="col-sm-9">
@@ -49,4 +51,117 @@
             </tbody>
         </table>
     </div>
+@endif
+@endif
+@if($category_ids != '')
+@if(count($category_ids) > 0)
+    <label class="col-sm-3 control-label">{{__('Discounts')}}</label>
+    <div class="col-sm-9">
+        <table class="table table-bordered">
+    		<thead>
+    			<tr>
+    				<td class="text-center" width="40%">
+    					<label for="" class="control-label">{{__('Product')}}</label>
+    				</td>
+                    <td class="text-center">
+    					<label for="" class="control-label">{{__('Base Price')}}</label>
+    				</td>
+    				<td class="text-center">
+    					<label for="" class="control-label">{{__('Discount')}}</label>
+    				</td>
+                    <td>
+                        <label for="" class="control-label">{{__('Discount Type')}}</label>
+                    </td>
+    			</tr>
+    		</thead>
+    		<tbody>
+                @foreach ($category_ids as $key => $id)
+                	@php
+                		$product = \App\Product::where('category_id', $id)->get();
+                	@endphp
+					@foreach($product as $product)
+                		<tr>
+                			<td>
+                                <div class="col-sm-3">
+                                <img loading="lazy"  class="img-md" src="{{ asset($product->thumbnail_img)}}" alt="Image">
+                                </div>
+                                <div class="col-sm-9">
+                				<label for="" class="control-label">{{ __($product->name) }}</label>
+                                </div>
+                			</td>
+                            <td>
+                				<label for="" class="control-label">{{ $product->unit_price }}</label>
+                			</td>
+                			<td>
+                				<input type="number" name="discount_{{ $product->id }}" value="{{ $product->discount }}" min="0" step="1" class="form-control" required>
+                			</td>
+                            <td>
+                                <select class="demo-select2" name="discount_type_{{ $product->id }}">
+                                    <option value="amount">$</option>
+                                    <option value="percent">%</option>
+                                </select>
+                            </td>
+                		</tr>
+					@endforeach
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+@endif
+@endif
+@if($seller_ids != '')
+@if(count($seller_ids) > 0)
+    <label class="col-sm-3 control-label">{{__('Discounts')}}</label>
+    <div class="col-sm-9">
+        <table class="table table-bordered">
+    		<thead>
+    			<tr>
+    				<td class="text-center" width="40%">
+    					<label for="" class="control-label">{{__('Product')}}</label>
+    				</td>
+                    <td class="text-center">
+    					<label for="" class="control-label">{{__('Base Price')}}</label>
+    				</td>
+    				<td class="text-center">
+    					<label for="" class="control-label">{{__('Discount')}}</label>
+    				</td>
+                    <td>
+                        <label for="" class="control-label">{{__('Discount Type')}}</label>
+                    </td>
+    			</tr>
+    		</thead>
+    		<tbody>
+                @foreach ($seller_ids as $key => $id)
+                	@php
+                		$product = \App\Product::where('added_by', $id)->get();
+                	@endphp
+					@foreach($product as $product)
+						<tr>
+                			<td>
+                                <div class="col-sm-3">
+                                <img loading="lazy"  class="img-md" src="{{ asset($product->thumbnail_img)}}" alt="Image">
+                                </div>
+                                <div class="col-sm-9">
+                				<label for="" class="control-label">{{ __($product->name) }}</label>
+                                </div>
+                			</td>
+                            <td>
+                				<label for="" class="control-label">{{ $product->unit_price }}</label>
+                			</td>
+                			<td>
+                				<input type="number" name="discount_{{ $product->id }}" value="{{ $product->discount }}" min="0" step="1" class="form-control" required>
+                			</td>
+                            <td>
+                                <select class="demo-select2" name="discount_type_{{ $product->id }}">
+                                    <option value="amount">$</option>
+                                    <option value="percent">%</option>
+                                </select>
+                            </td>
+                		</tr>
+                	@endforeach
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+@endif
 @endif
