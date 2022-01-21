@@ -701,4 +701,24 @@ class ProductController extends Controller
         return view('partials.sku_combinations_edit', compact('combinations', 'unit_price', 'colors_active', 'product_name', 'product'));
     }
 
+
+    public function updatePriceOrStock(Request $request)
+    {
+        $product = Product::where('id', $request->pk);
+        if($product->exists()){
+            $product = $product->where('id', $request->pk)->first();
+        } else {
+            return response()->json(['success'=>false, 'message'=>'Product doesn\'t exist']);
+        }
+        if($request->name == 'qty'){
+            $product->update(['current_stock' => $request->value]);
+            return response()->json(['success'=>true, 'message'=>"Product stock updated successfully"]);
+        }
+
+        if($request->name=='price'){
+            $product->update(['unit_price' => $request->value]);
+            return response()->json(['success'=>true, 'message' => "Product price updated successfully"]);
+        }
+    }
+
 }
