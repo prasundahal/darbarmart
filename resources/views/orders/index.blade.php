@@ -37,12 +37,14 @@
                     </div>
                 </div>
             </form>
+            <button class="btn btn-primary" id="bulkDelBtn" onclick="deleteBulkData();">Delete</button>
         </div>
     </div>
     <div class="panel-body">
         <table class="table table-striped res-table mar-no" cellspacing="0" width="100%">
             <thead>
                 <tr>
+                    <th><input type="checkbox" id="checkAll"></th>
                     <th>#</th>
                     <th>{{__('Order Code')}}</th>
                     <th>{{__('Num. of Products')}}</th>
@@ -64,6 +66,7 @@
                     @endphp
                     @if($order != null)
                         <tr>
+                            <td><input type="checkbox" value="{{ $order->id }}" data-id="{{ $order->id }}" name="orderID[]" class="rowCheck"></td>
                             <td>
                                 {{ ($key+1) + ($orders->currentPage() - 1)*$orders->perPage() }}
                             </td>
@@ -142,6 +145,51 @@
     <script type="text/javascript">
         function sort_orders(el){
             $('#sort_orders').submit();
+        }
+        $("#checkAll").click(function () {
+            $(".rowCheck").prop('checked', $(this).prop('checked'));
+        });
+
+
+        function deleteBulkData(){
+            var allIds = [];
+            $(".rowCheck:checked").each(function(){
+                allIds.push($(this).val());
+            });
+
+            if(allIds.length <= 0){
+                alert("Please select row.");
+            } else {
+                var check = confirm("Are you sure you want to perform bulk delete?");
+                if(check == true){
+                    var join_checked_values = allIds.join(",");
+
+                    $.ajax({
+                        url: "{{ route('orders.bulkDelete') }}",
+                        type: 'get',
+                        data: {'ids': join_checked_values},
+                        success: function(data){
+                            if(data['success']){
+                                $(".rowCheck:checked").each(function(){
+                                    $(this).parents("tr").remove();
+                                });
+                                alert(data['success']);
+                            } else if(data['error']){
+                                alert(data['error']); 
+                            } else {
+                                alert('Whoops something went wrong');
+                            }
+                        }, 
+                        error: function(data){
+                            alert(data.responseText);
+                        }
+                    });
+
+                    $.each(allIds, function(index, value){
+                        $('table tr').filter("[data-row-id='"+ value +"']").remove();
+                    });
+                }
+            }
         }
     </script>
 @endsection

@@ -426,6 +426,18 @@ class OrderController extends Controller
         return back();
     }
 
+
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->ids;
+        $exploded_ids = explode(",", $ids);
+        foreach($exploded_ids as $dataId){
+            $this->__deleteRelatedOrderDetails($dataId);
+        }
+        DB::table('orders')->whereIn('id', explode(",", $ids))->delete();
+        return response()->json(['success' => "Orders Deleted successfully"]);
+    }
+
     public function order_details(Request $request)
     {
         $order = Order::findOrFail($request->order_id);
@@ -570,5 +582,14 @@ class OrderController extends Controller
             }
         }
         return 1;
+    }
+
+
+    private function __deleteRelatedOrderDetails($id)
+    {
+        $order = Order::where('id', $id)->with('orderDetails')->first();
+        if(!empty($order->orderDetails)){
+            $order->orderDetails()->delete();
+        }
     }
 }
