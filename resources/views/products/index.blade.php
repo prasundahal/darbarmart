@@ -103,29 +103,30 @@
                             @endif
                             <td>{{ $product->num_of_sale }} {{ __('times') }}</td>
                             @php
-                             if($product->variant_product){
-                                 $table_data_html = '<td>';
-                             } else {
-                                 $table_data_html = '<td class="updateData" data-name="qty" data-type="text" data-pk="'.$product->id.'" data-title="Enter stock">';
-                             }  
+                                if ($product->variant_product) {
+                                    $table_data_html = '<td>';
+                                } else {
+                                    $table_data_html = '<td class="updateData" data-name="qty" data-type="text" data-pk="' . $product->id . '" data-title="Enter stock">';
+                                }
                             @endphp
                             @php
                                 echo $table_data_html;
                             @endphp
                             {{-- <td class="updateData" data-name="qty" data-type="text" data-pk="{{ $product->id }}" data-title="Enter stock"> --}}
-                                @php
-                                    $qty = 0;
-                                    if ($product->variant_product) {
-                                        foreach ($product->stocks as $key => $stock) {
-                                            $qty += $stock->qty;
-                                        }
-                                    } else {
-                                        $qty = $product->current_stock;
+                            @php
+                                $qty = 0;
+                                if ($product->variant_product) {
+                                    foreach ($product->stocks as $key => $stock) {
+                                        $qty += $stock->qty;
                                     }
-                                    echo $qty;
-                                @endphp
+                                } else {
+                                    $qty = $product->current_stock;
+                                }
+                                echo $qty;
+                            @endphp
                             </td>
-                            <td class="updateData" data-name="price" data-type="text" data-pk="{{ $product->id }}" data-title="Enter Product Price">{{ number_format($product->unit_price, 2) }}</td>
+                            <td class="updateData" data-name="price" data-type="text" data-pk="{{ $product->id }}"
+                                data-title="Enter Product Price">{{ number_format($product->unit_price, 2) }}</td>
                             <td><label class="switch">
                                     <input onchange="update_todays_deal(this)" value="{{ $product->id }}" type="checkbox"
                                         <?php if ($product->todays_deal == 1) {
@@ -254,18 +255,18 @@
 
         $.fn.editable.defaults.mode = 'inline';
 
-        
+
         $('.updateData').editable({
             url: "{{ route('products.updatePriceOrStock') }}",
             type: 'text',
             pk: 1,
             name: 'name',
             title: 'Enter name',
-            success: function(res){
+            success: function(res) {
                 console.log(res);
-                if(res.success == true){
+                if (res.success == true) {
                     toastr.success(res.message);
-                } else if(res.success == false){
+                } else if (res.success == false) {
                     toastr.error(res.message);
                 }
             }

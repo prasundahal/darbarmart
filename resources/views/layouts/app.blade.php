@@ -211,8 +211,8 @@
         @include('partials.modal')
 
     </div>
-    <script src="{{ asset('js/jquery-editable-table.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap-table-editable.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-editable-table.min.js') }}"></script>
     <script src="{{ asset('toastr/toastr.min.js') }}"></script>
     <script>
         $(document).ready(function() {

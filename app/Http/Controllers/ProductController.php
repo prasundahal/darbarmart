@@ -131,6 +131,8 @@ class ProductController extends Controller
             }
         }
 
+        $product->made_in_nepal = $request->made_in_nepal != null ? 1: 0;
+
         $photos = array();
 
         if($request->hasFile('photos')){

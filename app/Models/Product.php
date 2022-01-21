@@ -101,7 +101,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['current_stock', 'variations', 'num_of_sale', 'unit_price'];
+    protected $fillable = ['current_stock', 'variations', 'num_of_sale', 'unit_price', 'made_in_nepal'];
 
     protected static function boot()
     {
