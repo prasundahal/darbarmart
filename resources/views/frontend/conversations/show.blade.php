@@ -16,7 +16,7 @@
                     <div class="main-content">
                         <!-- Page title -->
                         <div class="card no-border p-3">
-                            <h2 class="heading heading-6 text-capitalize strong-600 mb-0 d-inline-block">
+                            <h2 class="heading heading-6 text-capitalize strong-600 mb-0 d-inline-block" onclick="window.location.href = '{{ route('product', $conversation->product->slug) }}'" style="cursor:pointer;">
                                 {{ $conversation->title }}
                             </h2>
                             <br>

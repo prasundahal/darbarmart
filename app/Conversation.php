@@ -17,4 +17,8 @@ class Conversation extends Model
     public function receiver(){
         return $this->belongsTo(User::class, 'receiver_id');
     }
+
+    public function product(){
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 }

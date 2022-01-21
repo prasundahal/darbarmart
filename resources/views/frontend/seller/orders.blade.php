@@ -75,6 +75,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($orders as $key => $order_id)
+                                            
                                             @php
                                                 $order = \App\Order::find($order_id->id);
                                             @endphp
