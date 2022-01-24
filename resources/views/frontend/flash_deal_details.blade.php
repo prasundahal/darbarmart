@@ -1,7 +1,6 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-
     @if($flash_deal->status == 1 && strtotime(date('d-m-Y')) <= $flash_deal->end_date)
     <div style="background-color:{{ $flash_deal->background_color }}">
         <section class="text-center">
@@ -18,7 +17,7 @@
                         @php
                             $product = \App\Product::find($flash_deal_product->product_id);
                         @endphp
-                        @if ($product->published != 0)
+                        {{-- @if ($product->published != 0) --}}
                             <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                 <div class="product-card-2 card card-product shop-cards shop-tech mb-2">
                                     <div class="card-body p-0">
@@ -43,7 +42,7 @@
                                     </div>
                                 </div>
                             </div>
-                        @endif
+                        {{-- @endif --}}
                     @endforeach
                 </div>
             </div>
