@@ -24,7 +24,7 @@
 
                                         <div class="card-image">
                                             <a href="{{ route('product', $product->slug) }}" class="d-block text-center" >
-                                                <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->flash_deal_img) }}" alt="{{ __($product->name) }}">
+                                                <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->flash_deal_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
                                             </a>
                                         </div>
 

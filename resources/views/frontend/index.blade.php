@@ -93,7 +93,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="img">
-                                                    <img class="lazyload img-fit" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->flash_deal_img) }}" alt="{{ __($product->name) }}">
+                                                    <img class="lazyload img-fit" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->flash_deal_img) }}" alt="{{ __($product->name . '-' . $product->unit_price) }}">
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -147,7 +147,7 @@
                                     <div class="card-body p-0">
                                         <div class="card-image">
                                             <a href="{{ route('product', $product->slug) }}" class="d-block">
-                                                <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name) }}">
+                                                <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
                                             </a>
                                         </div>
 

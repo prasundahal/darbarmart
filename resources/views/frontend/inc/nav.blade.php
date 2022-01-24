@@ -541,7 +541,7 @@
                                                                         <div class="d-flex align-items-center">
                                                                             <div class="dc-image">
                                                                                 <a href="{{ route('product', $product->slug) }}">
-                                                                                    <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid lazyload" alt="{{ __($product->name) }}">
+                                                                                    <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid lazyload" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
                                                                                 </a>
                                                                             </div>
                                                                             <div class="dc-content">
