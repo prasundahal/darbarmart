@@ -46,6 +46,7 @@
                                 placeholder="Type Order code & hit Enter">
                         </div>
                     </div>
+<<<<<<< HEAD
                 </form>
             </div>
         </div>
@@ -89,6 +90,78 @@
                                 <td>
                                     {{ $key + 1 + ($orders->currentPage() - 1) * $orders->perPage() }}
                                 </td>
+=======
+                </div>
+            </form>
+            <button class="btn btn-primary" id="bulkDelBtn" onclick="deleteBulkData();">Delete</button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped res-table mar-no" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="checkAll"></th>
+                    <th>#</th>
+                    <th>{{__('Order Code')}}</th>
+                    <th>{{__('Num. of Products')}}</th>
+                    <th>{{__('Customer')}}</th>
+                    <th>{{__('Amount')}}</th>
+                    <th>{{__('Delivery Status')}}</th>
+                    <th>{{__('Payment Method')}}</th>
+                    <th>{{__('Payment Status')}}</th>
+                    @if ($refund_request_addon != null && $refund_request_addon->activated == 1)
+                        <th>{{__('Refund')}}</th>
+                    @endif
+                    <th width="10%">{{__('Options')}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($orders as $key => $order_id)
+                    @php
+                        $order = \App\Order::find($order_id->id);
+                    @endphp
+                    @if($order != null)
+                        <tr>
+                            <td><input type="checkbox" value="{{ $order->id }}" data-id="{{ $order->id }}" name="orderID[]" class="rowCheck"></td>
+                            <td>
+                                {{ ($key+1) + ($orders->currentPage() - 1)*$orders->perPage() }}
+                            </td>
+                            <td>
+                                {{ $order->code }} @if($order->viewed == 0) <span class="pull-right badge badge-info">{{ __('New') }}</span> @endif
+                            </td>
+                            <td>
+                                {{ count($order->orderDetails->where('seller_id', $admin_user_id)) }}
+                            </td>
+                            <td>
+                                @if ($order->user != null)
+                                    {{ $order->user->name }}
+                                @else
+                                    Guest ({{ $order->guest_id }})
+                                @endif
+                            </td>
+                            <td>
+                                {{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('price') + $order->orderDetails->where('seller_id', $admin_user_id)->sum('tax')) }}
+                            </td>
+                            <td>
+                                @php
+                                    $status = $order->orderDetails->first()->delivery_status;
+                                @endphp
+                                {{ ucfirst(str_replace('_', ' ', $status)) }}
+                            </td>
+                            <td>
+                                {{ ucfirst(str_replace('_', ' ', $order->payment_type)) }}
+                            </td>
+                            <td>
+                                <span class="badge badge--2 mr-4">
+                                    @if ($order->orderDetails->where('seller_id',  $admin_user_id)->first()->payment_status == 'paid')
+                                        <i class="bg-green"></i> Paid
+                                    @else
+                                        <i class="bg-red"></i> Unpaid
+                                    @endif
+                                </span>
+                            </td>
+                            @if ($refund_request_addon != null && $refund_request_addon->activated == 1)
+>>>>>>> master
                                 <td>
                                     {{ $order->code }} @if ($order->viewed == 0) <span class="pull-right badge badge-info">{{ __('New') }}</span> @endif
                                 </td>
@@ -172,6 +245,7 @@
         function sort_orders(el) {
             $('#sort_orders').submit();
         }
+<<<<<<< HEAD
         $(document).ready(function(){
             $('.sort_order2_li').on('click', function(){
                 $('#delivery_status2').val($(this).attr('value'));
@@ -179,6 +253,52 @@
             })
         })
         function sort_orders2() {
+=======
+        $("#checkAll").click(function () {
+            $(".rowCheck").prop('checked', $(this).prop('checked'));
+        });
+
+
+        function deleteBulkData(){
+            var allIds = [];
+            $(".rowCheck:checked").each(function(){
+                allIds.push($(this).val());
+            });
+
+            if(allIds.length <= 0){
+                alert("Please select row.");
+            } else {
+                var check = confirm("Are you sure you want to perform bulk delete?");
+                if(check == true){
+                    var join_checked_values = allIds.join(",");
+
+                    $.ajax({
+                        url: "{{ route('orders.bulkDelete') }}",
+                        type: 'get',
+                        data: {'ids': join_checked_values},
+                        success: function(data){
+                            if(data['success']){
+                                $(".rowCheck:checked").each(function(){
+                                    $(this).parents("tr").remove();
+                                });
+                                alert(data['success']);
+                            } else if(data['error']){
+                                alert(data['error']); 
+                            } else {
+                                alert('Whoops something went wrong');
+                            }
+                        }, 
+                        error: function(data){
+                            alert(data.responseText);
+                        }
+                    });
+
+                    $.each(allIds, function(index, value){
+                        $('table tr').filter("[data-row-id='"+ value +"']").remove();
+                    });
+                }
+            }
+>>>>>>> master
         }
     </script>
 @endsection

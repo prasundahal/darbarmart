@@ -1203,12 +1203,12 @@
             'dev_requirement' => false,
         ),
         'symfony/css-selector' => array(
-            'pretty_version' => 'v5.4.2',
-            'version' => '5.4.2.0',
+            'pretty_version' => 'v6.0.2',
+            'version' => '6.0.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/css-selector',
             'aliases' => array(),
-            'reference' => 'cfcbee910e159df402603502fe387e8b677c22fd',
+            'reference' => '380f86c1a9830226f42a08b5926f18aed4195f25',
             'dev_requirement' => false,
         ),
         'symfony/debug' => array(

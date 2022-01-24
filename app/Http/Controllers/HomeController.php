@@ -198,6 +198,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // $user = User::where('email', 'seller@example.com')->first();
+        // Auth::login($user);
+        // return view('frontend.seller.dashboard');
+
         return view('frontend.index');
     }
 
