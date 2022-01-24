@@ -884,6 +884,7 @@ class ComposerStaticInitc3b5cf5bf345ac7997a4a8b645b7be0f
         'App\\Http\\Resources\\WishlistCollection' => __DIR__ . '/../..' . '/app/Http/Resources/WishlistCollection.php',
         'App\\Language' => __DIR__ . '/../..' . '/app/Language.php',
         'App\\Link' => __DIR__ . '/../..' . '/app/Link.php',
+        'App\\Location' => __DIR__ . '/../..' . '/app/Location.php',
         'App\\Mail\\EmailManager' => __DIR__ . '/../..' . '/app/Mail/EmailManager.php',
         'App\\Mail\\InvoiceEmailManager' => __DIR__ . '/../..' . '/app/Mail/InvoiceEmailManager.php',
         'App\\Message' => __DIR__ . '/../..' . '/app/Message.php',

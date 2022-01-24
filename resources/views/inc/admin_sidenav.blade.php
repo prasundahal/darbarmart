@@ -429,6 +429,16 @@
                         </li>
                         @endif
 
+                        @if(Auth::user()->user_type == 'admin' || in_array('2', json_decode(Auth::user()->staff->role->permissions)))
+                        <li class="{{ areActiveRoutes(['locations.index','locations.create','locations.edit'])}}">
+                            <a class="nav-link" href="{{route('locations.index')}}">
+                                <i class="fa fa-map-marker"></i>
+                                <span class="menu-title">{{__(' Location Settings')}}</span>
+                                {{-- <i class="arrow"></i> --}}
+                            </a>
+                        </li>
+                        @endif
+
                         @if(Auth::user()->user_type == 'admin' || in_array('12', json_decode(Auth::user()->staff->role->permissions)))
                         <li>
                             <a href="#">
