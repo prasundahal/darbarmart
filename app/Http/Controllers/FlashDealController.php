@@ -43,10 +43,6 @@ class FlashDealController extends Controller
      */
     public function store(Request $request)
     {
-        $products = '';
-        $products = isset($request->products) ? $request->products : $products;
-        $products = isset($request->categories) ? $request->categories : $products;
-        $products = isset($request->sellers) ? $request->sellers : $products;
         $flash_deal = new FlashDeal;
         $flash_deal->title = $request->title;
         $flash_deal->text_color = $request->text_color;
@@ -58,7 +54,7 @@ class FlashDealController extends Controller
             $flash_deal->banner = $request->file('banner')->store('uploads/offers/banner');
         }
         if($flash_deal->save()){
-            foreach ($products as $key => $product) {
+            foreach ($request->products as $key => $product) {
                 $flash_deal_product = new FlashDealProduct;
                 $flash_deal_product->flash_deal_id = $flash_deal->id;
                 $flash_deal_product->product_id = $product;
@@ -189,10 +185,8 @@ class FlashDealController extends Controller
     }
 
     public function product_discount(Request $request){
-        $product_ids = isset($request->product_ids) ? $request->product_ids : '';
-        $category_ids = isset($request->category_ids) ? $request->category_ids : '';
-        $seller_ids = isset($request->seller_ids) ? $request->seller_ids : '';
-        return view('partials.flash_deal_discount', compact('product_ids', 'category_ids', 'seller_ids'));
+        $product_ids = $request->product_ids;
+        return view('partials.flash_deal_discount', compact('product_ids'));
     }
 
     public function product_discount_edit(Request $request){

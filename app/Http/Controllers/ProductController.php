@@ -605,6 +605,13 @@ class ProductController extends Controller
         return $products;
     }
 
+    public function get_products_by_category(Request $request)
+    {
+        dd($request->all());
+        $products = Product::where('category_id', $request->category_id)->get();
+        return $products;
+    }
+
     public function get_products_by_brand(Request $request)
     {
         $products = Product::where('brand_id', $request->brand_id)->get();
