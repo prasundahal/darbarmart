@@ -69,7 +69,7 @@
                         <select name="sellers[]" id="sellers" class="form-control demo-select2" multiple data-placeholder="Choose Sellers">
                             @foreach(\App\Seller::with('user')->get() as $seller)
                                 @isset($seller->user->name)
-                                    <option value="{{$seller->user->user_type}}">{{__($seller->user->name)}}</option>
+                                    <option value="{{$seller->user_id}}">{{__($seller->user->name)}}</option>
                                 @endisset
                             @endforeach
                         </select>
@@ -126,11 +126,14 @@
                 if($('#sellers').val() != ''){ 
                     $('#sellers').val(null).trigger('change');
                 }
-                var category_ids = $('#products').val();
+                var category_ids = $('#categories').val();
                 if(category_ids.length > 0){
-                    $.post('{{ route('flash_deals.product_discount') }}', {_token:'{{ csrf_token() }}', product_ids:product_ids}, function(data){
-                        $('#discount_table').html(data);
-                        $('.demo-select2').select2();
+                    $.post('{{ route('products.get_productids_by_category') }}', {_token:'{{ csrf_token() }}', category_ids:category_ids}, function(data){
+                        var arr = [];
+                        $.each(data, function(i, e){
+                            arr.push(e.id);
+                        })
+                        $("#products").select2().val(arr).trigger('change');
                     });
                 }
                 else{
@@ -144,6 +147,19 @@
                 }
                 if($('#categories').val() != ''){ 
                     $('#categories').val(null).trigger('change');
+                }
+                var seller_ids = $('#sellers').val();
+                if(seller_ids.length > 0){
+                    $.post('{{ route('products.get_productids_by_seller') }}', {_token:'{{ csrf_token() }}', seller_ids:seller_ids}, function(data){
+                        var arr = [];
+                        $.each(data, function(i, e){
+                            arr.push(e.id);
+                        })
+                        $("#products").select2().val(arr).trigger('change');
+                    });
+                }
+                else{
+                    $('#discount_table').html(null);
                 }
             });
         });

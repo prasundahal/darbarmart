@@ -605,10 +605,15 @@ class ProductController extends Controller
         return $products;
     }
 
-    public function get_products_by_category(Request $request)
+    public function get_productids_by_category(Request $request)
     {
-        dd($request->all());
-        $products = Product::where('category_id', $request->category_id)->get();
+        $products = Product::whereIn('category_id', $request->category_ids)->get(['id']);
+        return $products;
+    }
+
+    public function get_productids_by_seller(Request $request)
+    {
+        $products = Product::whereIn('user_id', $request->seller_ids)->get(['id']);
         return $products;
     }
 
