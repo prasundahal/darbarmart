@@ -186,11 +186,12 @@
     <div class="mb-4">
         <div class="container">
             <div class="row gutters-10">
-                @foreach (\App\Banner::where('position', 1)->where('published', 1)->get() as $key => $banner)
-                    <div class="col-lg-{{ 12/count(\App\Banner::where('position', 1)->where('published', 1)->get()) }}">
+                {{-- {{ dd(\App\FlashDeal::all()) }} --}}
+                @foreach (\App\FlashDeal::all() as $key => $flashdeal)
+                    <div class="col-lg-4">
                         <div class="media-banner mb-3 mb-lg-0">
-                            <a href="{{ $banner->url }}" target="_blank" class="banner-container">
-                                <img src="{{ asset('frontend/images/placeholder-rect.jpg') }}" data-src="{{ asset($banner->photo) }}" alt="{{ env('APP_NAME') }} promo" class="img-fluid lazyload">
+                            <a href="{{ route('flash-deal-details', $flashdeal->slug) }}" target="_blank" class="banner-container">
+                                <img src="{{ asset($flashdeal->banner) }}" data-src="{{ asset($flashdeal->banner) }}" alt="{{ env('APP_NAME') }} promo" class="img-fluid lazyload">
                             </a>
                         </div>
                     </div>
