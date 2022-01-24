@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 @php
     $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
@@ -41,6 +40,16 @@
         </div>
     </div>
     <div class="panel-body">
+        <form class="" id="sort_orders2" action="" method="GET">
+            <input type="hidden" id="delivery_status2" name="delivery_status">
+            <ul class="nav nav-pills">
+                <li role="presentation" class="sort_order2_li @if(!@isset($delivery_status)) active @endif"><a href="javascript:void(0);">All</a></li>
+                <li role="presentation" class="sort_order2_li @isset($delivery_status) @if ($delivery_status == 'pending') active @endif @endisset" value="pending"><a href="javascript:void(0);">Pending</a></li>
+                <li role="presentation" class="sort_order2_li @isset($delivery_status) @if ($delivery_status == 'on_review') active @endif @endisset" value="on_review"><a href="javascript:void(0);">On Review</a></li>
+                <li role="presentation" class="sort_order2_li @isset($delivery_status) @if ($delivery_status == 'on_delivery') active @endif @endisset" value="on_delivery"><a href="javascript:void(0);">On Delivery</a></li>
+                <li role="presentation" class="sort_order2_li @isset($delivery_status) @if ($delivery_status == 'delivered') active @endif @endisset" value="delivered"><a href="javascript:void(0);">Delivered</a></li>
+            </ul>
+        </form>
         <table class="table table-striped res-table mar-no" cellspacing="0" width="100%">
             <thead>
                 <tr>
@@ -137,10 +146,7 @@
         </div>
     </div>
 </div>
-
 @endsection
-
-
 @section('script')
     <script type="text/javascript">
         function sort_orders(el){
@@ -149,21 +155,17 @@
         $("#checkAll").click(function () {
             $(".rowCheck").prop('checked', $(this).prop('checked'));
         });
-
-
         function deleteBulkData(){
             var allIds = [];
             $(".rowCheck:checked").each(function(){
                 allIds.push($(this).val());
             });
-
             if(allIds.length <= 0){
                 alert("Please select row.");
             } else {
                 var check = confirm("Are you sure you want to perform bulk delete?");
                 if(check == true){
                     var join_checked_values = allIds.join(",");
-
                     $.ajax({
                         url: "{{ route('orders.bulkDelete') }}",
                         type: 'get',
@@ -175,21 +177,26 @@
                                 });
                                 alert(data['success']);
                             } else if(data['error']){
-                                alert(data['error']); 
+                                alert(data['error']);
                             } else {
                                 alert('Whoops something went wrong');
                             }
-                        }, 
+                        },
                         error: function(data){
                             alert(data.responseText);
                         }
                     });
-
                     $.each(allIds, function(index, value){
                         $('table tr').filter("[data-row-id='"+ value +"']").remove();
                     });
                 }
             }
         }
+        $(document).ready(function(){
+            $('.sort_order2_li').on('click', function(){
+                $('#delivery_status2').val($(this).attr('value'));
+                $('#sort_orders2').submit();
+            })
+        })
     </script>
 @endsection
