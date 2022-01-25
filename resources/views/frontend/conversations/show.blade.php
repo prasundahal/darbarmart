@@ -27,6 +27,7 @@
                                 {{ $conversation->sender->name }}
                             @endif
                             <br>
+                            <br>
                             @if ($conversation->sender_id == Auth::user()->id && $conversation->receiver->shop != null)
                                 <a href="{{ route('shop.visit', $conversation->receiver->shop->slug) }}">{{ $conversation->receiver->shop->name }}</a>
                             @endif
