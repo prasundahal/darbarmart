@@ -24,6 +24,7 @@ class ConversationController extends Controller
         }
         else {
             flash(__('Conversation is disabled at this moment'))->warning();
+            dd(get_defined_vars());    
             return back();
         }
     }

@@ -607,6 +607,18 @@ class ProductController extends Controller
         return $products;
     }
 
+    public function get_productids_by_category(Request $request)
+    {
+        $products = Product::whereIn('category_id', $request->category_ids)->get(['id']);
+        return $products;
+    }
+
+    public function get_productids_by_seller(Request $request)
+    {
+        $products = Product::whereIn('user_id', $request->seller_ids)->get(['id']);
+        return $products;
+    }
+
     public function get_products_by_brand(Request $request)
     {
         $products = Product::where('brand_id', $request->brand_id)->get();

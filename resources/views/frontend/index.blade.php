@@ -93,7 +93,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="img">
-                                                    <img class="lazyload img-fit" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->flash_deal_img) }}" alt="{{ __($product->name) }}">
+                                                    <img class="lazyload img-fit" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->flash_deal_img) }}" alt="{{ __($product->name . '-' . $product->unit_price) }}">
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -147,7 +147,7 @@
                                     <div class="card-body p-0">
                                         <div class="card-image">
                                             <a href="{{ route('product', $product->slug) }}" class="d-block">
-                                                <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name) }}">
+                                                <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
                                             </a>
                                         </div>
 
@@ -186,11 +186,12 @@
     <div class="mb-4">
         <div class="container">
             <div class="row gutters-10">
-                @foreach (\App\Banner::where('position', 1)->where('published', 1)->get() as $key => $banner)
-                    <div class="col-lg-{{ 12/count(\App\Banner::where('position', 1)->where('published', 1)->get()) }}">
+                {{-- {{ dd(\App\FlashDeal::all()) }} --}}
+                @foreach (\App\FlashDeal::all() as $key => $flashdeal)
+                    <div class="col-lg-4">
                         <div class="media-banner mb-3 mb-lg-0">
-                            <a href="{{ $banner->url }}" target="_blank" class="banner-container">
-                                <img src="{{ asset('frontend/images/placeholder-rect.jpg') }}" data-src="{{ asset($banner->photo) }}" alt="{{ env('APP_NAME') }} promo" class="img-fluid lazyload">
+                            <a href="{{ route('flash-deal-details', $flashdeal->slug) }}" target="_blank" class="banner-container">
+                                <img src="{{ asset($flashdeal->banner) }}" data-src="{{ asset($flashdeal->banner) }}" alt="{{ env('APP_NAME') }} promo" class="img-fluid lazyload">
                             </a>
                         </div>
                     </div>
