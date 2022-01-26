@@ -98,6 +98,34 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-2">
+                                            <label>{{__('Location')}} <span class="required-star">*</span></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            @if (count($locations)>0)
+                                            <select name="location[]" class="form-control js-example-basic-multiple" multiple="multiple" required>
+                                                @php
+                                                    $loc = \App\Shop::where('user_id', Auth::user()->id)->first();
+                                                    $array = explode('!!', $loc->location);
+
+                                                @endphp
+
+                                                    @foreach ($locations as $location)
+                                                        <option value="{{$location->name}}" <?php if(in_array($location->name,$array)) echo 'selected' ?> >{{$location->state}} > {{$location->name}}</option> 
+                                                        
+                                                    @endforeach 
+                                                    
+                                            </select> 
+                                            @else
+                                            <select class="form-control">
+                                                <option value="" selected disabled>No Locations Available</option>
+                                            </select>
+                                            @endif
+                                                
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-2">
                                             <label>{{__('Meta Title')}} <span class="required-star">*</span></label>
                                         </div>
                                         <div class="col-md-10">
@@ -253,6 +281,13 @@
         $(document).ready(function(){
             $('.remove-files').on('click', function(){
                 $(this).parents(".col-md-6").remove();
+            });
+        });
+
+
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2({
+                placeholder:'Select Locations'
             });
         });
     </script>

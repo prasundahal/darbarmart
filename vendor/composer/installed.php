@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '441bc454c0ac5b3cefb1573ba8ad8dd6453dd3b1',
+    'reference' => '880b870a43aab15ddca9fdd06c5bbb90743b0d12',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -428,6 +428,15 @@
       ),
       'reference' => '99dc50bf008be77be84f447607e416f73f319904',
     ),
+    'intervention/image' => 
+    array (
+      'pretty_version' => '2.7.1',
+      'version' => '2.7.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '744ebba495319501b873a4e48787759c72e3fb8c',
+    ),
     'jakub-onderka/php-console-color' => 
     array (
       'pretty_version' => 'v0.2',
@@ -478,7 +487,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '441bc454c0ac5b3cefb1573ba8ad8dd6453dd3b1',
+      'reference' => '880b870a43aab15ddca9fdd06c5bbb90743b0d12',
     ),
     'laravel/passport' => 
     array (

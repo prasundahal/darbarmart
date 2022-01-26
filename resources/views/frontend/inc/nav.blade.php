@@ -170,7 +170,11 @@
                                                   <div class="d-flex align-items-center">
                                                       <div class="dc-image">
                                                           <a href="{{ route('product', $product->slug) }}">
-                                                              <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid lazyload" alt="{{ __($product->name) }}">
+                                                            @foreach (json_decode($product->photos) as $key => $photo)
+                                                                <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($photo) }}" class="img-fluid lazyload" alt="{{ __($product->name) }}">
+                                                                <?php break; ?>
+                                                            @endforeach
+
                                                           </a>
                                                       </div>
                                                       <div class="dc-content">

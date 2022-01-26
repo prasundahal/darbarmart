@@ -14,6 +14,8 @@ use ImageOptimizer;
 use DB;
 use CoreComponentRepository;
 
+use Image;
+
 class ProductController extends Controller
 {
     /**
@@ -132,20 +134,38 @@ class ProductController extends Controller
         }
 
         $photos = array();
+        $thumb=array();
 
         if($request->hasFile('photos')){
             foreach ($request->photos as $key => $photo) {
                 $path = $photo->store('uploads/products/photos');
+                $thumbnail_path = $photo->store('uploads/products/thumbnail');
+
+                // $input['imagename'] = time().'.'.$photo->getClientOriginalExtension();
+                // $destinationPath = public_path('uploads/products/thumbnail');
+                // $img = Image::make($photo->getRealPath());
+                // $img->resize(100, 100, function ($constraint) {
+                //     $constraint->aspectRatio();
+                // })->save($destinationPath.'/'.$input['imagename']);
+
                 array_push($photos, $path);
+                array_push($thumb, $thumbnail_path);
+
+                // array_push($thumb, $input['imagename']);
+
+
                 //ImageOptimizer::optimize(base_path('public/').$path);
             }
             $product->photos = json_encode($photos);
+            $product->thumbnail_img = json_encode($thumb);
+
+
         }
 
-        if($request->hasFile('thumbnail_img')){
-            $product->thumbnail_img = $request->thumbnail_img->store('uploads/products/thumbnail');
-            //ImageOptimizer::optimize(base_path('public/').$product->thumbnail_img);
-        }
+        // if($request->hasFile('thumbnail_img')){
+        //     $product->thumbnail_img = $request->thumbnail_img->store('uploads/products/thumbnail');
+        //     // ImageOptimizer::optimize(base_path('public/').$product->thumbnail_img);
+        // }
 
         if($request->hasFile('featured_img')){
             $product->featured_img = $request->featured_img->store('uploads/products/featured');
@@ -373,25 +393,31 @@ class ProductController extends Controller
 
         if($request->has('previous_photos')){
             $photos = $request->previous_photos;
+            $thumb = $request->previous_thumbnail_img;
         }
         else{
             $photos = array();
+            $thumb=array();
         }
 
         if($request->hasFile('photos')){
             foreach ($request->photos as $key => $photo) {
                 $path = $photo->store('uploads/products/photos');
+                $thumbnail_path = $photo->store('uploads/products/thumbnail');
+
                 array_push($photos, $path);
+                array_push($thumb, $thumbnail_path);
                 //ImageOptimizer::optimize(base_path('public/').$path);
             }
         }
         $product->photos = json_encode($photos);
+        $product->thumbnail_img = json_encode($thumb);
 
-        $product->thumbnail_img = $request->previous_thumbnail_img;
-        if($request->hasFile('thumbnail_img')){
-            $product->thumbnail_img = $request->thumbnail_img->store('uploads/products/thumbnail');
-            //ImageOptimizer::optimize(base_path('public/').$product->thumbnail_img);
-        }
+        // $product->thumbnail_img = $request->previous_thumbnail_img;
+        // if($request->hasFile('thumbnail_img')){
+        //     $product->thumbnail_img = $request->thumbnail_img->store('uploads/products/thumbnail');
+        //     //ImageOptimizer::optimize(base_path('public/').$product->thumbnail_img);
+        // }
 
         $product->featured_img = $request->previous_featured_img;
         if($request->hasFile('featured_img')){

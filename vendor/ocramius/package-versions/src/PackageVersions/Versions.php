@@ -41,6 +41,7 @@ final class Versions
   'guzzlehttp/promises' => '1.5.1@fe752aedc9fd8fcca3fe7ad05d419d32998a06da',
   'guzzlehttp/psr7' => '1.8.3@1afdd860a2566ed3c2b0b4a3de6e23434a79ec85',
   'instamojo/instamojo-php' => '0.4@99dc50bf008be77be84f447607e416f73f319904',
+  'intervention/image' => '2.7.1@744ebba495319501b873a4e48787759c72e3fb8c',
   'jakub-onderka/php-console-color' => 'v0.2@d5deaecff52a0d61ccb613bb3804088da0307191',
   'jakub-onderka/php-console-highlighter' => 'v0.4@9f7a229a69d52506914b4bc61bfdb199d90c5547',
   'laracasts/flash' => '3.2@76c2e200498795bdbeda97b682536130316e8b97',
@@ -160,7 +161,7 @@ final class Versions
   'sebastian/version' => '2.0.1@99732be0ddb3361e16ad77b68ba41efc8e979019',
   'theseer/tokenizer' => '1.2.1@34a41e998c2183e22995f158c581e7b5e755ab9e',
   'webmozart/assert' => '1.10.0@6964c76c7804814a842473e0c8fd15bab0f18e25',
-  'laravel/laravel' => 'dev-master@3e13dc7b935ea7da5823b8f6c0313d6ccb403df9',
+  'laravel/laravel' => 'dev-master@880b870a43aab15ddca9fdd06c5bbb90743b0d12',
 );
 
     private function __construct()

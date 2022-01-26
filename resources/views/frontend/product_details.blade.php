@@ -592,6 +592,7 @@
                             </div>
                         </div>
                     </div>
+                    {{-- {{dd('hi')}} --}}
                     <div class="my-4 bg-white p-3">
                         <div class="section-title-1">
                             <h3 class="heading-5 strong-700 mb-0">
@@ -606,7 +607,11 @@
                                         <div class="col-12">
                                             <div class="position-relative overflow-hidden h-100">
                                                 <a href="{{ route('product', $related_product->slug) }}" class="d-block product-image h-100 text-center">
-                                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($related_product->thumbnail_img) }}" alt="{{ __($related_product->name) }}">
+                                                    @foreach (json_decode($related_product->photos) as $key => $photo)
+                                                        <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($photo) }}" alt="{{ __($related_product->name) }}">
+                                                        <?php break; ?>
+                                                    @endforeach
+                                                    
                                                 </a>
                                             </div>
                                         </div>
@@ -730,7 +735,11 @@
                                 <div class="clearfix">
                                     <div class="product-image float-left">
                                         <a href="{{ route('product', $top_product->slug) }}">
-                                            <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($top_product->thumbnail_img) }}" alt="{{ __($top_product->name) }}">
+                                            @foreach (json_decode($top_product->photos) as $key => $photo)
+                                                <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($photo) }}" alt="{{ __($top_product->name) }}">
+                                                <?php break; ?>
+                                            @endforeach
+
                                         </a>
                                     </div>
                                     <div class="product-details float-left">

@@ -18,7 +18,11 @@
                                     <div class="col-4">
                                         <div class="position-relative overflow-hidden h-100">
                                             <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100">
-                                                <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->thumbnail_img) }}" alt="{{ __($product->name) }}">
+                                                @foreach (json_decode($product->photos) as $key => $photo)
+                                                    <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($photo) }}" alt="{{ __($product->name) }}">
+                                                    <?php break; ?>
+                                                @endforeach
+
                                             </a>
                                             <div class="product-btns">
                                                 <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})">

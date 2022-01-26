@@ -11,7 +11,6 @@
 @endif
 
 <br>
-
 <div class="panel">
     <!--Panel heading-->
     <div class="panel-heading bord-btm clearfix pad-all h-100">
@@ -81,7 +80,12 @@
                         <td>
                             <a href="{{ route('product', $product->slug) }}" target="_blank" class="media-block">
                                 <div class="media-left">
-                                    <img loading="lazy"  class="img-md" src="{{ asset($product->thumbnail_img)}}" alt="Image">
+                                    @if ($product->photos != null)
+                                        @foreach (json_decode($product->photos) as $key => $photo)
+                                            <img loading="lazy"  class="img-md" src="{{ asset($photo)}}" alt="Image">
+                                            <?php break; ?>
+                                        @endforeach
+                                    @endif 
                                 </div>
                                 <div class="media-body">{{ __($product->name) }}</div>
                             </a>
