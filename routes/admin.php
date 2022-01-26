@@ -130,6 +130,7 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 	Route::get('/sales/{id}/show', 'OrderController@sales_show')->name('sales.show');
 	Route::get('/orders/destroy/{id}', 'OrderController@destroy')->name('orders.destroy');
 	Route::get('/orders/bulk/delete', 'OrderController@bulkDelete')->name('orders.bulkDelete');
+	Route::get('/orders/bulk/invoice/download', 'OrderController@bulkInvoiceDownload')->name('orders.downloadInvoice');
 	Route::get('/sales', 'OrderController@sales')->name('sales.index');
 
 	Route::resource('links','LinkController');

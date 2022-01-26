@@ -24,6 +24,7 @@ use App\BusinessSetting;
 use App\Http\Controllers\SearchController;
 use ImageOptimizer;
 use Cookie;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class HomeController extends Controller
 {
@@ -198,8 +199,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $user = User::where('email', 'seller@example.com')->first();
-        // Auth::login($user);
+        // $user = User::where('email', 'munirajrajbanshi5@gmail.com')->first();
+        // FacadesAuth::login($user);
         // return view('frontend.seller.dashboard');
 
         return view('frontend.index');
