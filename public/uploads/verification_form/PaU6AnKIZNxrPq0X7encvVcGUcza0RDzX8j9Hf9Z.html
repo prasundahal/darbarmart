@@ -1,0 +1,35 @@
+{"1":{"id":1,"product_id":1,"name":"FRESH CABBAGE","quantity":1,"price":"12","order_price":"12","img_src":"\/public\/images\/no-image.png","variation_id":null,"options":[],"tax":false,"product_type":"simple_product","acces_token":"","designer_data":"\"\"","download_data":{"downloadable_product_download_limit":"","downloadable_product_download_expiry":""}},"2":{"id":2,"product_id":2,"name":"FRESH TOMATO","quantity":1,"price":"25","order_price":"25","img_src":"\/public\/images\/no-image.png","variation_id":null,"options":[],"tax":false,"product_type":"simple_product","acces_token":"","designer_data":"\"\"","download_data":{"downloadable_product_download_limit":"","downloadable_product_download_expiry":""}}}
+
+@foreach($order as $row)
+              <tr>
+                @php
+                  $data=$row->orders->order_data;
+                  print_r($data);
+                  $data = json_decode($data);
+                  $product = '';
+                  echo '<pre>'; print_r($data);
+                  if($data){
+                    foreach($data as $data){
+                      if($product == ''){
+                        $product = $data->name;
+                      }else{
+                        $product .= ', ' . $data->name;
+                      }
+                    } 
+                  }
+                @endphp
+                <td>{{$row['id']}}</td>
+                <td>{{$row->users->name}}</td>
+                <td>{{ $product }}</td>
+                <td>{{$row['note']}}</td>
+                <td>
+                    <a href="{{route('admin.view_order_details', $row['order_id'])}}" class="btn btn-success">View</a>
+                </td>
+              </tr>
+              @endforeach
+
+//To get only names from the json data format
+		$a = OrdersItem::where('id', 53)->pluck('order_data')->first();
+                  // $name = collect(json_decode($a, true))->pluck('name');
+                  // $names = collect($name)->implode(', ');
+                  // dd($names);

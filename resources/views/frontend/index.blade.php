@@ -1,15 +1,15 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-    <section class="home-banner-area mb-4">
+    <section class="home-banner-area">
         <div class="container">
             <div class="row no-gutters position-relative">
                 <div class="col-lg-3 position-static order-2 order-lg-0">
                     <div class="category-sidebar">
                         <div class="all-category d-none d-lg-block">
-                            <span >{{__('Categories')}}</span>
+                            <span > <span class="pr-2"><i class="fa fa-bars" aria-hidden="true"></i></span> {{__('Categories')}}</span>
                             <a href="{{ route('categories.all') }}">
-                                <span class="d-none d-lg-inline-block">{{__('See All')}} ></span>
+                                <span class="view_button d-none d-lg-inline-block text-white">{{__('View All')}} <i class="fa fa-angle-up"></i></span>
                             </a>
                         </div>
                         <ul class="categories no-scrollbar">
@@ -40,12 +40,13 @@
                         </ul>
                     </div>
                 </div>
+                
 
                 @php
                     $num_todays_deal = count(filter_products(\App\Product::where('published', 1)->where('todays_deal', 1 ))->get());
                 @endphp
 
-                <div class="@if($num_todays_deal > 0) col-lg-7 @else col-lg-9 @endif order-1 order-lg-0">
+                <div class="@if($num_todays_deal > 0) col-lg-9 @else col-lg-9 @endif order-1 order-lg-0">
                     <div class="home-slide">
                         <div class="home-slide">
                             <div class="slick-carousel" data-slick-arrows="true" data-slick-dots="true" data-slick-autoplay="true">
@@ -59,7 +60,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="trending-category  d-none d-lg-block">
+                 
+                </div>
+                <!-- <div class="trending-category  d-none d-lg-block">
                         <ul>
                             @foreach (\App\Category::where('featured', 1)->get()->take(7) as $key => $category)
                                 <li @if ($key == 0) class="active" @endif>
@@ -74,10 +77,32 @@
                                 </li>
                             @endforeach
                         </ul>
-                    </div>
-                </div>
+                    </div> -->
 
-                @if($num_todays_deal > 0)
+            </div>
+        </div>
+    </section>
+    <section id="category" class="d-md-block d-none">
+      <div class="container">
+        <div class="grid-container slick-slider">
+            @foreach (\App\Category::where('featured', 1)->get() as $key => $category)
+                <div class="category_men_block">
+                    <a href="{{ route('products.category', $category->slug) }}">
+                    <div class="grid-item">
+                        <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->banner) }}" alt="{{ __($category->name) }}" class="img-fluid lazyload img-fit">
+                    </div>
+                    <div class="text_cate">
+                        <h3>{{ __($category->name) }}</h3>
+                    </div>
+                    </a>
+                </div>
+            @endforeach
+        </div>
+      </div>
+    </section>
+
+
+                <!-- @if($num_todays_deal > 0)
                 <div class="col-lg-2 d-none d-lg-block">
                     <div class="flash-deal-box bg-white h-100">
                         <div class="title text-center p-2 gry-bg">
@@ -111,17 +136,16 @@
                         </div>
                     </div>
                 </div>
-                @endif
-
-            </div>
-        </div>
-    </section>
+                @endif -->
 
     @php
         $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
+       
     @endphp
-    @if($flash_deal != null && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date)
+
+    @if($flash_deal != null && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date) 
     <section class="mb-4">
+
         <div class="container">
             <div class="px-2 py-4 p-md-4 bg-white shadow-sm">
                 <div class="section-title-1 clearfix ">
@@ -151,31 +175,43 @@
                                             </a>
                                         </div>
 
-                                        <div class="p-md-3 p-2">
-                                            <div class="price-box">
-                                                @if(home_base_price($product->id) != home_discounted_base_price($product->id))
-                                                    <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
-                                                @endif
-                                                <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
-                                            </div>
-                                            <div class="star-rating star-rating-sm mt-1">
-                                                {{ renderStarRating($product->rating) }}
-                                            </div>
-                                            <h2 class="product-title p-0">
-                                                <a href="{{ route('product', $product->slug) }}" class=" text-truncate">{{ __($product->name) }}</a>
-                                            </h2>
-                                            @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
-                                                <div class="club-point mt-2 bg-soft-base-1 border-light-base-1 border">
-                                                    {{ __('Club Point') }}:
-                                                    <span class="strong-700 float-right">{{ $product->earn_point }}</span>
+                                            <div class="p-md-3 p-2">
+                                                <div class="price-box">
+                                                    @if(home_base_price($product->id) != home_discounted_base_price($product->id))
+                                                        <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
+                                                    @endif
+                                                    <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
                                                 </div>
-                                            @endif
+                                                <div class="star-rating star-rating-sm mt-1">
+                                                    {{ renderStarRating($product->rating) }}
+                                                </div>
+                                                <h2 class="product-title p-0">
+                                                    <a href="{{ route('product', $product->slug) }}" class=" text-truncate">{{ __($product->name) }}</a>
+                                                </h2>
+                                                <div class="product-btns clearfix">
+                                                    <button class="btn add-wishlist mb-2 mt-2" title="Add to Wishlist" onclick="addToWishList({{$product->id}})" tabindex="0">
+                                                        <i class="la la-heart-o"></i>
+                                                    </button>
+                                                    <button class="btn add-compare mb-2" title="Add to Compare" onclick="addToCompare({{$product->id}})" tabindex="0">
+                                                        <i class="la la-refresh"></i>
+                                                    </button>
+                                                    <button class="btn quick-view mb-2" title="Quick view" onclick="showAddToCartModal({{$product->id}})" tabindex="0">
+                                                        <i class="la la-eye"></i>
+                                                    </button>
+                                                </div>
+                                                @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
+                                                    <div class="club-point mt-2 bg-soft-base-1 border-light-base-1 border">
+                                                        {{ __('Club Point') }}:
+                                                        <span class="strong-700 float-right">{{ $product->earn_point }}</span>
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endif
-                    @endforeach
+                            @endif
+                        @endforeach
+                    
                     </div>
                 </div>
             </div>
@@ -183,7 +219,7 @@
     </section>
     @endif
 
-    <div class="mb-4">
+    <div class="mb-4 ">
         <div class="container">
             <div class="row gutters-10">
                 {{-- {{ dd(\App\FlashDeal::all()) }} --}}
@@ -235,7 +271,7 @@
                                        <div class="card-body p-0">
                                            <div class="card-image">
                                                <a href="{{ route('customer.product', $customer_product->slug) }}" class="d-block">
-                                                   <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($customer_product->thumbnail_img) }}" alt="{{ __($customer_product->name) }}">
+                                                <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($customer_product->photos)[0]) }}" alt="{{ __($customer_product->name) }}">
                                                </a>
                                            </div>
 
@@ -267,7 +303,7 @@
 
     <div class="mb-4">
         <div class="container">
-            <div class="row gutters-10">
+            <div class="row gutters-10 ">
                 @foreach (\App\Banner::where('position', 2)->where('published', 1)->get() as $key => $banner)
                     <div class="col-lg-{{ 12/count(\App\Banner::where('position', 2)->where('published', 1)->get()) }}">
                         <div class="media-banner mb-3 mb-lg-0">
@@ -285,7 +321,7 @@
 
     </div>
 
-    <section class="mb-3">
+    <!-- <section class="mb-3">
         <div class="container">
             <div class="row gutters-10">
                 <div class="col-lg-6">
@@ -300,6 +336,21 @@
                         </ul>
                     </div>
                     <div class="row gutters-5">
+                    <div class="mb-3 col-6">
+                                <a href="#" class="bg-white border d-block c-base-2 box-2 icon-anim pl-2">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col-3 text-center">
+                                            <img src="" data-src="" alt="" class="img-fluid img lazyload">
+                                        </div>
+                                        <div class="info col-7">
+                                            <div class="name text-truncate pl-3 py-4">dfsf</div>
+                                        </div>
+                                        <div class="col-2 text-center">
+                                            <i class="la la-angle-right c-base-1"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
                         @foreach (\App\Category::where('top', 1)->get() as $category)
                             <div class="mb-3 col-6">
                                 <a href="{{ route('products.category', $category->slug) }}" class="bg-white border d-block c-base-2 box-2 icon-anim pl-2">
@@ -352,13 +403,14 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 @endsection
 
 @section('script')
     <script>
         $(document).ready(function(){
             $.post('{{ route('home.section.featured') }}', {_token:'{{ csrf_token() }}'}, function(data){
+                // console.log(data);
                 $('#section_featured').html(data);
                 slickInit();
             });
@@ -380,3 +432,4 @@
         });
     </script>
 @endsection
+

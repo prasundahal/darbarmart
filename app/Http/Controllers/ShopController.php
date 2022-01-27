@@ -7,6 +7,7 @@ use App\Shop;
 use App\User;
 use App\Seller;
 use App\BusinessSetting;
+use App\Location;
 use Auth;
 use Hash;
 
@@ -25,8 +26,9 @@ class ShopController extends Controller
      */
     public function index()
     {
+        $locations=Location::all();
         $shop = Auth::user()->shop;
-        return view('frontend.seller.shop', compact('shop'));
+        return view('frontend.seller.shop', compact('shop','locations'));
     }
 
     /**
@@ -36,12 +38,13 @@ class ShopController extends Controller
      */
     public function create()
     {
+        $locations=Location::all();
         if(Auth::check() && Auth::user()->user_type == 'admin'){
             flash(__('Admin can not be a seller'))->error();
             return back();
         }
         else{
-            return view('frontend.seller_form');
+            return view('frontend.seller_form',compact('locations'));
         }
     }
 
@@ -95,6 +98,8 @@ class ShopController extends Controller
             $shop->user_id = $user->id;
             $shop->name = $request->name;
             $shop->address = $request->address;
+            $shop->location=implode('!!', $request['location']);
+            // $shop->location=serialize($request['location']);
             $shop->slug = preg_replace('/\s+/', '-', $request->name).'-'.$shop->id;
 
             if($shop->save()){
@@ -152,6 +157,9 @@ class ShopController extends Controller
                 $shop->shipping_cost = $request->shipping_cost;
             }
             $shop->address = $request->address;
+
+            $shop->location=implode('!!', $request['location']);
+
             $shop->slug = preg_replace('/\s+/', '-', $request->name).'-'.$shop->id;
 
             $shop->meta_title = $request->meta_title;

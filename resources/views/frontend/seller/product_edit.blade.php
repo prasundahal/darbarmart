@@ -161,7 +161,7 @@
                                     <div class="text-right">
                                         <button type="button" class="btn btn-info mb-3" onclick="add_more_slider_image()">{{ __('Add More') }}</button>
                                     </div>
-                                    <div class="row">
+                                    {{-- <div class="row">
                                         <div class="col-md-2">
                                             <label>{{__('Thumbnail Image')}} <small>(290x300)</small> <span class="required-star">*</span></label>
                                         </div>
@@ -186,7 +186,7 @@
                                                 </strong>
                                             </label>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="row">
                                         <div class="col-md-2">
                                             <label>{{__('Featured')}} <small>(290x300)</small></label>

@@ -41,8 +41,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card no-border mt-4">
-                        <table class="table table-sm table-hover table-responsive-md">
+                    <div class="card no-border mt-4 table-responsive">
+                        <table class="table table-sm table-hover ">
                             <thead>
                                 <tr>
                                     <th>{{ __('Ticket ID') }}</th>

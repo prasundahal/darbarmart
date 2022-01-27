@@ -43,7 +43,7 @@
 
     <section class="gry-bg pt-4 ">
         <div class="container">
-            <div class="row align-items-baseline">
+            <div class="row">
                 <div class="col-md-6">
                     <div class="d-flex">
                         <img height="70" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($shop->logo) }}" alt="Shop Logo">
