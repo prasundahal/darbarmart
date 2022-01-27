@@ -140,6 +140,7 @@ class ProductController extends Controller
             foreach ($request->photos as $key => $photo) {
                 $path = $photo->store('uploads/products/photos');
                 $thumbnail_path = $photo->store('uploads/products/thumbnail');
+                Image::make(public_path($path))->resize(750,750)->save();
 
                 Image::make(public_path($thumbnail_path))->resize(100,100)->save();
 
@@ -396,6 +397,8 @@ class ProductController extends Controller
             foreach ($request->photos as $key => $photo) {
                 $path = $photo->store('uploads/products/photos');
                 $thumbnail_path = $photo->store('uploads/products/thumbnail');
+
+                Image::make(public_path($path))->resize(750,750)->save();
                 Image::make(public_path($thumbnail_path))->resize(100,100)->save();
 
 
