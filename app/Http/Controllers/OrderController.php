@@ -456,6 +456,28 @@ class OrderController extends Controller
         return back();
     }
 
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->ids;
+        $exploded_ids = explode(",", $ids);
+        foreach($exploded_ids as $dataId){
+            $this->__deleteRelatedOrderDetails($dataId);
+        }
+        DB::table('orders')->whereIn('id', explode(",", $ids))->delete();
+        return response()->json(['success' => "Orders Deleted successfully"]);
+    }
+
+
+    public function bulkInvoiceDownload(Request $request)
+    {
+        $ids = $request->ids;
+        $exploded_ids = explode(",", $ids);
+        foreach($exploded_ids as $dataId){
+            $this->__downloadInvoice($dataId);
+        }
+        return response()->json(['success' => 'Invoice downloaded successfully']);
+    }
+
     public function order_details(Request $request)
     {
         $order = Order::findOrFail($request->order_id);
@@ -626,5 +648,31 @@ class OrderController extends Controller
             }
         }
         return 1;
+    }
+
+    private function __deleteRelatedOrderDetails($id)
+    {
+        $order = Order::where('id', $id)->with('orderDetails')->first();
+        if(!empty($order->orderDetails)){
+            $order->orderDetails()->delete();
+        }
+    }
+
+
+    private function __downloadInvoice($id)
+    {
+        $order = Order::findOrFail($id);
+        $pdf = PDF::setOptions([
+                        'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
+                        'logOutputFile' => storage_path('logs/log.htm'),
+                        'tempDir' => storage_path('logs/')
+                    ])->loadView('invoices.seller_invoice', compact('order'));
+        $path = public_path('invoice/pdf/');
+        $filename = 'order-'.$order->code.'.pdf';
+        $pdf->save($path.$filename);
+        $pdf = public_path('invoice/pdf/'.$filename);
+        // dd($pdf);
+        return response()->download($pdf);
+        // return $pdf->download('order-'.$order->code.'.pdf');
     }
 }

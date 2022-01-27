@@ -195,6 +195,7 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::post('/products/store/','ProductController@store')->name('products.store');
 	Route::post('/products/update/{id}','ProductController@update')->name('products.update');
 	Route::get('/products/destroy/{id}', 'ProductController@destroy')->name('products.destroy');
+	Route::get('/product-bulk-delete/', 'ProductController@bulkDelete')->name('products.bulkDelete');
 	Route::get('/products/duplicate/{id}', 'ProductController@duplicate')->name('products.duplicate');
 	Route::post('/products/sku_combination', 'ProductController@sku_combination')->name('products.sku_combination');
 	Route::post('/products/sku_combination_edit', 'ProductController@sku_combination_edit')->name('products.sku_combination_edit');
