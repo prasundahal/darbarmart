@@ -1,5 +1,6 @@
 @extends('frontend.layouts.app')
 
+
 @section('content')
     <section class="gry-bg py-4 profile">
         <div class="container">
@@ -26,6 +27,7 @@
                             @else
                                 {{ $conversation->sender->name }}
                             @endif
+                            <br>
                             <br>
                             @if ($conversation->sender_id == Auth::user()->id && $conversation->receiver->shop != null)
                                 <a href="{{ route('shop.visit', $conversation->receiver->shop->slug) }}">{{ $conversation->receiver->shop->name }}</a>

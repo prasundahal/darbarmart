@@ -92,7 +92,7 @@
                                                 }
                                             }
                                             else{
-                                                $qty = 0 ;
+                                                $qty = $detailedProduct->current_stock ;
                                             }
                                         @endphp
                                         @if ($qty > 0)
@@ -255,6 +255,7 @@
                                                     </button>
                                                 </span>
                                             </div>
+                                            {{-- {{ $qty }} --}}
                                             <div class="avialable-amount">(<span id="available-quantity">{{ $qty }}</span> {{__('available')}})</div>
                                         </div>
                                     </div>
