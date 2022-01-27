@@ -332,11 +332,16 @@
                         data: {
                             'ids': join_checked_values
                         },
+                        beforeSend: function()
+                        {
+                            $(".myoverlay").css('display', 'block');
+                        },
                         success: function(data) {
                             if (data['success']) {
                                 $(".rowCheck:checked").each(function() {
                                     $(this).parents("tr").remove();
                                 });
+                                $(".myoverlay").css('display', 'none');
                                 alert(data['success']);
                                 location.href = data.redirectTo;
                             } else if (data['error']) {
