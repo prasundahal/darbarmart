@@ -213,10 +213,10 @@ class OrderController extends Controller
 
             //Calculate Shipping Cost
             if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'flat_rate') {
-                
+
                 $shipping = \App\BusinessSetting::where('type', 'flat_rate_shipping_cost')->first()->value;
             } elseif (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'seller_wise_shipping') {
-                
+
                 foreach (Session::get('cart') as $key => $cartItem) {
                     $product = \App\Product::find($cartItem['id']);
                     if ($product->added_by == 'admin') {
@@ -244,7 +244,7 @@ class OrderController extends Controller
             foreach (Session::get('cart') as $key => $cartItem) {
                 $product = Product::find($cartItem['id']);
                 $userType = User::where('id', $product->user_id)->first()->user_type;
-                
+
                 $product_ids = array();
                 if (array_key_exists($product->user_id, $seller_products)) {
                     $product_ids = $seller_products[$product->user_id];
@@ -255,9 +255,9 @@ class OrderController extends Controller
                 $tax += $cartItem['tax'] * $cartItem['quantity'];
 
                 $product_variation = $cartItem['variant'];
-               
+
                 if ($product_variation != null) {
-                    
+
                     $product_stock = $product->stocks->where('variant', $product_variation)->first();
                     $product_stock->qty -= $cartItem['quantity'];
                     $product_stock->save();
@@ -320,7 +320,7 @@ class OrderController extends Controller
             }
 
             $order->save();
-            
+
             set_time_limit(1500);
             //stores the pdf for invoice
             $pdf = PDF::setOptions([
@@ -338,7 +338,6 @@ class OrderController extends Controller
             $data['file'] = public_path('invoices/' . 'Order#' . $order->code . '.pdf');
             // $data['file'] = 'public/invoices/Order#'.$order->code.'.pdf';
             $data['file_name'] = 'Order#' . $order->code . '.pdf';
-            
 
             // dd($seller_products);
             foreach ($seller_products as $key => $seller_product) {
@@ -358,7 +357,7 @@ class OrderController extends Controller
                     $array['content'] = 'Hello. A new order has been placed. Please check the attached invoice.';
                     $array['file'] = public_path('invoices/seller/' . 'Order#' . $order->code . '.pdf');
                     $array['file_name'] = 'Order#' . $order->code . '.pdf';
-                    
+
                     Mail::to($user->email)->send(new InvoiceEmailManager($array));
                     unlink($array['file']);
                 } catch (\Exception $e) {
@@ -460,22 +459,29 @@ class OrderController extends Controller
     {
         $ids = $request->ids;
         $exploded_ids = explode(",", $ids);
-        foreach($exploded_ids as $dataId){
+        foreach ($exploded_ids as $dataId) {
             $this->__deleteRelatedOrderDetails($dataId);
         }
         DB::table('orders')->whereIn('id', explode(",", $ids))->delete();
         return response()->json(['success' => "Orders Deleted successfully"]);
     }
 
-
     public function bulkInvoiceDownload(Request $request)
     {
         $ids = $request->ids;
         $exploded_ids = explode(",", $ids);
-        foreach($exploded_ids as $dataId){
-            $this->__downloadInvoice($dataId);
-        }
-        return response()->json(['success' => 'Invoice downloaded successfully']);
+        $orders = Order::whereIn('id', (array) $exploded_ids)->get();
+        $pdf = PDF::setOptions([
+            'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/'),
+        ])->loadView('invoices.multiple_invoice', compact('orders'));
+        $path = public_path('invoice/pdf/');
+        $filename = 'orderInvoice.pdf';
+        $pdf->save($path . $filename);
+        $pdf = public_path('invoice/pdf/' . $filename);
+        return response()->download($pdf);
+        // return response()->json(['success' => 'Invoice downloaded successfully']);
     }
 
     public function order_details(Request $request)
@@ -502,11 +508,11 @@ class OrderController extends Controller
                 $orderDetail->save();
             }
         }
-        if($order && $orderDetail){
-            try{
+        if ($order && $orderDetail) {
+            try {
                 $order_code = $order->code;
                 $delivery_status = $orderDetail->delivery_status;
-                switch($delivery_status){
+                switch ($delivery_status) {
                     case 'pending':
                         $delivery_stat = 'Pending';
                         break;
@@ -516,21 +522,21 @@ class OrderController extends Controller
                     case 'on_delivery':
                         $delivery_stat = 'On Delivery Process';
                         break;
-                    case 'delivered': 
+                    case 'delivered':
                         $delivery_stat = 'Delivered';
                         break;
                     default:
                         $delivery_stat = 'On Process';
                         break;
                 }
-            
+
                 $data['view'] = 'emails.delivery_status';
-                $data['subject'] = 'Order Status - '.$order_code;
+                $data['subject'] = 'Order Status - ' . $order_code;
                 $data['from'] = Config::get('mail.username');
-                $data['content'] = 'Your order '. $order_code . ' is '.$delivery_stat;
-                $this_user = DB::select('SELECT email FROM users WHERE id = "'. $order->user_id .'"');
+                $data['content'] = 'Your order ' . $order_code . ' is ' . $delivery_stat;
+                $this_user = DB::select('SELECT email FROM users WHERE id = "' . $order->user_id . '"');
                 Mail::to($this_user[0]->email)->send(new CustomerEmail($data));
-            } catch(\Exception $e){
+            } catch (\Exception $e) {
 
             }
         }
@@ -653,24 +659,23 @@ class OrderController extends Controller
     private function __deleteRelatedOrderDetails($id)
     {
         $order = Order::where('id', $id)->with('orderDetails')->first();
-        if(!empty($order->orderDetails)){
+        if (!empty($order->orderDetails)) {
             $order->orderDetails()->delete();
         }
     }
-
 
     private function __downloadInvoice($id)
     {
         $order = Order::findOrFail($id);
         $pdf = PDF::setOptions([
-                        'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
-                        'logOutputFile' => storage_path('logs/log.htm'),
-                        'tempDir' => storage_path('logs/')
-                    ])->loadView('invoices.seller_invoice', compact('order'));
+            'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/'),
+        ])->loadView('invoices.multiple_invoice', compact('order'));
         $path = public_path('invoice/pdf/');
-        $filename = 'order-'.$order->code.'.pdf';
-        $pdf->save($path.$filename);
-        $pdf = public_path('invoice/pdf/'.$filename);
+        $filename = 'order-' . $order->code . '.pdf';
+        $pdf->save($path . $filename);
+        $pdf = public_path('invoice/pdf/' . $filename);
         // dd($pdf);
         return response()->download($pdf);
         // return $pdf->download('order-'.$order->code.'.pdf');

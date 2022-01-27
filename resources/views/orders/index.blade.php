@@ -47,8 +47,8 @@
                     </div>
                 </form>
                 <button class="btn btn-primary" id="bulkDelBtn" onclick="deleteBulkData();">Delete</button>
-                {{-- <button class="btn btn-primary" id="bulkDownloadBtn" onclick="downloadBulkInvoice();">Download
-                    Invoice</button> --}}
+                <button class="btn btn-primary" id="bulkDownloadBtn" onclick="downloadBulkInvoice();">Download
+                    Invoice</button>
             </div>
         </div>
         <div class="panel-body">
@@ -202,12 +202,18 @@
                         data: {
                             'ids': join_checked_values
                         },
+                        beforeSend: function() {
+                            $(".myoverlay").css('display', 'block');
+                        },
                         success: function(data) {
                             if (data['success']) {
                                 $(".rowCheck:checked").each(function() {
                                     $(this).parents("tr").remove();
                                 });
+                                $(".myoverlay").css('display', 'none');
                                 alert(data['success']);
+                                
+                               
                             } else if (data['error']) {
                                 alert(data['error']);
                             } else {
@@ -216,6 +222,9 @@
                         },
                         error: function(data) {
                             alert(data.responseText);
+                        },
+                        complete: function() {
+
                         }
                     });
                     $.each(allIds, function(index, value) {
@@ -244,33 +253,31 @@
                         data: {
                             'ids': join_checked_values
                         },
-                        // xhrFields: {
-                        //     responseType: 'blob',
-                        // },
+                        xhrFields: {
+                            responseType: 'blob',
+                        },
+                        beforeSend: function() {
+                            $(".myoverlay").css('display', 'block');
+                        },
                         success: function(data) {
-                            console.log(data);
                             var blob = new Blob([data], {
                                 type: 'application/pdf'
                             });
                             console.log(blob);
                             var link = document.createElement('a');
                             link.href = window.URL.createObjectURL(blob);
-                            link.download = "Sample.pdf";
+                            link.download = "OrderInvoices.pdf";
                             link.click();
-                            // downloadPdf(data);
-                            // $(".rowCheck:checked").each(function(){
-                            //     $(this).parents("tr").remove();
-                            // });
-                            // alert(data['success']);
-
+                           
+                            $(".myoverlay").css('display', 'none');
+                            alert('Invoice has been downloaded successfully');
+                            $(".rowCheck").prop('checked', false);
                         },
                         error: function(data) {
-                            // alert(data.responseText);
+
                         }
                     });
-                    // $.each(allIds, function(index, value){
-                    //     $('table tr').filter("[data-row-id='"+ value +"']").remove();
-                    // });
+
                 }
             }
         }
