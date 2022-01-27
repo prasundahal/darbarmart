@@ -49,7 +49,7 @@
                 @php
                     $generalsetting = \App\GeneralSetting::first();
                 @endphp
-                <div class="col-lg-3  text-center text-md-left">
+                <div class="col-lg-3  text-center text-md-left mb-3 mb-md-0">
                     <div class="col">
                         <a href="{{ route('home') }}" class="d-block">
                             @if($generalsetting->logo != null)
@@ -59,7 +59,23 @@
                             @endif
                         </a>
                         <p class="mt-3">{{ $generalsetting->description }}</p>
-                        <ul class="text-center my-3 my-md-0 social-nav model-2 d-flex">
+                        <ul class="footer-links contact-widget mb-3">
+                            <li>
+                               <span class="d-block opacity-5">{{__('Address')}}:</span>
+                               <span class="d-block">{{ $generalsetting->address }}</span>
+                            </li>
+                            <li>
+                               <span class="d-block opacity-5">{{__('Phone')}}:</span>
+                               <span class="d-block">{{ $generalsetting->phone }}</span>
+                            </li>
+                            <li>
+                               <span class="d-block opacity-5">{{__('Email')}}:</span>
+                               <span class="d-block">
+                                   <a href="mailto:{{ $generalsetting->email }}">{{ $generalsetting->email  }}</a>
+                                </span>
+                            </li>
+                        </ul>
+                        <ul class="text-center my-3 my-md-0 social-nav model-2 d-flex justify-content-md-start justify-content-center">
                             @if ($generalsetting->facebook != null)
                                 <li>
                                     <a href="{{ $generalsetting->facebook }}" class="facebook" target="_blank" data-toggle="tooltip" data-original-title="Facebook">
@@ -98,30 +114,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-3 ">
-                    <div class="col text-center text-md-left">
-                        <h4 class="heading heading-xs strong-600 text-uppercase mb-2">
-                            {{__('Contact Info')}}
-                        </h4>
-                        <ul class="footer-links contact-widget">
-                            <li>
-                               <span class="d-block opacity-5">{{__('Address')}}:</span>
-                               <span class="d-block">{{ $generalsetting->address }}</span>
-                            </li>
-                            <li>
-                               <span class="d-block opacity-5">{{__('Phone')}}:</span>
-                               <span class="d-block">{{ $generalsetting->phone }}</span>
-                            </li>
-                            <li>
-                               <span class="d-block opacity-5">{{__('Email')}}:</span>
-                               <span class="d-block">
-                                   <a href="mailto:{{ $generalsetting->email }}">{{ $generalsetting->email  }}</a>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 ">
+                <div class="col-lg-3 mb-4 mb-md-0">
                     <div class="col text-center text-md-left">
                         <h4 class="heading heading-xs strong-600 text-uppercase mb-2">
                             {{__('Useful Link')}}
@@ -137,14 +130,12 @@
                         </ul>
                     </div>
                 </div>
-
-                <div class=" col-lg-3 ">
+                <div class="col-lg-3 mb-4 mb-md-0">
                     <div class="col text-center text-md-left">
-                       <h4 class="heading heading-xs strong-600 text-uppercase mb-2">
-                          {{__('My Account')}}
-                       </h4>
-
-                       <ul class="footer-links">
+                        <h3 class="heading heading-xs strong-600 text-uppercase mb-2">
+                        {{__('My Account')}}
+                        </h3>
+                        <ul class="footer-links">
                             @if (Auth::check())
                                 <li>
                                     <a href="{{ route('logout') }}" title="Logout">
@@ -175,15 +166,21 @@
                             </li>
                         </ul>
                     </div>
+                </div>
+               
+
+                <div class=" col-lg-3 ">
+                    <div class="col text-center text-md-left">
+                       <h4 class="heading heading-xs strong-600 text-uppercase mb-2">
+                          {{__('News Letter')}}
+                       </h4>
+
+                   
+                    </div>
                     @if (\App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
                         <div class="col text-center text-md-left">
                             <div class="mt-4">
-                                <h4 class="heading heading-xs strong-600 text-uppercase mb-2">
-                                    {{__('Be a Seller')}}
-                                </h4>
-                                <a href="{{ route('shops.create') }}" class="btn btn-base-1 btn-icon-left mb-3">
-                                    {{__('Apply Now')}}
-                                </a>
+                                
                                 <div class="d-inline-block d-md-block">
                             <form class="form-inline" method="POST" action="{{ route('subscribers.store') }}">
                                 @csrf

@@ -43,7 +43,7 @@
 
     <section class="gry-bg pt-4 ">
         <div class="container">
-            <div class="row align-items-baseline">
+            <div class="row ">
                 <div class="col-md-6">
                     <div class="d-flex">
                         <img
@@ -73,7 +73,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <ul class="text-md-right mt-4 mt-md-0 social-nav model-2">
+                    <ul class="text-md-right mt-4 mt-md-0 social-nav model-2 d-flex justify-md-content-end justify-content-center align-items-center h-100">
                         @if ($shop->facebook != null)
                             <li>
                                 <a href="{{ $shop->facebook }}" class="facebook social_a" target="_blank" data-toggle="tooltip" data-original-title="Facebook">

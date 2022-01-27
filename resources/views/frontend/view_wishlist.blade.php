@@ -48,8 +48,10 @@
                                                     </a>
                                                 </div>
 
-                                                <h2 class="heading heading-6 strong-600 mt-2 text-truncate-2">
-                                                    <a href="{{ route('product', $wishlist->product->slug) }}">{{ $wishlist->product->name }}</a>
+                                                <h2 class="heading heading-6 strong-600 mt-2 text-truncate-2 d-flex justify-content-between">
+                                                    <a href="{{ route('product', $wishlist->product->slug) }}">{{ $wishlist->product->name }}</a> <span>       <a href="#" class="link link--style-3" data-toggle="tooltip" data-placement="top" title="Remove from wishlist" onclick="removeFromWishlist({{ $wishlist->id }})">
+                                                                <i class="la la-close"></i>
+                                                            </a></span>
                                                 </h2>
                                                 <div class="star-rating star-rating-sm mb-1">
                                                     {{ renderStarRating($wishlist->product->rating) }}
@@ -66,16 +68,12 @@
                                             <div class="card-footer p-3">
                                                 <div class="product-buttons">
                                                     <div class="row align-items-center">
-                                                        <div class="col-2">
-                                                            <a href="#" class="link link--style-3" data-toggle="tooltip" data-placement="top" title="Remove from wishlist" onclick="removeFromWishlist({{ $wishlist->id }})">
-                                                                <i class="la la-close"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-10">
+                                                    <div class="col-8 mx-auto">
                                                             <button type="button" class="btn btn-block btn-base-1 btn-circle btn-icon-left" onclick="showAddToCartModal({{ $wishlist->product->id }})">
                                                                 <i class="la la-shopping-cart mr-2"></i>{{__('Add to cart')}}
                                                             </button>
-                                                        </div>
+    
+                                              
                                                     </div>
                                                 </div>
                                             </div>

@@ -1,12 +1,12 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-    <section class="gry-bg py-4">
-        <div class="profile">
+    <section class="gry-bg">
+        <div class="profile registration">
             <div class="container">
                 <div class="row">
                     <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-8 mx-auto">
-                        <div class="card">
+                        <div class="card border-0">
                             <div class="text-center px-35 pt-5">
                                 <h1 class="heading heading-4 strong-500">
                                     {{__('Create an account.')}}
@@ -149,7 +149,7 @@
                             </div>
                             <div class="text-center px-35 pb-3">
                                 <p class="text-md">
-                                    {{__('Already have an account?')}}<a href="{{ route('user.login') }}" class="strong-600">{{__('Log In')}}</a>
+                                    {{__('Already have an account?')}}<a href="{{ route('user.login') }}" class="strong-600 pl-1">{{__('Log In')}}</a>
                                 </p>
                             </div>
                         </div>

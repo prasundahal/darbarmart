@@ -79,8 +79,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <table class="table table-sm table-hover table-responsive-md">
+                            <div class="card-body table-responsive">
+                                <table class="table table-sm table-hover ">
                                     <thead>
                                         <tr>
                                             <th>#</th>

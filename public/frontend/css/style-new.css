@@ -486,6 +486,8 @@ a.top_btn i.fa.fa-angle-up {
     font-size: 15px;
     padding: 10px 13px;
     display: block;
+    color: white;
+    z-index: 999;
 }
 .button_chat {
     background: #dc3545;
@@ -531,13 +533,14 @@ span.pr-2.category_icon_img img {
     width: 46px;
     float: right;
     display: flex;
+    border: 0;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
     color: white;
     background: #dc3545;
     text-decoration: none;
-    transform: translateX(11px);
+    transform: translate(10px, -1px);
 }
 .search_input {
     color: #000;
@@ -581,6 +584,23 @@ input.search_input::placeholder {
 /* search end  */
 .menu_icon_block i {
     font-size: 18px;
+}
+.img_sag {
+    height: 24px;
+}
+.logo-bar-icons .nav-search-box .nav-box-number, .logo-bar-icons .nav-compare-box .nav-box-number, .logo-bar-icons .nav-wishlist-box .nav-box-number, .logo-bar-icons .nav-cart-box .nav-box-number {
+    position: absolute;
+    top: -6px;
+    left: 17px;
+    min-width: 20px;
+    height: 16px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    color: #fff;
+    max-width: 20px;
+    font-size: 12px;
+    height: 20px;
 }
 nav.header {
     border-bottom: 1px solid #00000036;
@@ -711,15 +731,15 @@ li.nav-item {
 }
 
 li.nav-item {
-    height: 43px;
+    /* height: 43px; */
     text-align: center;
     padding-left: 47px;
     transition: 0.5s;
-    line-height: 43px;
+    /* line-height: 43px; */
 }
 
 a.navbar-brand img {
-    height: 43px;
+    height: 53px;
     /* text-align: center; */
     /* width: 7.3rem; */
     /* transition: 0.5s; */
@@ -1060,6 +1080,7 @@ a.drop_arrow::after {
 
 nav.header {
     background: var(--white);
+    padding: 3px 0;
 }
 
 .sticky-bar {
@@ -1090,6 +1111,14 @@ nav.navbar a.nav-link:hover {
 
 /*=================================================== HEADER END  */
 
+/*=================================================== PRODUCT DETAIL START  */
+div#related_products_block img.img-fit.lazyloaded {
+    min-height: 200px;
+    max-height: 200px;
+    object-fit: fill;
+}
+/*=================================================== PRODUCT DETAIL EMD  */
+
 /*=================================================== PRODUCT LIST START  */
 .sidebar-box .box-title {
     padding: 15px;
@@ -1119,6 +1148,11 @@ nav.navbar a.nav-link:hover {
 .product_customer {
     top: -9px;
 }
+
+section#login_section .login .card .btn-styled:hover, .registration .card .btn-styled:hover {
+    color: white !important;
+    border: 1px solid white !important;
+}
 /*================================================================ RESPONSIVE CSS START  */
 @media (max-width: 1444px) {
     .searchbar {
@@ -1129,6 +1163,24 @@ nav.navbar a.nav-link:hover {
     }
 }
 @media (max-width: 769px) {
+
+/*=========== MOBILE SEARCH START  */
+.search_icon {
+    height: 44px;
+    width: 71px;
+    float: right;
+    display: flex;
+    border: 0;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: white;
+    background: #dc3545;
+    text-decoration: none;
+    transform: translate(1px, 1px);
+}
+/*=========== MOBILE SEARCH END  */
+
     section.mb-4 .product-btns.clearfix {
         position: absolute;
         top: 0;
@@ -1191,10 +1243,16 @@ nav.navbar a.nav-link:hover {
         position: absolute;
         top: 60px;
         z-index: 999;
-        left: 19px;
+        left: 50%;
         width: 100%;
         opacity: 0;
         transition: 0.9s;
+        border: 1px solid;
+        width: 85%;
+        border-color: #dc3545;
+        transform: translateX(-50%);
+        border-radius: 50px;
+        background: white;
     }
 
     /* SEARCH MOBILE END  */
@@ -1208,6 +1266,20 @@ nav.navbar a.nav-link:hover {
 
     section.home-banner-area .slick-slide {
         height: unset !important;
+    }
+    .product-box-2.alt-box:hover .product-btns {
+        left: 26px;
+        opacity: 1;
+    }
+    table {
+        table-layout: fixed;
+       
+    }
+    section#compare_page th {
+        width: 222px !important;
+    }
+     th {
+        width:110px !important;
     }
 }
 /*================================================================ RESPONSIVE CSS END  */
