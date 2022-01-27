@@ -21,9 +21,11 @@ use App\Shop;
 use App\Color;
 use App\Order;
 use App\BusinessSetting;
+use App\Coupon;
 use App\Http\Controllers\SearchController;
 use ImageOptimizer;
 use Cookie;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class HomeController extends Controller
 {
@@ -198,12 +200,16 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // $user = User::where('email', 'munirajrajbanshi5@gmail.com')->first();
+        // FacadesAuth::login($user);
+        // return view('frontend.seller.dashboard');
+
         return view('frontend.index');
     }
 
     public function flash_deal_details($slug)
     {
-        $flash_deal = FlashDeal::where('slug', $slug)->first();
+        $flash_deal = FlashDeal::where('slug', $slug)->with('flash_deal_products')->first();
         if($flash_deal != null)
             return view('frontend.flash_deal_details', compact('flash_deal'));
         else {
@@ -333,6 +339,29 @@ class HomeController extends Controller
         }
         $products = $products->paginate(10);
         return view('frontend.seller.products', compact('products', 'search'));
+    }
+
+    public function show_coupon_upload_form(Request $request)
+    {
+        return view('frontend.seller.coupon_upload');
+    }
+
+    public function show_coupon_edit_form(Request $request, $id)
+    {
+        $coupon = Coupon::findOrFail(decrypt($id));
+        return view('frontend.seller.coupon_edit', compact('coupon'));
+    }
+
+    public function seller_coupon_list(Request $request)
+    {
+        $search = null;
+        $coupons = Coupon::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc');
+        if ($request->has('search')) {
+            $search = $request->search;
+            $coupons = $coupons->where('code', 'like', '%'.$search.'%');
+        }
+        $coupons = $coupons->paginate(10);
+        return view('frontend.seller.coupons', compact('coupons', 'search'));
     }
 
     public function ajax_search(Request $request)

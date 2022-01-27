@@ -17,10 +17,19 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+        if (Auth::check()) {
+            if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff') {
+                return redirect()->route('admin.dashboard');
+            } elseif (session('link') != null) {
+                return redirect(session('link'));
+            } else {
+                return redirect()->route('dashboard');
+            }
+
         }
 
         return $next($request);
+
+        
     }
 }

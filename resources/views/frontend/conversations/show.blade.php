@@ -1,5 +1,6 @@
 @extends('frontend.layouts.app')
 
+
 @section('content')
     <section class="gry-bg py-4 profile">
         <div class="container">
@@ -16,7 +17,7 @@
                     <div class="main-content">
                         <!-- Page title -->
                         <div class="card no-border p-3">
-                            <h2 class="heading heading-6 text-capitalize strong-600 mb-0 d-inline-block">
+                            <h2 class="heading heading-6 text-capitalize strong-600 mb-0 d-inline-block" onclick="window.location.href = '{{ route('product', $conversation->product->slug) }}'" style="cursor:pointer;">
                                 {{ $conversation->title }}
                             </h2>
                             <br>
@@ -26,6 +27,7 @@
                             @else
                                 {{ $conversation->sender->name }}
                             @endif
+                            <br>
                             <br>
                             @if ($conversation->sender_id == Auth::user()->id && $conversation->receiver->shop != null)
                                 <a href="{{ route('shop.visit', $conversation->receiver->shop->slug) }}">{{ $conversation->receiver->shop->name }}</a>
@@ -88,7 +90,7 @@
                                     <input type="hidden" name="conversation_id" value="{{ $conversation->id }}">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <textarea class="form-control" rows="4" name="message" placeholder="Type your reply" required></textarea>
+                                            <textarea id="message" class="form-control" rows="4" name="message" placeholder="Type your reply" required></textarea>
                                         </div>
                                     </div>
                                     <div class="text-right">
@@ -106,6 +108,17 @@
 
 @section('script')
     <script type="text/javascript">
+    var userType = '{{ Auth::user()->user_type }}';
+    if(userType == 'seller'){
+        $('#message').on('keyup', function(){
+            var message = $(this).val();
+            var pattern = '/(977[0-9]{10})|(977-[0-9]{10})|(\+977[0-9]{10})|(\+977-[0-9]{10})|([0-9]{10})/g';
+            message = message.replace(/(\+977)|(\+977-)|(977[0-9]{10})|(977-[0-9]{10})|(\+977[0-9]{10})|(\+977-[0-9]{10})|([0-9]{10})/g, '');
+            $(this).val(message);
+            $(this).focus();
+        })
+    }
+    
     function refresh_messages(){
         $.post('{{ route('conversations.refresh') }}', {_token:'{{ @csrf_token() }}', id:'{{ encrypt($conversation->id) }}'}, function(data){
             $('#messages').html(data);

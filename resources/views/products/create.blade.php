@@ -95,6 +95,16 @@
 							</div>
 						</div>
 					@endif
+
+					<div class="form-group">
+						<label for="made_in_nepal" class="col-lg-2 control-label">{{ __('Made in Nepal') }}</label>
+						<div class="col-lg-7">
+							<label class="switch" style="margin-top: 5px;">
+								<input type="checkbox" name="made_in_nepal">
+								<span class="slider round"></span>
+							</label>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="panel">
@@ -362,14 +372,14 @@
 							<textarea name="meta_description" rows="8" class="form-control"></textarea>
 						</div>
 					</div>
-					<div class="form-group">
+					{{-- <div class="form-group">
 						<label class="col-lg-2 control-label">{{ __('Meta Image') }}</label>
 						<div class="col-lg-7">
 							<div id="meta_photo">
 
 							</div>
 						</div>
-					</div>
+					</div> --}}
 				</div>
 			</div>
 			<div class="mar-all text-right">

@@ -257,6 +257,7 @@
                                                     </button>
                                                 </span>
                                             </div>
+                                            {{-- {{ $qty }} --}}
                                             <div class="avialable-amount">(<span id="available-quantity">{{ $qty }}</span> {{__('available')}})</div>
                                         </div>
                                     </div>

@@ -118,7 +118,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="img">
-                                                    <img class="lazyload img-fit" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->flash_deal_img) }}" alt="{{ __($product->name) }}">
+                                                    <img class="lazyload img-fit" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->flash_deal_img) }}" alt="{{ __($product->name . '-' . $product->unit_price) }}">
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -161,19 +161,19 @@
                 </div>
                 <div class="caorusel-box arrow-round gutters-5">
                     <div class="slick-carousel" data-slick-items="6" data-slick-xl-items="5" data-slick-lg-items="4"  data-slick-md-items="3" data-slick-sm-items="2" data-slick-xs-items="2">
-                        @foreach ($flash_deal->flash_deal_products as $key => $flash_deal_product)
-                            @php
-                                $product = \App\Product::find($flash_deal_product->product_id);
-                            @endphp
-                            @if ($product != null && $product->published != 0)
-                                <div class="caorusel-card" id="product_block_men">
-                                    <div class="product-card-2 card card-product shop-cards text-center">
-                                        <div class="card-body p-0">
-                                            <div class="card-image">
-                                                <a href="{{ route('product', $product->slug) }}" class="d-block">
-                                                    <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name) }}">
-                                                </a>
-                                            </div>
+                    @foreach ($flash_deal->flash_deal_products as $key => $flash_deal_product)
+                        @php
+                            $product = \App\Product::find($flash_deal_product->product_id);
+                        @endphp
+                        @if ($product != null && $product->published != 0)
+                            <div class="caorusel-card">
+                                <div class="product-card-2 card card-product shop-cards">
+                                    <div class="card-body p-0">
+                                        <div class="card-image">
+                                            <a href="{{ route('product', $product->slug) }}" class="d-block">
+                                                <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                            </a>
+                                        </div>
 
                                             <div class="p-md-3 p-2">
                                                 <div class="price-box">
@@ -221,12 +221,13 @@
 
     <div class="mb-4 ">
         <div class="container">
-            <div class="row gutters-10 slick_banner">
-                @foreach (\App\Banner::where('position', 1)->where('published', 1)->get() as $key => $banner)
-                    <div class="col-lg-{{ 12/count(\App\Banner::where('position', 1)->where('published', 1)->get()) }}">
+            <div class="row gutters-10">
+                {{-- {{ dd(\App\FlashDeal::all()) }} --}}
+                @foreach (\App\FlashDeal::all() as $key => $flashdeal)
+                    <div class="col-lg-4">
                         <div class="media-banner mb-3 mb-lg-0">
-                            <a href="{{ $banner->url }}" target="_blank" class="banner-container banner_block">
-                                <img src="{{ asset('frontend/images/placeholder-rect.jpg') }}" data-src="{{ asset($banner->photo) }}" alt="{{ env('APP_NAME') }} promo" class="img-fluid lazyload w-100">
+                            <a href="{{ route('flash-deal-details', $flashdeal->slug) }}" target="_blank" class="banner-container">
+                                <img src="{{ asset($flashdeal->banner) }}" data-src="{{ asset($flashdeal->banner) }}" alt="{{ env('APP_NAME') }} promo" class="img-fluid lazyload">
                             </a>
                         </div>
                     </div>

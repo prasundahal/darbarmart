@@ -157,7 +157,7 @@
 
                                                 <div class="card-image">
                                                     <a href="{{ route('product', $product->slug) }}" class="d-block">
-                                                        <img  class="mx-auto img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name) }}">
+                                                        <img  class="mx-auto img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price) }}">
                                                     </a>
                                                 </div>
 
@@ -220,7 +220,7 @@
                         <div class="card product-box-1 mb-3">
                             <div class="card-image">
                                 <a href="{{ route('product', $product->slug) }}" class="d-block text-center">
-                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->thumbnail_img) }}" alt="{{ __($product->name) }}">
+                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->thumbnail_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
                                 </a>
                             </div>
                             <div class="card-body p-0">

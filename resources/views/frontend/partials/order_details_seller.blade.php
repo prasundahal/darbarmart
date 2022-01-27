@@ -219,6 +219,7 @@
         var order_id = {{ $order->id }};
         var status = $('#update_delivery_status').val();
         $.post('{{ route('orders.update_delivery_status') }}', {_token:'{{ @csrf_token() }}',order_id:order_id,status:status}, function(data){
+            // return true;
             $('#order_details').modal('hide');
             showFrontendAlert('success', 'Order status has been updated');
             location.reload().setTimeOut(500);

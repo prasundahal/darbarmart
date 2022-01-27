@@ -172,6 +172,16 @@ Route::group(['prefix' =>'seller', 'middleware' => ['seller', 'verified']], func
 	Route::get('/products', 'HomeController@seller_product_list')->name('seller.products');
 	Route::get('/product/upload', 'HomeController@show_product_upload_form')->name('seller.products.upload');
 	Route::get('/product/{id}/edit', 'HomeController@show_product_edit_form')->name('seller.products.edit');
+
+	Route::get('/coupons', 'HomeController@seller_coupon_list')->name('seller.coupons');
+	Route::get('/coupon/upload', 'HomeController@show_coupon_upload_form')->name('seller.coupon.upload');
+	Route::post('/coupon/get_form', 'CouponController@get_coupon_form')->name('seller.coupon.get_coupon_form');
+	Route::post('/coupon/get_form_edit', 'CouponController@get_coupon_form_edit')->name('seller.coupon.get_coupon_form_edit');
+	Route::post('/coupon', 'CouponController@store')->name('seller.coupon.store');
+	Route::patch('/coupon/{id}', 'CouponController@update')->name('seller.coupon.update');
+	Route::get('/coupon/{id}/edit', 'HomeController@show_coupon_edit_form')->name('seller.coupon.edit');
+	Route::get('/coupon/destroy/{id}', 'CouponController@destroy')->name('seller.coupon.destroy');
+
 	Route::resource('payments','PaymentController');
 
 	Route::get('/shop/apply_for_verification', 'ShopController@verify_form')->name('shop.verify');
@@ -189,6 +199,7 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::post('/products/store/','ProductController@store')->name('products.store');
 	Route::post('/products/update/{id}','ProductController@update')->name('products.update');
 	Route::get('/products/destroy/{id}', 'ProductController@destroy')->name('products.destroy');
+	Route::get('/product-bulk-delete/', 'ProductController@bulkDelete')->name('products.bulkDelete');
 	Route::get('/products/duplicate/{id}', 'ProductController@duplicate')->name('products.duplicate');
 	Route::post('/products/sku_combination', 'ProductController@sku_combination')->name('products.sku_combination');
 	Route::post('/products/sku_combination_edit', 'ProductController@sku_combination_edit')->name('products.sku_combination_edit');

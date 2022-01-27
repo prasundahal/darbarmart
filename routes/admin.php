@@ -33,6 +33,9 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 	Route::get('/products/seller/{id}/edit','ProductController@seller_product_edit')->name('products.seller.edit');
 	Route::post('/products/todays_deal', 'ProductController@updateTodaysDeal')->name('products.todays_deal');
 	Route::post('/products/get_products_by_subsubcategory', 'ProductController@get_products_by_subsubcategory')->name('products.get_products_by_subsubcategory');
+	Route::post('/products/get_productids_by_category', 'ProductController@get_productids_by_category')->name('products.get_productids_by_category');
+	Route::post('/products/get_productids_by_seller', 'ProductController@get_productids_by_seller')->name('products.get_productids_by_seller');
+	Route::post('/product/update/qty-or-stock', 'ProductController@updatePriceOrStock')->name('products.updatePriceOrStock');
 
 	Route::resource('sellers','SellerController');
 	Route::get('/sellers/destroy/{id}', 'SellerController@destroy')->name('sellers.destroy');
@@ -126,6 +129,8 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 	Route::get('/orders/{id}/show', 'OrderController@show')->name('orders.show');
 	Route::get('/sales/{id}/show', 'OrderController@sales_show')->name('sales.show');
 	Route::get('/orders/destroy/{id}', 'OrderController@destroy')->name('orders.destroy');
+	Route::get('/orders/bulk/delete', 'OrderController@bulkDelete')->name('orders.bulkDelete');
+	Route::get('/orders/bulk/invoice/download', 'OrderController@bulkInvoiceDownload')->name('orders.downloadInvoice');
 	Route::get('/sales', 'OrderController@sales')->name('sales.index');
 
 	Route::resource('links','LinkController');
