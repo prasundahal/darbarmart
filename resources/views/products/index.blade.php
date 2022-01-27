@@ -62,6 +62,7 @@
                         </div>
                     </div>
                 </form>
+                <button class="btn btn-primary" id="bulkDelBtn" onclick="deleteBulkData();">Delete</button>
             </div>
         </div>
 
@@ -70,6 +71,7 @@
             <table class="table table-striped res-table mar-no" cellspacing="0" width="100%" id="productTable">
                 <thead>
                     <tr>
+                        <th><input type="checkbox" id="checkAll"></th>
                         <th>#</th>
                         <th width="20%">{{ __('Name') }}</th>
                         @if ($type == 'Seller')
@@ -88,6 +90,10 @@
                 <tbody>
                     @foreach ($products as $key => $product)
                         <tr>
+                            <td>
+                                <input type="checkbox" value="{{ $product->id }}" data-id="{{ $product->id }}"
+                                name="productID[]" class="rowCheck">
+                            </td>
                             <td>{{ $key + 1 + ($products->currentPage() - 1) * $products->perPage() }}</td>
                             <td>
                                 <a href="{{ route('product', $product->slug) }}" target="_blank" class="media-block">
@@ -290,5 +296,51 @@
             //     ]
             // });
         });
+
+
+        $("#checkAll").click(function() {
+            $(".rowCheck").prop('checked', $(this).prop('checked'));
+        });
+
+        function deleteBulkData() {
+            var allIds = [];
+            $(".rowCheck:checked").each(function() {
+                allIds.push($(this).val());
+            });
+            if (allIds.length <= 0) {
+                alert("Please select row.");
+            } else {
+                var check = confirm("Are you sure you want to perform bulk delete?");
+                if (check == true) {
+                    var join_checked_values = allIds.join(",");
+                    $.ajax({
+                        url: "{{ route('products.bulkDelete') }}",
+                        type: 'get',
+                        data: {
+                            'ids': join_checked_values
+                        },
+                        success: function(data) {
+                            if (data['success']) {
+                                $(".rowCheck:checked").each(function() {
+                                    $(this).parents("tr").remove();
+                                });
+                                alert(data['success']);
+                                location.href = data.redirectTo;
+                            } else if (data['error']) {
+                                alert(data['error']);
+                            } else {
+                                alert('Whoops something went wrong');
+                            }
+                        },
+                        error: function(data) {
+                            alert(data.responseText);
+                        }
+                    });
+                    // $.each(allIds, function(index, value) {
+                    //     $('table tr').filter("[data-row-id='" + value + "']").remove();
+                    // });
+                }
+            }
+        }
     </script>
 @endsection

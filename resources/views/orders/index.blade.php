@@ -47,8 +47,8 @@
                     </div>
                 </form>
                 <button class="btn btn-primary" id="bulkDelBtn" onclick="deleteBulkData();">Delete</button>
-                <button class="btn btn-primary" id="bulkDownloadBtn" onclick="downloadBulkInvoice();">Download
-                    Invoice</button>
+                {{-- <button class="btn btn-primary" id="bulkDownloadBtn" onclick="downloadBulkInvoice();">Download
+                    Invoice</button> --}}
             </div>
         </div>
         <div class="panel-body">

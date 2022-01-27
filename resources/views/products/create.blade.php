@@ -120,14 +120,14 @@
 							</div>
 						</div>
 					</div>
-					<div class="form-group">
+					{{-- <div class="form-group">
 						<label class="col-lg-2 control-label">{{__('Thumbnail Image')}} <small>(290x300)</small></label>
 						<div class="col-lg-7">
 							<div id="thumbnail_img">
 
 							</div>
 						</div>
-					</div>
+					</div> --}}
 					<div class="form-group">
 						<label class="col-lg-2 control-label">{{__('Featured')}} <small>(290x300)</small></label>
 						<div class="col-lg-7">
@@ -372,14 +372,14 @@
 							<textarea name="meta_description" rows="8" class="form-control"></textarea>
 						</div>
 					</div>
-					<div class="form-group">
+					{{-- <div class="form-group">
 						<label class="col-lg-2 control-label">{{ __('Meta Image') }}</label>
 						<div class="col-lg-7">
 							<div id="meta_photo">
 
 							</div>
 						</div>
-					</div>
+					</div> --}}
 				</div>
 			</div>
 			<div class="mar-all text-right">
