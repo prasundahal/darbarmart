@@ -66,9 +66,9 @@
                         </div>
 
                         <!-- Order history table -->
-                        <div class="card no-border mt-4">
+                        <div class="card no-border mt-4 table-responsive">
                             <div>
-                                <table class="table table-sm table-hover table-responsive-md">
+                                <table class="table table-sm ">
                                     <thead>
                                         <tr>
                                             <th>#</th>

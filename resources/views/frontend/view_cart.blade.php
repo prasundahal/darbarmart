@@ -107,7 +107,7 @@
                                             <tr class="cart-item">
                                                 <td class="product-image">
                                                     <a href="#" class="mr-3">
-                                                        <img loading="lazy"  src="{{ asset($product->thumbnail_img) }}">
+                                                        <img loading="lazy"  src="{{ asset(json_decode($product->photos)[0]) }}">
                                                     </a>
                                                 </td>
 

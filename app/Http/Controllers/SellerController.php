@@ -160,6 +160,7 @@ class SellerController extends Controller
 
     public function show_verification_request($id)
     {
+        // dd('hello');
         $seller = Seller::findOrFail($id);
         return view('sellers.verification', compact('seller'));
     }

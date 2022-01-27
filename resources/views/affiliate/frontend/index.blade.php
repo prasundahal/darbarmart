@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-    <section class="gry-bg py-4 profile">
+    <section class="gry-bg py-4 profile" id='affiliate_section'>
         <div class="container">
             <div class="row cols-xs-space cols-sm-space cols-md-space">
                 <div class="col-lg-3 d-none d-lg-block">
@@ -83,8 +83,8 @@
                             <div class="card-header py-3">
                                 <h4 class="mb-0 h6">{{__('Affiliate payment history')}}</h4>
                             </div>
-                            <div class="card-body">
-                                <table class="table table-sm table-responsive-md mb-0">
+                            <div class="card-body table-responsive">
+                                <table class="table table-sm  mb-0">
                                     <thead>
                                         <tr>
                                             <th>#</th>
