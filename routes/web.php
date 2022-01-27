@@ -168,6 +168,16 @@ Route::group(['prefix' =>'seller', 'middleware' => ['seller', 'verified']], func
 	Route::get('/products', 'HomeController@seller_product_list')->name('seller.products');
 	Route::get('/product/upload', 'HomeController@show_product_upload_form')->name('seller.products.upload');
 	Route::get('/product/{id}/edit', 'HomeController@show_product_edit_form')->name('seller.products.edit');
+
+	Route::get('/coupons', 'HomeController@seller_coupon_list')->name('seller.coupons');
+	Route::get('/coupon/upload', 'HomeController@show_coupon_upload_form')->name('seller.coupon.upload');
+	Route::post('/coupon/get_form', 'CouponController@get_coupon_form')->name('seller.coupon.get_coupon_form');
+	Route::post('/coupon/get_form_edit', 'CouponController@get_coupon_form_edit')->name('seller.coupon.get_coupon_form_edit');
+	Route::post('/coupon', 'CouponController@store')->name('seller.coupon.store');
+	Route::patch('/coupon/{id}', 'CouponController@update')->name('seller.coupon.update');
+	Route::get('/coupon/{id}/edit', 'HomeController@show_coupon_edit_form')->name('seller.coupon.edit');
+	Route::get('/coupon/destroy/{id}', 'CouponController@destroy')->name('seller.coupon.destroy');
+
 	Route::resource('payments','PaymentController');
 
 	Route::get('/shop/apply_for_verification', 'ShopController@verify_form')->name('shop.verify');

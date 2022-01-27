@@ -21,6 +21,7 @@ use App\Shop;
 use App\Color;
 use App\Order;
 use App\BusinessSetting;
+use App\Coupon;
 use App\Http\Controllers\SearchController;
 use ImageOptimizer;
 use Cookie;
@@ -337,6 +338,29 @@ class HomeController extends Controller
         }
         $products = $products->paginate(10);
         return view('frontend.seller.products', compact('products', 'search'));
+    }
+
+    public function show_coupon_upload_form(Request $request)
+    {
+        return view('frontend.seller.coupon_upload');
+    }
+
+    public function show_coupon_edit_form(Request $request, $id)
+    {
+        $coupon = Coupon::findOrFail(decrypt($id));
+        return view('frontend.seller.coupon_edit', compact('coupon'));
+    }
+
+    public function seller_coupon_list(Request $request)
+    {
+        $search = null;
+        $coupons = Coupon::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc');
+        if ($request->has('search')) {
+            $search = $request->search;
+            $coupons = $coupons->where('code', 'like', '%'.$search.'%');
+        }
+        $coupons = $coupons->paginate(10);
+        return view('frontend.seller.coupons', compact('coupons', 'search'));
     }
 
     public function ajax_search(Request $request)
