@@ -101,6 +101,14 @@
                         </span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('seller.coupons') }}" class="{{ areActiveRoutesHome(['seller.coupons', 'seller.coupon.upload', 'seller.coupon.edit'])}}">
+                        <i class="la la-diamond"></i>
+                        <span class="category-name">
+                            {{__('Coupons')}}
+                        </span>
+                    </a>
+                </li>
                 @php
                     $orders = DB::table('orders')
                                 ->orderBy('code', 'desc')
