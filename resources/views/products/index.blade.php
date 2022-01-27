@@ -81,10 +81,8 @@
                             <a href="{{ route('product', $product->slug) }}" target="_blank" class="media-block">
                                 <div class="media-left">
                                     @if ($product->photos != null)
-                                        @foreach (json_decode($product->photos) as $key => $photo)
-                                            <img loading="lazy"  class="img-md" src="{{ asset($photo)}}" alt="Image">
-                                            <?php break; ?>
-                                        @endforeach
+                                        <img loading="lazy"  class="img-md" src="{{ asset(json_decode($product->photos)[0])}}" alt="Image">
+                                            
                                     @endif 
                                 </div>
                                 <div class="media-body">{{ __($product->name) }}</div>

@@ -607,11 +607,7 @@
                                         <div class="col-12">
                                             <div class="position-relative overflow-hidden h-100">
                                                 <a href="{{ route('product', $related_product->slug) }}" class="d-block product-image h-100 text-center">
-                                                    @foreach (json_decode($related_product->photos) as $key => $photo)
-                                                        <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($photo) }}" alt="{{ __($related_product->name) }}">
-                                                        <?php break; ?>
-                                                    @endforeach
-                                                    
+                                                <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($related_product->photos)[0]) }}" alt="{{ __($related_product->name) }}">
                                                 </a>
                                             </div>
                                         </div>
@@ -735,11 +731,7 @@
                                 <div class="clearfix">
                                     <div class="product-image float-left">
                                         <a href="{{ route('product', $top_product->slug) }}">
-                                            @foreach (json_decode($top_product->photos) as $key => $photo)
-                                                <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($photo) }}" alt="{{ __($top_product->name) }}">
-                                                <?php break; ?>
-                                            @endforeach
-
+                                            <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($top_product->photos)[0]) }}" alt="{{ __($top_product->name) }}">
                                         </a>
                                     </div>
                                     <div class="product-details float-left">

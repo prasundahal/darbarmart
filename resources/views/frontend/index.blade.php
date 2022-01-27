@@ -270,12 +270,7 @@
                                        <div class="card-body p-0">
                                            <div class="card-image">
                                                <a href="{{ route('customer.product', $customer_product->slug) }}" class="d-block">
-                                                {{-- {{dd(json_decode($customer_product->photos))}} --}}
-                                                @foreach (json_decode($customer_product->photos) as $key => $photo)
-                                                <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($photo) }}" alt="{{ __($customer_product->name) }}">
-                                                <?php break; ?>
-                                                @endforeach
-                                                   
+                                                <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($customer_product->photos)[0]) }}" alt="{{ __($customer_product->name) }}">
                                                </a>
                                            </div>
 

@@ -141,18 +141,10 @@ class ProductController extends Controller
                 $path = $photo->store('uploads/products/photos');
                 $thumbnail_path = $photo->store('uploads/products/thumbnail');
 
-                // $input['imagename'] = time().'.'.$photo->getClientOriginalExtension();
-                // $destinationPath = public_path('uploads/products/thumbnail');
-                // $img = Image::make($photo->getRealPath());
-                // $img->resize(100, 100, function ($constraint) {
-                //     $constraint->aspectRatio();
-                // })->save($destinationPath.'/'.$input['imagename']);
+                Image::make(public_path($thumbnail_path))->resize(100,100)->save();
 
                 array_push($photos, $path);
                 array_push($thumb, $thumbnail_path);
-
-                // array_push($thumb, $input['imagename']);
-
 
                 //ImageOptimizer::optimize(base_path('public/').$path);
             }
@@ -404,6 +396,8 @@ class ProductController extends Controller
             foreach ($request->photos as $key => $photo) {
                 $path = $photo->store('uploads/products/photos');
                 $thumbnail_path = $photo->store('uploads/products/thumbnail');
+                Image::make(public_path($thumbnail_path))->resize(100,100)->save();
+
 
                 array_push($photos, $path);
                 array_push($thumb, $thumbnail_path);

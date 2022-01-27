@@ -107,11 +107,7 @@
                                             <tr class="cart-item">
                                                 <td class="product-image">
                                                     <a href="#" class="mr-3">
-                                                        @foreach (json_decode($product->photos) as $key => $photo)
-                                                        <img loading="lazy"  src="{{ asset($photo) }}">
-                                                        <?php break; ?>
-                                                        @endforeach
-                                                        
+                                                        <img loading="lazy"  src="{{ asset(json_decode($product->photos)[0]) }}">
                                                     </a>
                                                 </td>
 

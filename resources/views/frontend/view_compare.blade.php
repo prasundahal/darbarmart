@@ -50,11 +50,7 @@
                                                 <th scope="row">{{__('Image')}}</th>
                                                 @foreach (Session::get('compare') as $key => $item)
                                                     <td>
-                                                        @foreach (json_decode(\App\Product::find($item)->photos) as $key => $photo)
-                                                        <img loading="lazy"  src="{{ asset($photo) }}" alt="Product Image" class="img-fluid py-4">
-                                                        <?php break; ?>
-                                                    @endforeach
-
+                                                        <img loading="lazy"  src="{{ asset(json_decode(\App\Product::find($item)->photos)[0]) }}" alt="Product Image" class="img-fluid py-4">
                                                     </td>
                                                 @endforeach
                                             </tr>
