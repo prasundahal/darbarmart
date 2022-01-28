@@ -203,4 +203,17 @@ class CategoryController extends Controller
         }
         return 0;
     }
+
+    public function updateComissionRate(Request $request){
+        foreach($request->arr as $value){
+            // $category = Category::find($value['id']);
+            // if($category->commision_rate != $value['commission_rate']){
+            //     $category->commision_rate = $value['commission_rate'];
+            //     $category->save();
+            // }
+            Category::where('id', $value['id'])->update(['commision_rate'=>$value['commission_rate']]);
+        }
+        flash(__('Commission updated'))->success();
+        return back();
+    }
 }

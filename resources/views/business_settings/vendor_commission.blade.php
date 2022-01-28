@@ -51,5 +51,68 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title text-center">{{__('Commission (Category Wise)')}}</h3>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" action="{{ route('categories.update.rate') }}" method="POST">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                <label class="control-label">{{__('Status')}}</label>
+                            </div>
+                            <div class="col-lg-4">
+                                <label class="switch">
+                                    <input type="checkbox" onchange="updateSettings(this, 'category_wise_commission')" <?php if(\App\BusinessSetting::where('type', 'category_wise_commission')->first()->value == 1) echo "checked";?>>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class="col-lg-4 text-right">
+                                <button class="btn btn-purple" type="submit">{{__('Save')}}</button>
+                            </div>
+                        </div>
+                        @csrf
+                        @foreach (\App\Category::orderBy('created_at', 'desc')->get() as $key => $category)
+                            <div class="form-group">
+                                <div class="col-lg-6">
+                                    <input type="hidden" name="arr[{{ $key }}][id]" value="{{ $category->id }}">
+                                    <input type="text" class="form-control" value="{{ $category->name }}" readonly>
+                                </div>
+                                <div class="col-lg-4">
+                                    <input type="number" min="0" step="0.01" class="form-control" name="arr[{{ $key }}][commission_rate]" value="{{ $category->commision_rate }}">
+                                </div>
+                                <div class="col-lg-2">
+                                    <input type="text" class="form-control" value="%">
+                                </div>
+                            </div>
+                        @endforeach
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
+@endsection
+
+@section('script')
+    <script type="text/javascript">
+        function updateSettings(el, type){
+            if($(el).is(':checked')){
+                var value = 1;
+            }
+            else{
+                var value = 0;
+            }
+            $.post('{{ route('business_settings.update.activation') }}', {_token:'{{ csrf_token() }}', type:type, value:value}, function(data){
+                if(data == '1'){
+                    showAlert('success', 'Settings updated successfully');
+                }
+                else{
+                    showAlert('danger', 'Something went wrong');
+                }
+            });
+        }
+    </script>
 @endsection

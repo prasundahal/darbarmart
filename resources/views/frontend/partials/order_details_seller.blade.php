@@ -232,8 +232,8 @@
         $.post('{{ route('orders.update_payment_status') }}', {_token:'{{ @csrf_token() }}',order_id:order_id,status:status}, function(data){
             $('#order_details').modal('hide');
             //console.log(data);
-            showFrontendAlert('success', 'Payment status has been updated');
-            location.reload().setTimeOut(500);
+            // showFrontendAlert('success', 'Payment status has been updated');
+            // location.reload().setTimeOut(500);
         });
     });
 </script>
