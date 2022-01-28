@@ -11,32 +11,6 @@
         </div>
     @endif
 
-<<<<<<< HEAD
-    <br>
-
-    <div class="panel">
-        <!--Panel heading-->
-        <div class="panel-heading bord-btm clearfix pad-all h-100">
-            <h3 class="panel-title pull-left pad-no">{{ __($type . ' Products') }}</h3>
-            <div class="pull-right clearfix">
-                <form class="" id="sort_products" action="" method="GET">
-                    @if ($type == 'Seller')
-                        <div class="box-inline pad-rgt pull-left">
-                            <div class="select" style="min-width: 200px;">
-                                <select class="form-control demo-select2" id="user_id" name="user_id"
-                                    onchange="sort_products()">
-                                    <option value="">All Sellers</option>
-                                    @foreach (App\Seller::all() as $key => $seller)
-                                        @if ($seller->user != null && $seller->user->shop != null)
-                                            <option value="{{ $seller->user->id }}" @if ($seller->user->id == $seller_id) selected @endif>
-                                                {{ $seller->user->shop->name }} ({{ $seller->user->name }})</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    @endif
-=======
 <br>
 <div class="panel">
     <!--Panel heading-->
@@ -45,7 +19,6 @@
         <div class="pull-right clearfix">
             <form class="" id="sort_products" action="" method="GET">
                 @if($type == 'Seller')
->>>>>>> 86b13f35e78e82805349962d51202504f28502df
                     <div class="box-inline pad-rgt pull-left">
                         <div class="select" style="min-width: 200px;">
                             <select class="form-control demo-select2" name="type" id="type" onchange="sort_products()">
