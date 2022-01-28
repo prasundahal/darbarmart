@@ -640,7 +640,12 @@
                                     
                                 </ul>
                             </li>
-
+                            <li class="">
+                                <a class="nav-link" href="{{ route('state.index') }}">
+                                    <i class="fa fa-wrench"></i>
+                                    <span class="menu-title">{{__('States')}}</span>
+                                </a>
+                            </li>
 
                         @if(Auth::user()->user_type == 'admin' || in_array('15', json_decode(Auth::user()->staff->role->permissions)))
                             <li class="{{ areActiveRoutes(['addons.index', 'addons.create'])}}">
@@ -649,7 +654,7 @@
                                     <span class="menu-title">{{__('Addon Manager')}}</span>
                                 </a>
                             </li>
-                        @endif-->
+                        @endif
 
                     </ul>
                 </div>
