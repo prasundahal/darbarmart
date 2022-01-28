@@ -28,7 +28,7 @@
                         <tr>
                             <td>{{$key+1}}</td>
                             <td>{{$page->title}}</td>
-                            <td>{{ route('custom-pages.show_custom_page', $page->slug) }}</td>
+                            <td><a href="{{ route('custom-pages.show_custom_page', $page->slug) }}" target="_blank">{{ route('custom-pages.show_custom_page', $page->slug) }}</a></td>
                             <td>
                                 <div class="btn-group dropdown">
                                     <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
