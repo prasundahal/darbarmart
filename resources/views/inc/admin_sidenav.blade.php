@@ -633,7 +633,7 @@
 
                                 <!--Submenu-->
                                 <ul class="collapse">
-                                    <li class="">
+                                    <li class="{{ areActiveRoutes(['deliveryboy.index','deliveryboy.create','deliveryboy.edit'])}}">
                                         
                                         <a class="nav-link" href="{{ route('deliveryboy.index') }}"> {{__('Manage Delivery Boy')}}</a>
                                     </li>
