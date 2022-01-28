@@ -37,6 +37,11 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 	Route::post('/products/get_productids_by_seller', 'ProductController@get_productids_by_seller')->name('products.get_productids_by_seller');
 	Route::post('/product/update/qty-or-stock', 'ProductController@updatePriceOrStock')->name('products.updatePriceOrStock');
 
+	Route::group(["prefix" => "delivery-boy/", "as" => 'deliveryboy.'], function(){
+		Route::get('', 'DeliveryBoyController@index')->name('index');
+		Route::get('create', 'DeliveryBoyController@create')->name('create');
+	});
+
 	Route::resource('sellers','SellerController');
 	Route::get('/sellers/destroy/{id}', 'SellerController@destroy')->name('sellers.destroy');
 	Route::get('/sellers/view/{id}/verification', 'SellerController@show_verification_request')->name('sellers.show_verification_request');
