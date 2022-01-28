@@ -3,7 +3,7 @@
 @section('content')
         <div class="row">
             <div class="col-lg-12 pull-right">
-                <a href="{{ route('products.create') }}"
+                <a href="{{ route('deliveryboy.create') }}"
                     class="btn btn-rounded btn-info pull-right">{{ __('Add New Delivery Boy') }}</a>
             </div>
         </div>
@@ -88,11 +88,11 @@
                                 <a href="" target="_blank" class="media-block">
                                     <div class="media-left">
                                         
-                                            <img loading="lazy"  class="img-md" src="" alt="Image">
+                                            <img loading="lazy" src="{{ $delivery_boy->getAvatar($delivery_boy->avatar) }}"  class="img-md" src="" alt="Image">
                                                 
                                         
                                     </div>
-                                    <div class="media-body">{{ __($product->name) }}</div>
+                                    {{-- <div class="media-body">{{ __($product->name) }}</div> --}}
                                 </a>
                             </td>
                             <td>{{ $delivery_boy->first_name }}</td>
@@ -101,8 +101,8 @@
                             <td>{{ $delivery_boy->phone_number }}</td>
                             <td>{{ $delivery_boy->dob }}</td>
                             <td>{{ $delivery_boy->blood_group }}</td>
-                            <td>{{ __('Nepal') }}</td>
-                            <td>{{ __('Bagmati') }}</td>
+                            <td>{{ $delivery_boy->country->name }}</td>
+                            <td>{{ $delivery_boy->state->name }}</td>
                             <td>{{ $delivery_boy->vechile_name }}</td>
                             <td>{{ $delivery_boy->owner_name }}</td>
                             <td>{{ $delivery_boy->vechile_color }}</td>
@@ -118,14 +118,10 @@
                                     <ul class="dropdown-menu dropdown-menu-right">
                                        
                                             <li><a
-                                                    href="">{{ __('Edit') }}</a>
+                                                    href="{{ route('deliveryboy.edit', $delivery_boy->id) }}">{{ __('Edit') }}</a>
                                             </li>
                                         
-                                        <li>
-                                            <a
-                                                >{{ __('Delete') }}
-                                            </a>
-                                        </li>
+                                        
                                         
                                     </ul>
                                 </div>

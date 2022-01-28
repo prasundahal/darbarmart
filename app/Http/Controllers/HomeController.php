@@ -23,6 +23,7 @@ use App\Order;
 use App\BusinessSetting;
 use App\Coupon;
 use App\Http\Controllers\SearchController;
+use App\State;
 use ImageOptimizer;
 use Cookie;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
@@ -713,5 +714,12 @@ class HomeController extends Controller
         $categories = Category::where('digital', 1)->get();
         $product = Product::find(decrypt($id));
         return view('frontend.seller.digitalproducts.product_edit', compact('categories', 'product'));
+    }
+
+
+    public function getStates(Request $request)
+    {
+        $states = State::where('country_id', $request->country_id)->pluck('name', 'id');
+        return response()->json($states);
     }
 }

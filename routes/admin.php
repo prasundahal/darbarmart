@@ -11,6 +11,7 @@
 |
 */
 
+Route::post('/get-states-by-country', 'HomeController@getStates')->name('getStates')->middleware(['auth']);
 Route::get('/admin', 'HomeController@admin_dashboard')->name('admin.dashboard')->middleware(['auth', 'admin']);
 Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function(){
 	Route::resource('categories','CategoryController');
@@ -40,6 +41,16 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 	Route::group(["prefix" => "delivery-boy/", "as" => 'deliveryboy.'], function(){
 		Route::get('', 'DeliveryBoyController@index')->name('index');
 		Route::get('create', 'DeliveryBoyController@create')->name('create');
+		Route::post('store', 'DeliveryBoyController@store')->name('store');
+		Route::get('edit/{id}', 'DeliveryBoyController@edit')->name('edit');
+		Route::put('update/{id}', 'DeliveryBoyController@update')->name('update');
+	});
+	Route::group(["prefix" => "state/", "as" => 'state.'], function(){
+		Route::get('', 'StateController@index')->name('index');
+		Route::get('create', 'StateController@create')->name('create');
+		Route::post('store', 'StateController@store')->name('store');
+		Route::get('edit/{id}', 'StateController@edit')->name('edit');
+		Route::put('update/{id}', 'StateController@update')->name('update');
 	});
 
 	Route::resource('sellers','SellerController');
