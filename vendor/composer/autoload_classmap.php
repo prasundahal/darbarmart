@@ -191,6 +191,7 @@ return array(
     'App\\Http\\Resources\\WishlistCollection' => $baseDir . '/app/Http/Resources/WishlistCollection.php',
     'App\\Language' => $baseDir . '/app/Language.php',
     'App\\Link' => $baseDir . '/app/Link.php',
+    'App\\Mail\\CustomerEmail' => $baseDir . '/app/Mail/CustomerEmail.php',
     'App\\Mail\\EmailManager' => $baseDir . '/app/Mail/EmailManager.php',
     'App\\Mail\\InvoiceEmailManager' => $baseDir . '/app/Mail/InvoiceEmailManager.php',
     'App\\Message' => $baseDir . '/app/Message.php',
