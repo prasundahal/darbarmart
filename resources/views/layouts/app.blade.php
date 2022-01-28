@@ -64,6 +64,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/bootstrap.table-editable.css') }}">
     <link rel="stylesheet" href="{{ asset('toastr/toastr.min.css') }}">
+    @yield('css')
 
     <!--JAVASCRIPT-->
     <!--=================================================-->
