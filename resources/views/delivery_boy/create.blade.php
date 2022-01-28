@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/datepicker/datepicker.min.css') }}">
+@endsection
 @section('content')
     <div>
         <h1 class="page-header text-overflow">Add New Delivery Boy</h1>
@@ -59,7 +61,8 @@
                         <div class="form-group">
                             <label class="col-lg-2 control-label">{{ __('DOB') }}</label>
                             <div class="col-lg-7">
-                                <input type="text" class="form-control" value="{{ old('dob') }}" name="dob">
+                                <input type="text" class="form-control dob" value="{{ old('dob') }}" name="dob"
+                                    autocomplete="off">
                                 @error('dob')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -371,9 +374,17 @@
 @endsection
 
 @section('script')
-
+    <script src="{{ asset('js/datepicker/bootstrap-datepicker.min.js') }}"></script>
     <script>
         $(document).ready(function() {
+            $('.dob').datepicker({
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+                todayBtn: 'linked',
+                clearBtn: true,
+                autoclose: true,
+            });
+
             var country_id = "{{ old('country_id') }}";
             // log
             if (country_id != null) {
@@ -389,7 +400,7 @@
                         if (Object.keys(response).length > 0) {
                             $.each(response, function(key, value) {
                                 $option = $('<option></option>').val(key).html(value);
-                                if (key == '{{ old("state_id") }}')
+                                if (key == '{{ old('state_id') }}')
                                     $option = $option.attr("selected", "selected");
                                 $("#state").append($option);
                             });

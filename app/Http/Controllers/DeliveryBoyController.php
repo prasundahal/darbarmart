@@ -64,6 +64,7 @@ class DeliveryBoyController extends Controller
             'vechile_rc_book_no' => ['nullable', 'mimes:jpeg,png,jpg', 'max:2048'],
         ],[
             'password.required' => 'Pincode is required',
+            'password.min' => 'Pincode must be 8 character',
             'country_id.required' => 'Country field is required',
             'state_id.required' => 'State field is required',
             'driving_license_no.mimes' => 'Image support jpg, png, jpeg',
@@ -123,7 +124,7 @@ class DeliveryBoyController extends Controller
             'dob' => ['required', 'date'],
             'blood_group' => ['nullable'],
             'commission' => ['nullable'],
-            'password' => ['required', 'min:8'],
+            'password' => ['nullable', 'min:8'],
             'availability_status' => ['required'],
             'active_status' => ['required'],
             'address' => ['required'],
@@ -133,6 +134,7 @@ class DeliveryBoyController extends Controller
             'driving_license_no' => ['nullable', 'mimes:jpeg,png,jpg', 'max:2048'],
             'vechile_rc_book_no' => ['nullable', 'mimes:jpeg,png,jpg', 'max:2048'],
         ],[
+            'password.min' => 'Pincode must be 8 character',
             'country_id.required' => 'Country field is required',
             'state_id.required' => 'State field is required',
             'driving_license_no.mimes' => 'Image support jpg, png, jpeg',

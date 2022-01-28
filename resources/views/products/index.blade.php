@@ -38,6 +38,7 @@
                             </select>
                         </div>
                     </div>
+                    @endif
                     <div class="box-inline pad-rgt pull-left">
                         <div class="" style="min-width: 200px;">
                             <input type="text" class="form-control" id="search" name="search"
