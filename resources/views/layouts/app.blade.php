@@ -64,6 +64,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/bootstrap.table-editable.css') }}">
     <link rel="stylesheet" href="{{ asset('toastr/toastr.min.css') }}">
+    @yield('css')
 
     <!--JAVASCRIPT-->
     <!--=================================================-->
@@ -177,7 +178,56 @@
 </head>
 
 <body>
+    <style>
+        .myoverlay {
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 99999;
+        }
 
+        .overlay__inner {
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+
+        .overlay__content {
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .spinner {
+            width: 80px;
+            height: 80px;
+            display: inline-block;
+            border-width: 2px;
+            border-color: rgb(45 223 23 / 5%);
+            border-top-color: #16d937;
+            animation: spin 1s infinite linear;
+            border-radius: 100%;
+            border-style: solid;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+    </style>
+    <div class="myoverlay" style="display: none;">
+        <div class="overlay__inner">
+            <div class="overlay__content"><span class="spinner"></span></div>
+        </div>
+    </div>
     @foreach (session('flash_notification', collect())->toArray() as $message)
         <script type="text/javascript">
             $(document).on('nifty.ready', function() {

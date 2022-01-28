@@ -11,6 +11,7 @@
         </div>
     @endif
 
+<<<<<<< HEAD
     <br>
 
     <div class="panel">
@@ -35,6 +36,16 @@
                             </div>
                         </div>
                     @endif
+=======
+<br>
+<div class="panel">
+    <!--Panel heading-->
+    <div class="panel-heading bord-btm clearfix pad-all h-100">
+        <h3 class="panel-title pull-left pad-no">{{ __($type.' Products') }}</h3>
+        <div class="pull-right clearfix">
+            <form class="" id="sort_products" action="" method="GET">
+                @if($type == 'Seller')
+>>>>>>> 86b13f35e78e82805349962d51202504f28502df
                     <div class="box-inline pad-rgt pull-left">
                         <div class="select" style="min-width: 200px;">
                             <select class="form-control demo-select2" name="type" id="type" onchange="sort_products()">
@@ -54,6 +65,7 @@
                             </select>
                         </div>
                     </div>
+                    @endif
                     <div class="box-inline pad-rgt pull-left">
                         <div class="" style="min-width: 200px;">
                             <input type="text" class="form-control" id="search" name="search"
@@ -321,11 +333,16 @@
                         data: {
                             'ids': join_checked_values
                         },
+                        beforeSend: function()
+                        {
+                            $(".myoverlay").css('display', 'block');
+                        },
                         success: function(data) {
                             if (data['success']) {
                                 $(".rowCheck:checked").each(function() {
                                     $(this).parents("tr").remove();
                                 });
+                                $(".myoverlay").css('display', 'none');
                                 alert(data['success']);
                                 location.href = data.redirectTo;
                             } else if (data['error']) {
