@@ -39,6 +39,9 @@ Route::post('/subcategories/get_subcategories_by_category', 'SubCategoryControll
 Route::post('/subsubcategories/get_subsubcategories_by_subcategory', 'SubSubCategoryController@get_subsubcategories_by_subcategory')->name('subsubcategories.get_subsubcategories_by_subcategory');
 Route::post('/subsubcategories/get_brands_by_subsubcategory', 'SubSubCategoryController@get_brands_by_subsubcategory')->name('subsubcategories.get_brands_by_subsubcategory');
 Route::post('/subsubcategories/get_attributes_by_subsubcategory', 'SubSubCategoryController@get_attributes_by_subsubcategory')->name('subsubcategories.get_attributes_by_subsubcategory');
+Route::post('/products/get_products_by_category', 'ProductController@get_products_by_category')->name('products.get_products_by_category');
+Route::post('/sellers/get_sellers_by_product', 'SellerController@get_sellers_by_product')->name('sellers.get_sellers_by_product');
+
 
 //Home Page
 Route::get('/', 'HomeController@index')->name('home');

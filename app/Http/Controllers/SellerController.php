@@ -212,4 +212,11 @@ class SellerController extends Controller
         }
         return 0;
     }
+
+    // public function get_sellers_by_product(Request $request)
+    // {
+    //     $sellers = Product::where('id', $request->product_id)->pluck('user_id');
+        
+    //     return $sellers;
+    // }
 }
