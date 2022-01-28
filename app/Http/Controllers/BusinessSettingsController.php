@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Currency;
 use App\BusinessSetting;
+use App\Category;
 use Artisan;
 use CoreComponentRepository;
 
@@ -260,7 +261,8 @@ class BusinessSettingsController extends Controller
     public function vendor_commission(Request $request)
     {
         $business_settings = BusinessSetting::where('type', 'vendor_commission')->first();
-        return view('business_settings.vendor_commission', compact('business_settings'));
+        $categories = Category::orderBy('name', 'asc');
+        return view('business_settings.vendor_commission', compact('business_settings', 'categories'));
     }
 
     public function vendor_commission_update(Request $request){

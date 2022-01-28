@@ -589,7 +589,9 @@ class OrderController extends Controller
                             $orderDetail->save();
                             if ($orderDetail->product->user->user_type == 'seller') {
                                 $seller = $orderDetail->product->user->seller;
-                                $seller->admin_to_pay = $seller->admin_to_pay - ($orderDetail->price * $commission_percentage) / 100;
+                                // $seller->admin_to_pay = $seller->admin_to_pay - ($orderDetail->price * $commission_percentage) / 100;
+                                $afterCommissionPrice = $orderDetail->price - ($orderDetail->price * $commission_percentage) / 100;
+                                $seller->admin_to_pay = $seller->admin_to_pay + $afterCommissionPrice;
                                 $seller->save();
                             }
                         }
@@ -600,7 +602,9 @@ class OrderController extends Controller
                             if ($orderDetail->product->user->user_type == 'seller') {
                                 $commission_percentage = $orderDetail->product->category->commision_rate;
                                 $seller = $orderDetail->product->user->seller;
-                                $seller->admin_to_pay = $seller->admin_to_pay - ($orderDetail->price * $commission_percentage) / 100;
+                                // $seller->admin_to_pay = $seller->admin_to_pay - ($orderDetail->price * $commission_percentage) / 100;
+                                $afterCommissionPrice = $orderDetail->price - ($orderDetail->price * $commission_percentage) / 100;
+                                $seller->admin_to_pay = $seller->admin_to_pay + $afterCommissionPrice;
                                 $seller->save();
                             }
                         }
