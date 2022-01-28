@@ -46,6 +46,17 @@
 </section>
 <section class="bg-white py-5">
 	<div class="container">
+        <?php 
+            $product=\App\Product::where('id',$page->product_id)->first();
+        ?>
+        @if ($product->photos != null)
+            <img loading="lazy"  class="img-md" src="{{ asset(json_decode($product->photos)[0])}}" alt="Image" width="400px"> 
+        @endif
+		{{ $product->name }}
+	</div>
+</section>
+<section class="bg-white py-5">
+	<div class="container">
 		{{ $page->content }}
 	</div>
 </section>
