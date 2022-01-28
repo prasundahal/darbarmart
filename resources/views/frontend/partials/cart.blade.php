@@ -1,6 +1,7 @@
 <a href="" class="nav-box-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <i class="la la-shopping-cart d-inline-block nav-box-icon"></i>
-    <span class="nav-box-text d-none d-xl-inline-block">{{__('Cart')}}</span>
+    {{-- <i class="fa fa-shopping-cart text-dark"></i> --}}
+    <img data-toggle="tooltip" data-placement="top" title="Cart" src="{{asset('frontend/images/b15beedcaf38913a9969b50753dd2aa1.svg')}}" alt="cart-logo" class="img-fluid img_sag">
+    {{-- <span class="nav-box-text d-none d-xl-inline-block">{{__('Cart')}}</span> --}}
     @if(Session::has('cart'))
         <span class="nav-box-number">{{ count(Session::get('cart'))}}</span>
     @else
@@ -28,7 +29,7 @@
                                 <div class="d-flex align-items-center">
                                     <div class="dc-image">
                                         <a href="{{ route('product', $product->slug) }}">
-                                            <img loading="lazy"  src="{{ asset($product->thumbnail_img) }}" class="img-fluid" alt="">
+                                            <img loading="lazy"  src="{{ asset(json_decode($product->photos)[0]) }}" class="img-fluid" alt="">
                                         </a>
                                     </div>
                                     <div class="dc-content">

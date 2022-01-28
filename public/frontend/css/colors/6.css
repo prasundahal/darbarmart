@@ -125,7 +125,7 @@ ul.categories--style-3 > li > ul > li > a.active,
 .product-box-2 .add-to-cart
 
 {
-    color: #8e44ad;
+    color: #dc3545;
 }
 
 
@@ -140,7 +140,7 @@ ul.categories--style-3 > li > ul > li > a.active,
 .link-menu--style-2 a.active
 
 {
-    color: #8e44ad !important;
+    color: #dc3545 !important;
 }
 
 
@@ -232,14 +232,14 @@ input:checked + .toggle-switch-slider:before,
 .aiz-rounded-check:after
 
 {
-    background: #8e44ad;
+    background: #dc3545;
 }
 
 
 
 .pace .pace-progress,
 .widget-profile-menu a:hover {
-    background: #8e44ad !important;
+    background: #dc3545 !important;
 }
 
 
@@ -286,7 +286,7 @@ input:checked + .toggle-switch-slider:before,
 .product-box-2 .add-to-cart:hover
 
 {
-    background-color: #8e44ad;
+    background-color: #dc3545;
 }
 
 
@@ -297,7 +297,7 @@ input:checked + .toggle-switch-slider:before,
 .bg-base-1
 
 {
-    background-color: #8e44ad !important;
+    background-color: #dc3545 !important;
 }
 
 
@@ -388,7 +388,7 @@ a > .feature--boxed-border:hover,
 .seller-shop-menu li a:hover,
 .aiz-megabox>input:checked~.aiz-megabox-elem, .aiz-megabox>input:checked~.aiz-megabox-elem
 {
-    border-color: #8e44ad;
+    border-color: #dc3545;
 }
 
 .btn-base-1.btn-outline,
@@ -396,7 +396,7 @@ a > .feature--boxed-border:hover,
 .btn-base-1.btn-outline:focus,
 .btn-base-1.btn-outline:hover
 {
-    border-color: #8e44ad !important;
+    border-color: #dc3545 !important;
 }
 
 .slice--arrow.slice--arrow.bg-base-1:before,
@@ -406,7 +406,7 @@ a > .feature--boxed-border:hover,
 .icon-block--arrow .block-icon:after
 
 {
-    border-top-color: #8e44ad;
+    border-top-color: #dc3545;
 }
 
 
@@ -427,14 +427,14 @@ a > .feature--boxed-border:hover,
     .navbar-dropdown--inverse .mega-dropdown-menu .meganav-section-title > a:hover
 
     {
-        color: #8e44ad;
+        color: #dc3545;
     }
 
     .tabs .nav-pills.nav-pills--rounded .active .nav-pill .nav-pill-circle,
     .tabs .nav-pills.nav-pills--rounded a.active:hover .nav-pill .nav-pill-circle
     
     {
-        background: #8e44ad;
+        background: #dc3545;
     }
 
 
@@ -456,7 +456,7 @@ a > .feature--boxed-border:hover,
     .navbar-inverse .dropdown-menu .dropdown-item:focus,
     .navbar-inverse .dropdown-menu .dropdown-item:hover
     {
-        color: #8e44ad;
+        color: #dc3545;
     }
 }
 
@@ -470,32 +470,32 @@ a > .feature--boxed-border:hover,
     .navbar-aside .navbar-expand-lg .navbar-nav .show .nav-link:hover
     
     {
-        color: #8e44ad;
+        color: #dc3545;
     }
 }
 
 
 .shape-container[data-shape-fill="primary"] .shape-item {
-    fill: #8e44ad;
+    fill: #dc3545;
 }
 
 
 input:focus + .toggle-switch-slider {
-    box-shadow: 0 0 1px #8e44ad;
+    box-shadow: 0 0 1px #dc3545;
 }
 
 
 .bg-base-1.ss-style-zigzag::after {
-    background-image: -webkit-gradient(linear, 0 0, 300% 100%, color-stop(0.25, #8e44ad), color-stop(0.25, #8e44ad));
-    background-image: linear-gradient(135deg, #8e44ad 25%, transparent 25%), linear-gradient(225deg, #8e44ad 25%, transparent 25%);
+    background-image: -webkit-gradient(linear, 0 0, 300% 100%, color-stop(0.25, #dc3545), color-stop(0.25, #dc3545));
+    background-image: linear-gradient(135deg, #dc3545 25%, transparent 25%), linear-gradient(225deg, #dc3545 25%, transparent 25%);
 }
 
 .photostream .photo-wrapper img:hover {
-    box-shadow: 0 0 0 3px #8e44ad;
+    box-shadow: 0 0 0 3px #dc3545;
 }
 
 .map-container address {
-    background-color: fade(#8e44ad, 80%);
+    background-color: fade(#dc3545, 80%);
 }
 
 

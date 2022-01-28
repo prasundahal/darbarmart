@@ -68,14 +68,14 @@
 				<input type="text" name="sku_{{ $str }}" value="{{ $sku }}" class="form-control" required>
 			</td>
 			<td>
-				<input type="number" name="qty_{{ $str }}" value="@php
+				<input type="text" name="qty_{{ $str }}" value="@php
                     if(($stock = $product->stocks->where('variant', $str)->first()) != null){
                         echo $stock->qty;
                     }
                     else{
                         echo '10';
                     }
-                @endphp" min="0" step="1" class="form-control" required>
+                @endphp" min="0" step="1" class="form-control" onkeypress="return isNumber(event)" required>
 			</td>
 		</tr>
 	@endif

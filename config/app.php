@@ -156,6 +156,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Anand\LaravelPaytmWallet\PaytmWalletServiceProvider::class,
         \Laravel\Passport\PassportServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -224,6 +225,7 @@ return [
         'Nexmo' => Nexmo\Laravel\Facade\Nexmo::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'PaytmWallet' => Anand\LaravelPaytmWallet\Facades\PaytmWallet::class,
+        'Image' => Intervention\Image\ImageManagerStatic::class
     ],
 
 ];

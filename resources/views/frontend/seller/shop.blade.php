@@ -98,6 +98,34 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-2">
+                                            <label>{{__('Location')}} <span class="required-star">*</span></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            @if (count($locations)>0)
+                                            <select name="location[]" class="form-control js-example-basic-multiple" multiple="multiple" required>
+                                                @php
+                                                    $loc = \App\Shop::where('user_id', Auth::user()->id)->first();
+                                                    $array = explode('!!', $loc->location);
+
+                                                @endphp
+
+                                                    @foreach ($locations as $location)
+                                                        <option value="{{$location->name}}" <?php if(in_array($location->name,$array)) echo 'selected' ?> >{{$location->state}} > {{$location->name}}</option> 
+                                                        
+                                                    @endforeach 
+                                                    
+                                            </select> 
+                                            @else
+                                            <select class="form-control">
+                                                <option value="" selected disabled>No Locations Available</option>
+                                            </select>
+                                            @endif
+                                                
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-2">
                                             <label>{{__('Meta Title')}} <span class="required-star">*</span></label>
                                         </div>
                                         <div class="col-md-10">
@@ -129,16 +157,16 @@
                                 <div class="form-box-content p-3">
                                     <div id="shop-slider-images">
                                         <div class="row">
-                                            <div class="col-md-2">
+                                            <div class="col-md-2 col-12">
                                                 <label>{{__('Slider Images')}} <small>(1400x400)</small></label>
                                             </div>
-                                            <div class="offset-2 offset-md-0 col-10 col-md-10">
+                                            <div class="col-md-10 col-12">
                                                 <div class="row">
                                                     @if ($shop->sliders != null)
                                                         @foreach (json_decode($shop->sliders) as $key => $sliders)
                                                             <div class="col-md-6">
                                                                 <div class="img-upload-preview">
-                                                                    <img loading="lazy"  src="{{ asset($sliders) }}" alt="" class="img-fluid">
+                                                                    <img loading="lazy"  src="{{ asset($sliders) }}" alt="" class="img-fluid h-100">
                                                                     <input type="hidden" name="previous_sliders[]" value="{{ $sliders }}">
                                                                     <button type="button" class="btn btn-danger close-btn remove-files"><i class="fa fa-times"></i></button>
                                                                 </div>
@@ -253,6 +281,13 @@
         $(document).ready(function(){
             $('.remove-files').on('click', function(){
                 $(this).parents(".col-md-6").remove();
+            });
+        });
+
+
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2({
+                placeholder:'Select Locations'
             });
         });
     </script>

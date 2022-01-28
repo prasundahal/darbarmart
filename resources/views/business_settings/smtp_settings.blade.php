@@ -75,7 +75,7 @@
                                 <label class="control-label">{{__('MAIL FROM ADDRESS')}}</label>
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" class="form-control" name="MAIL_FROM_ADDRESS" value="{{  config('mail.from_address') }}" placeholder="MAIL FROM ADDRESS">
+                                <input type="text" class="form-control" name="MAIL_FROM_ADDRESS" value="{{  config('mail.from.address') }}" placeholder="MAIL FROM ADDRESS">
                             </div>
                         </div>
                         <div class="form-group">
@@ -84,7 +84,7 @@
                                 <label class="control-label">{{__('MAIL FROM NAME')}}</label>
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" class="form-control" name="MAIL_FROM_NAME" value="{{  config('mail.from_name') }}" placeholder="MAIL FROM NAME">
+                                <input type="text" class="form-control" name="MAIL_FROM_NAME" value="{{  config('mail.from.name') }}" placeholder="MAIL FROM NAME">
                             </div>
                         </div>
                     </div>

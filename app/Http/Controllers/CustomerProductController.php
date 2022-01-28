@@ -70,20 +70,29 @@ class CustomerProductController extends Controller
         $customer_product->conditon = $request->conditon;
         $customer_product->location = $request->location;
         $photos = array();
+        $thumb=array();
+
 
         if($request->hasFile('photos')){
             foreach ($request->photos as $key => $photo) {
                 $path = $photo->store('uploads/customer_products/photos');
+                $thumbnail_path = $photo->store('uploads/customer_products/thumbnail');
+                Image::make(public_path($path))->resize(750,750)->save();
+                Image::make(public_path($thumbnail_path))->resize(100,100)->save();
+
                 array_push($photos, $path);
+                array_push($thumb, $thumbnail_path);
                 // ImageOptimizer::optimize(base_path('public/').$path);
             }
             $customer_product->photos = json_encode($photos);
+            $customer_product->thumbnail_img = json_encode($thumb);
+
         }
 
-        if($request->hasFile('thumbnail_img')){
-            $customer_product->thumbnail_img = $request->thumbnail_img->store('uploads/customer_products/thumbnail');
-            // ImageOptimizer::optimize(base_path('public/').$customer_product->thumbnail_img);
-        }
+        // if($request->hasFile('thumbnail_img')){
+        //     $customer_product->thumbnail_img = $request->thumbnail_img->store('uploads/customer_products/thumbnail');
+        //     // ImageOptimizer::optimize(base_path('public/').$customer_product->thumbnail_img);
+        // }
 
         $customer_product->unit = $request->unit;
         $customer_product->tags = implode('|',$request->tags);
@@ -158,24 +167,33 @@ class CustomerProductController extends Controller
 
         if($request->has('previous_photos')){
             $photos = $request->previous_photos;
+            $thumb = $request->previous_thumbnail_img;
         }
         else{
             $photos = array();
+            $thumb=array();
         }
 
         if($request->hasFile('photos')){
             foreach ($request->photos as $key => $photo) {
                 $path = $photo->store('uploads/customer_products/photos');
+                $thumbnail_path = $photo->store('uploads/customer_products/thumbnail');
+
+                Image::make(public_path($path))->resize(750,750)->save();
+                Image::make(public_path($thumbnail_path))->resize(100,100)->save();
+
                 array_push($photos, $path);
+                array_push($thumb, $thumbnail_path);
             }
         }
         $customer_product->photos = json_encode($photos);
+        $customer_product->thumbnail_img = json_encode($thumb);
 
-        $customer_product->thumbnail_img = $request->previous_thumbnail_img;
-        if($request->hasFile('thumbnail_img')){
-            $customer_product->thumbnail_img = $request->thumbnail_img->store('uploads/customer_products/thumbnail');
-            // ImageOptimizer::optimize(base_path('public/').$customer_product->thumbnail_img);
-        }
+        // $customer_product->thumbnail_img = $request->previous_thumbnail_img;
+        // if($request->hasFile('thumbnail_img')){
+        //     $customer_product->thumbnail_img = $request->thumbnail_img->store('uploads/customer_products/thumbnail');
+        //     // ImageOptimizer::optimize(base_path('public/').$customer_product->thumbnail_img);
+        // }
 
         $customer_product->unit = $request->unit;
         $customer_product->tags = implode('|',$request->tags);

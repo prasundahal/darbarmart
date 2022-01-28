@@ -9,6 +9,8 @@ use App\ProductStock;
 use Auth;
 use Illuminate\Http\Request;
 
+use Image;
+
 class ProductController extends Controller
 {
     /**
@@ -127,21 +129,32 @@ class ProductController extends Controller
         $product->made_in_nepal = $request->made_in_nepal != null ? 1 : 0;
 
         $photos = array();
+        $thumb=array();
         if ($request->hasFile('photos')) {
             foreach ($request->photos as $key => $photo) {
                 $path = $photo->store('uploads/products/photos');
+                $thumbnail_path = $photo->store('uploads/products/thumbnail');
+                Image::make(public_path($path))->resize(750,750)->save();
+
+                Image::make(public_path($thumbnail_path))->resize(100,100)->save();
+
                 array_push($photos, $path);
+                array_push($thumb, $thumbnail_path);
+
                 //ImageOptimizer::optimize(base_path('public/').$path);
             }
             $product->photos = json_encode($photos);
+            $product->thumbnail_img = json_encode($thumb);
+
+
         }
 
-        if ($request->hasFile('thumbnail_img')) {
-            $product->thumbnail_img = $request->thumbnail_img->store('uploads/products/thumbnail');
-            //ImageOptimizer::optimize(base_path('public/').$product->thumbnail_img);
-        }
+        // if($request->hasFile('thumbnail_img')){
+        //     $product->thumbnail_img = $request->thumbnail_img->store('uploads/products/thumbnail');
+        //     // ImageOptimizer::optimize(base_path('public/').$product->thumbnail_img);
+        // }
 
-        if ($request->hasFile('featured_img')) {
+        if($request->hasFile('featured_img')){
             $product->featured_img = $request->featured_img->store('uploads/products/featured');
             $product->thumbnail_img = $request->featured_img->store('uploads/products/thumbnail');
             $product->meta_img = $request->featured_img->store('uploads/products/meta');
@@ -272,11 +285,11 @@ class ProductController extends Controller
         }
         //combinations end
 
-        foreach (Language::all() as $key => $language) {
-            $data = openJSONFile($language->code);
-            $data[$product->name] = $product->name;
-            saveJSONFile($language->code, $data);
-        }
+        // foreach (Language::all() as $key => $language) {
+        //     $data = openJSONFile($language->code);
+        //     $data[$product->name] = $product->name;
+        //     saveJSONFile($language->code, $data);
+        // }
 
         $product->save();
 
@@ -341,6 +354,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
         $product = Product::findOrFail($id);
         $product->name = $request->name;
@@ -348,7 +362,7 @@ class ProductController extends Controller
         $product->subcategory_id = $request->subcategory_id;
         $product->subsubcategory_id = $request->subsubcategory_id;
         $product->brand_id = $request->brand_id;
-        $product->current_stock = $request->current_stock;
+        $product->current_stock = $request->current_stock1;
         $product->barcode = $request->barcode;
 
         if ($refund_request_addon != null && $refund_request_addon->activated == 1) {
@@ -361,24 +375,35 @@ class ProductController extends Controller
 
         if ($request->has('previous_photos')) {
             $photos = $request->previous_photos;
-        } else {
+            $thumb = $request->previous_thumbnail_img;
+        }
+        else{
             $photos = array();
+            $thumb=array();
         }
 
         if ($request->hasFile('photos')) {
             foreach ($request->photos as $key => $photo) {
                 $path = $photo->store('uploads/products/photos');
+                $thumbnail_path = $photo->store('uploads/products/thumbnail');
+
+                Image::make(public_path($path))->resize(750,750)->save();
+                Image::make(public_path($thumbnail_path))->resize(100,100)->save();
+
+
                 array_push($photos, $path);
+                array_push($thumb, $thumbnail_path);
                 //ImageOptimizer::optimize(base_path('public/').$path);
             }
         }
         $product->photos = json_encode($photos);
+        $product->thumbnail_img = json_encode($thumb);
 
-        $product->thumbnail_img = $request->previous_thumbnail_img;
-        if ($request->hasFile('thumbnail_img')) {
-            $product->thumbnail_img = $request->thumbnail_img->store('uploads/products/thumbnail');
-            //ImageOptimizer::optimize(base_path('public/').$product->thumbnail_img);
-        }
+        // $product->thumbnail_img = $request->previous_thumbnail_img;
+        // if($request->hasFile('thumbnail_img')){
+        //     $product->thumbnail_img = $request->thumbnail_img->store('uploads/products/thumbnail');
+        //     //ImageOptimizer::optimize(base_path('public/').$product->thumbnail_img);
+        // }
 
         $product->featured_img = $request->previous_featured_img;
         if ($request->hasFile('featured_img')) {

@@ -11,6 +11,16 @@
         </div>
     @endif
 
+<<<<<<< HEAD
+<br>
+<div class="panel">
+    <!--Panel heading-->
+    <div class="panel-heading bord-btm clearfix pad-all h-100">
+        <h3 class="panel-title pull-left pad-no">{{ __($type.' Products') }}</h3>
+        <div class="pull-right clearfix">
+            <form class="" id="sort_products" action="" method="GET">
+                @if($type == 'Seller')
+=======
     <br>
 
     <div class="panel">
@@ -35,6 +45,7 @@
                             </div>
                         </div>
                     @endif
+>>>>>>> 97d74c98f51541802cd8a7a9c230611049aba2df
                     <div class="box-inline pad-rgt pull-left">
                         <div class="select" style="min-width: 200px;">
                             <select class="form-control demo-select2" name="type" id="type" onchange="sort_products()">
@@ -94,17 +105,19 @@
                                 <input type="checkbox" value="{{ $product->id }}" data-id="{{ $product->id }}"
                                 name="productID[]" class="rowCheck">
                             </td>
-                            <td>{{ $key + 1 + ($products->currentPage() - 1) * $products->perPage() }}</td>
+                            <td>{{ ($key+1) + ($products->currentPage() - 1)*$products->perPage() }}</td>
                             <td>
                                 <a href="{{ route('product', $product->slug) }}" target="_blank" class="media-block">
                                     <div class="media-left">
-                                        <img loading="lazy" class="img-md"
-                                            src="{{ asset($product->thumbnail_img) }}" alt="Image">
+                                        @if ($product->photos != null)
+                                            <img loading="lazy"  class="img-md" src="{{ asset(json_decode($product->photos)[0])}}" alt="Image">
+                                                
+                                        @endif 
                                     </div>
                                     <div class="media-body">{{ __($product->name) }}</div>
                                 </a>
                             </td>
-                            @if ($type == 'Seller')
+                            @if($type == 'Seller')
                                 <td>{{ $product->user->name }}</td>
                             @endif
                             <td>{{ $product->num_of_sale }} {{ __('times') }}</td>
@@ -319,11 +332,16 @@
                         data: {
                             'ids': join_checked_values
                         },
+                        beforeSend: function()
+                        {
+                            $(".myoverlay").css('display', 'block');
+                        },
                         success: function(data) {
                             if (data['success']) {
                                 $(".rowCheck:checked").each(function() {
                                     $(this).parents("tr").remove();
                                 });
+                                $(".myoverlay").css('display', 'none');
                                 alert(data['success']);
                                 location.href = data.redirectTo;
                             } else if (data['error']) {

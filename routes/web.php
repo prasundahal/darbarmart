@@ -52,6 +52,10 @@ Route::post('/category/nav-element-list', 'HomeController@get_category_items')->
 //Flash Deal Details Page
 Route::get('/flash-deal/{slug}', 'HomeController@flash_deal_details')->name('flash-deal-details');
 
+//location
+Route::resource('locations','LocationController');
+
+
 Route::get('/sitemap.xml', function(){
 	return base_path('sitemap.xml');
 });

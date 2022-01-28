@@ -104,23 +104,23 @@
                                         @foreach (Auth::user()->addresses as $key => $address)
                                             <div class="col-lg-6">
                                                 <div class="border p-3 pr-5 rounded mb-3 position-relative">
-                                                    <div>
+                                                    <div class='mb-2'>
                                                         <span class="alpha-6">Address:</span>
                                                         <span class="strong-600 ml-2">{{ $address->address }}</span>
                                                     </div>
-                                                    <div>
+                                                    <div class='mb-2'>
                                                         <span class="alpha-6">Postal Code:</span>
                                                         <span class="strong-600 ml-2">{{ $address->postal_code }}</span>
                                                     </div>
-                                                    <div>
+                                                    <div class='mb-2'>
                                                         <span class="alpha-6">City:</span>
                                                         <span class="strong-600 ml-2">{{ $address->city }}</span>
                                                     </div>
-                                                    <div>
+                                                    <div class='mb-2'>
                                                         <span class="alpha-6">Country:</span>
                                                         <span class="strong-600 ml-2">{{ $address->country }}</span>
                                                     </div>
-                                                    <div>
+                                                    <div class='mb-2'>
                                                         <span class="alpha-6">Phone:</span>
                                                         <span class="strong-600 ml-2">{{ $address->phone }}</span>
                                                     </div>
