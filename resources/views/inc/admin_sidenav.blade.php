@@ -622,7 +622,31 @@
                                 </li>
                             </ul>
                         </li>
-                      <!-- @endif
+                      @endif
+
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-btc"></i>
+                                    <span class="menu-title">{{__('Delivery Boy')}}</span>
+                                    <i class="arrow"></i>
+                                </a>
+
+                                <!--Submenu-->
+                                <ul class="collapse">
+                                    <li class="{{ areActiveRoutes(['deliveryboy.index','deliveryboy.create','deliveryboy.edit'])}}">
+                                        
+                                        <a class="nav-link" href="{{ route('deliveryboy.index') }}"> {{__('Manage Delivery Boy')}}</a>
+                                    </li>
+                                    
+                                </ul>
+                            </li>
+                            <li class="">
+                                <a class="nav-link" href="{{ route('state.index') }}">
+                                    <i class="fa fa-wrench"></i>
+                                    <span class="menu-title">{{__('States')}}</span>
+                                </a>
+                            </li>
+
                         @if(Auth::user()->user_type == 'admin' || in_array('15', json_decode(Auth::user()->staff->role->permissions)))
                             <li class="{{ areActiveRoutes(['addons.index', 'addons.create'])}}">
                                 <a class="nav-link" href="{{ route('addons.index') }}">
@@ -630,7 +654,7 @@
                                     <span class="menu-title">{{__('Addon Manager')}}</span>
                                 </a>
                             </li>
-                        @endif-->
+                        @endif
 
                     </ul>
                 </div>

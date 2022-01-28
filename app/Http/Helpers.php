@@ -11,6 +11,15 @@ use Twilio\Rest\Client;
 
 
 //highlights the selected navigation on admin panel
+if(!function_exists('FileUnlink')){
+    function FileUnlink($path, $image){
+        if(file_exists($path.$image) && $image != null && $image != "default.png"){
+            return unlink($path.$image);
+        }
+    }
+}
+
+
 if (! function_exists('sendSMS')) {
     function sendSMS($to, $from, $text)
     {

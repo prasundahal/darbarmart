@@ -768,4 +768,10 @@ class ProductController extends Controller
         }
     }
 
+    public function get_products_by_category(Request $request)
+    {
+        $products = Product::where('category_id', $request->category_id)->get();
+        return $products;
+    }
+
 }

@@ -44,7 +44,8 @@
                                         <div class="card card-product mb-3 product-card-2">
                                             <div class="card-body p-3">
                                                 <div class="card-image">
-                                                    <a href="{{ route('product', $wishlist->product->slug) }}" class="d-block" style="background-image:url('{{ asset($wishlist->product->thumbnail_img) }}');">
+                                                    <a href="{{ route('product', $wishlist->product->slug) }}" class="d-block">
+                                                        <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($wishlist->product->photos)[0]) }}" alt="{{ __($wishlist->product->name) }}" class="img-fluid img lazyload">
                                                     </a>
                                                 </div>
 
@@ -68,16 +69,16 @@
                                             <div class="card-footer p-3">
                                                 <div class="product-buttons">
                                                     <div class="row align-items-center">
-                                                    <div class="col-8 mx-auto">
-                                                            <button type="button" class="btn btn-block btn-base-1 btn-circle btn-icon-left" onclick="showAddToCartModal({{ $wishlist->product->id }})">
-                                                                <i class="la la-shopping-cart mr-2"></i>{{__('Add to cart')}}
-                                                            </button>
-    
-                                              
+                                                        <div class="col-8 mx-auto">
+                                                                <button type="button" class="btn btn-block btn-base-1 btn-circle btn-icon-left" onclick="showAddToCartModal({{ $wishlist->product->id }})">
+                                                                    <i class="la la-shopping-cart mr-2"></i>{{__('Add to cart')}}
+                                                                </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
                                     </div>
                                 @endif
                             @endforeach

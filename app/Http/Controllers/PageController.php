@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Page;
 
@@ -25,7 +26,8 @@ class PageController extends Controller
      */
     public function create()
     {
-        return view('pages.create');
+        $categories = Category::all();
+        return view('pages.create',compact('categories'));
     }
 
     /**
@@ -41,6 +43,10 @@ class PageController extends Controller
         if (Page::where('slug', preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->slug)))->first() == null) {
             $page->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->slug));
             $page->content = $request->content;
+            $page->category_id = $request->category_id;
+            $page->product_id = $request->product_id;
+            $page->brand_id = $request->brand_id;
+            $page->seller_id = $request->seller_id;
             $page->meta_title = $request->meta_title;
             $page->meta_description = $request->meta_description;
             $page->keywords = $request->keywords;
@@ -76,9 +82,10 @@ class PageController extends Controller
      */
     public function edit($id)
     {
+        $categories = Category::all();
         $page = Page::where('slug', $id)->first();
         if($page != null){
-            return view('pages.edit', compact('page'));
+            return view('pages.edit', compact('page','categories'));
         }
         abort(404);
     }
@@ -97,6 +104,10 @@ class PageController extends Controller
         if (Page::where('slug', preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->slug)))->first() != null) {
             $page->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->slug));
             $page->content = $request->content;
+            $page->category_id = $request->category_id;
+            $page->product_id = $request->product_id;
+            $page->brand_id = $request->brand_id;
+            $page->seller_id = $request->seller_id;
             $page->meta_title = $request->meta_title;
             $page->meta_description = $request->meta_description;
             $page->keywords = $request->keywords;
