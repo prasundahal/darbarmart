@@ -54,6 +54,7 @@ class CouponController extends Controller
             $coupon->discount_type = $request->discount_type;
             $coupon->start_date = strtotime($request->start_date);
             $coupon->end_date = strtotime($request->end_date);
+            $coupon->new_customer = $request->newCustomerCoupon;
             $coupon->added_by = Auth::user()->user_type;
             $coupon->user_id = Auth::user()->id;
             $cupon_details = array();
@@ -82,6 +83,7 @@ class CouponController extends Controller
             $coupon->discount_type = $request->discount_type;
             $coupon->start_date = strtotime($request->start_date);
             $coupon->end_date = strtotime($request->end_date);
+            $coupon->new_customer = $request->newCustomerCoupon;
             $coupon->added_by = Auth::user()->user_type;
             $coupon->user_id = Auth::user()->id;
             $data = array();
@@ -142,6 +144,7 @@ class CouponController extends Controller
                 $coupon->discount_type = $request->discount_type;
                 $coupon->start_date = strtotime($request->start_date);
                 $coupon->end_date = strtotime($request->end_date);
+                $coupon->new_customer = $request->newCustomerCoupon;
                 $cupon_details = array();
                 for ($key = 0; $key < count($request->category_ids) - 1; $key++) {
                     $data['category_id'] = $request->category_ids[$key];
@@ -168,6 +171,7 @@ class CouponController extends Controller
                 $coupon->discount_type = $request->discount_type;
                 $coupon->start_date = strtotime($request->start_date);
                 $coupon->end_date = strtotime($request->end_date);
+                $coupon->new_customer = $request->newCustomerCoupon;
                 $data = array();
                 $data['min_buy'] = $request->min_buy;
                 $data['max_discount'] = $request->max_discount;
