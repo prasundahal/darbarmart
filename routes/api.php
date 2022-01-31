@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 Route::prefix('v1/auth')->group(function () {
     Route::post('login', 'Api\AuthController@login');
     Route::post('signup', 'Api\AuthController@signup');
@@ -98,6 +100,17 @@ Route::prefix('v1')->group(function () {
    Route::get('/addresses/destroy/{id}', 'Api\AddressController@destroy')->middleware('auth:api');
 Route::get('/addresses/set_default/{id}', 'Api\AddressController@set_default')->middleware('auth:api');
 
+});
+
+Route::group(["prefix"=>"delivery-boy/", "as" => "delivery."], function(){
+    Route::post('login', 'Api\Delivery\AuthController@login')->name('apiLogin');
+
+    Route::group(['middleware' => 'auth:delivery-api', 'scopes:delivery-boy'], function () {
+        Route::post('logout', 'Api\Delivery\AuthController@logout')->name('apiLogout');
+        Route::get('get-delivery-boy-orders', 'Api\Delivery\DeliveryBoyController@getDeliveryBoyOrders')->name('getDeliveryBoyOrders');
+        Route::get('change-delivery-boy-status', 'Api\Delivery\DeliveryBoyController@changeDeliveryBoyAvailablityStatus')->name('changeDeliveryBoyAvailablityStatus');
+        Route::get('change-delivery-boy-order-status', 'Api\Delivery\DeliveryBoyController@changeDeliveryBoyOrderStatus')->name('changeDeliveryBoyOrderStatus');
+    });
 });
 
 Route::fallback(function() {
