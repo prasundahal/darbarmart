@@ -82,6 +82,7 @@
             </div>
         </div>
     </section>
+    
     <section id="category" class="d-md-block d-none">
       <div class="container">
         <div class="grid-container slick-slider">
@@ -140,10 +141,12 @@
 
     @php
         $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
+        
        
     @endphp
 
-    @if($flash_deal != null && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date) 
+    @if($flash_deal != null && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date)
+    
     <section class="mb-4">
 
         <div class="container">
@@ -161,19 +164,19 @@
                 </div>
                 <div class="caorusel-box arrow-round gutters-5">
                     <div class="slick-carousel" data-slick-items="6" data-slick-xl-items="5" data-slick-lg-items="4"  data-slick-md-items="3" data-slick-sm-items="2" data-slick-xs-items="2">
-                    @foreach ($flash_deal->flash_deal_products as $key => $flash_deal_product)
-                        @php
-                            $product = \App\Product::find($flash_deal_product->product_id);
-                        @endphp
-                        @if ($product != null && $product->published != 0)
-                            <div class="caorusel-card">
-                                <div class="product-card-2 card card-product shop-cards">
-                                    <div class="card-body p-0">
-                                        <div class="card-image">
-                                            <a href="{{ route('product', $product->slug) }}" class="d-block">
-                                                <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
-                                            </a>
-                                        </div>
+                        @foreach ($flash_deal->flash_deal_products as $key => $flash_deal_product)
+                            @php
+                                $product = \App\Product::find($flash_deal_product->product_id);
+                            @endphp
+                            @if ($product != null && $product->published != 0)
+                                <div class="caorusel-card">
+                                    <div class="product-card-2 card card-product shop-cards">
+                                        <div class="card-body p-0">
+                                            <div class="card-image">
+                                                <a href="{{ route('product', $product->slug) }}" class="d-block">
+                                                    <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                                </a>
+                                            </div>
 
                                             <div class="p-md-3 p-2">
                                                 <div class="price-box">
@@ -219,10 +222,9 @@
     </section>
     @endif
 
-    <div class="mb-4 ">
+    {{-- <div class="mb-4 ">
         <div class="container">
             <div class="row gutters-10">
-                {{-- {{ dd(\App\FlashDeal::all()) }} --}}
                 @foreach (\App\FlashDeal::all() as $key => $flashdeal)
                     <div class="col-lg-4">
                         <div class="media-banner mb-3 mb-lg-0">
@@ -234,7 +236,7 @@
                 @endforeach
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div id="section_featured">
 

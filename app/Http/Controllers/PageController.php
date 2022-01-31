@@ -44,7 +44,9 @@ class PageController extends Controller
             $page->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->slug));
             $page->content = $request->content;
             $page->category_id = $request->category_id;
-            $page->product_id = $request->product_id;
+            // $page->product_id = $request->product_id;
+            $page->product_id=implode('!!', $request['product_id']);
+            // dd($page->product_id);
             $page->brand_id = $request->brand_id;
             $page->seller_id = $request->seller_id;
             $page->meta_title = $request->meta_title;
@@ -99,13 +101,16 @@ class PageController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $page = Page::findOrFail($id);
         $page->title = $request->title;
         if (Page::where('slug', preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->slug)))->first() != null) {
             $page->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->slug));
             $page->content = $request->content;
             $page->category_id = $request->category_id;
-            $page->product_id = $request->product_id;
+            // $page->product_id = $request->product_id;
+            $page->product_id=implode('!!', $request['product_id']);
+
             $page->brand_id = $request->brand_id;
             $page->seller_id = $request->seller_id;
             $page->meta_title = $request->meta_title;
