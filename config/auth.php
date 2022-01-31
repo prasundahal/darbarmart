@@ -45,6 +45,16 @@ return [
             'driver' => 'passport',
             'provider' => 'users'
         ],
+
+        'delivery' => [
+            'driver' => 'session',
+            'provider' => 'delivery_boys',
+        ],
+
+        'delivery-api' => [
+            'driver' => 'passport',
+            'provider' => 'delivery_boys',
+        ],
     ],
 
     /*
@@ -68,6 +78,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+
+        'delivery_boys' => [
+            'driver' => 'eloquent',
+            'model' => App\DeliveryBoy::class,
         ],
 
         // 'users' => [
