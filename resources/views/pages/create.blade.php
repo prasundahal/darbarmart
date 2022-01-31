@@ -40,8 +40,10 @@
                     <div class="form-group" id="product">
 						<label class="col-sm-3 control-label" for="product">{{__('Product')}}</label>
 						<div class="col-sm-9">
-							<select class="form-control demo-select2-placeholder" name="product_id" id="product_id">
-
+							<select class="form-control demo-select2-placeholder" name="product_id[]" id="product_id" multiple="multiple">
+                                {{-- @foreach(\App\Product::where('published',1)->get() as $product)
+                                <option value="{{$product->id}}">{{__($product->name)}}</option>
+                            @endforeach --}}
 							</select>
 						</div>
 					</div>
@@ -137,19 +139,5 @@
 		});
 	});
 
-    // $('#product_id').on('change', function() {
-	//     var product_id = $('#product_id').val();
-	// 	$.post('{{ route('sellers.get_sellers_by_product') }}',{_token:'{{ csrf_token() }}', product_id:product_id}, function(data){
-	// 	    $('#seller_id').html(null);
-	// 	    for (var i = 0; i < data.length; i++) {
-	// 	        $('#seller_id').append($('<option>', {
-	// 	            value: data[i].id,
-	// 	            text: data[i].name
-	// 	        }));
-	// 	        $('.demo-select2').select2();
-	// 	    }
-	// 	});
-	// });
-    
     </script>
 @endsection
