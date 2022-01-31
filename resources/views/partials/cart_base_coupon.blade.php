@@ -10,6 +10,13 @@
         </div>
     </div>
     <div class="form-group">
+        <label class="col-lg-3 control-label" for="coupon_code">{{ __('New Customer Coupon') }}</label>
+        <div class="col-lg-9">
+            <input type="hidden" name="newCustomerCoupon" value='0'>
+            <input type="checkbox" id="newCustomerCoupon" name="newCustomerCoupon" value='1'>
+        </div>
+    </div>
+    <div class="form-group">
         <label class="col-lg-3 control-label">{{ __('Minimum Shopping') }}</label>
         <div class="col-lg-9">
             <input type="number" min="0" step="0.01" placeholder="{{ __('Minimum Shopping') }}" name="min_buy"
@@ -62,6 +69,14 @@
         </div>
         <br/>
         <div class="row">
+            <label class="col-md-2 control-label" for="coupon_code">{{ __('New Customer Coupon') }}</label>
+            <div class="col-md-10">
+                <input type="hidden" name="newCustomerCoupon" value='0'>
+                <input type="checkbox" id="newCustomerCoupon" name="newCustomerCoupon" value='1'>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
             <label class="col-md-2 control-label">{{ __('Minimum Shopping') }}</label>
             <div class="col-md-10">
                 <input type="number" min="0" step="0.01" placeholder="{{ __('Minimum Shopping') }}" name="min_buy"
@@ -94,7 +109,7 @@
         <div class="row">
             <label class="col-md-2 control-label" for="start_date">{{ __('Date') }}</label>
             <div class="col-md-10">
-                <div id="demo-dp-range">
+                <div id="frontend-demo-dp-range">
                     <div class="input-daterange input-group" id="datepicker">
                         <input type="text" class="form-control" name="start_date">
                         <span class="input-group-addon">{{ __('to') }}</span>

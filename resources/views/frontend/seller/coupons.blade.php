@@ -88,6 +88,7 @@
                                             <th>{{__('Type')}}</th>
                                             <th>{{__('Start Date')}}</th>
                                             <th>{{__('End Date')}}</th>
+                                            <th>{{__('New Customer')}}</th>
                                             <th>{{__('Options')}}</th>
                                         </tr>
                                     </thead>
@@ -104,6 +105,7 @@
                                                 @endif</td>
                                                 <td>{{ date('d-m-Y', $coupon->start_date) }}</td>
                                                 <td>{{ date('d-m-Y', $coupon->end_date) }}</td>
+                                                <td>{{ $coupon->new_customer == 1 ? 'yes' : 'no' }}</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button class="btn" type="button" id="dropdownMenuButton-{{ $key }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

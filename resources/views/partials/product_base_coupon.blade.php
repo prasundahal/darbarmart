@@ -9,6 +9,13 @@
                 class="form-control" required>
         </div>
     </div>
+    <div class="form-group">
+        <label class="col-lg-3 control-label" for="coupon_code">{{ __('New Customer Coupon') }}</label>
+        <div class="col-lg-9">
+            <input type="hidden" name="newCustomerCoupon" value='0'>
+            <input type="checkbox" id="newCustomerCoupon" name="newCustomerCoupon" value='1'>
+        </div>
+    </div>
     <div class="product-choose-list">
         <div class="product-choose">
             <div class="form-group">
@@ -130,6 +137,14 @@
             <div class="col-md-10">
                 <input type="text" placeholder="{{ __('Coupon code') }}" id="coupon_code" name="coupon_code"
                     class="form-control" required>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <label class="col-md-2 control-label" for="coupon_code">{{ __('New Customer Coupon') }}</label>
+            <div class="col-md-10">
+                <input type="hidden" name="newCustomerCoupon" value='0'>
+                <input type="checkbox" id="newCustomerCoupon" name="newCustomerCoupon" value='1'>
             </div>
         </div>
         <br/>
