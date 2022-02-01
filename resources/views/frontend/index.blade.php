@@ -159,7 +159,7 @@
                         <div class="countdown countdown--style-1 countdown--style-1-v1 " data-countdown-date="{{ date('m/d/Y', $flash_deal->end_date) }}" data-countdown-label="show"></div>
                     </div>
                     <ul class="inline-links float-right">
-                        <li><a href="{{ route('flash-deal-details', $flash_deal->slug) }}" class="active">View More</a></li>
+                        <li><a href="{{ route('flash-deals') }}" class="active">View More</a></li>
                     </ul>
                 </div>
                 <div class="caorusel-box arrow-round gutters-5">
@@ -173,7 +173,12 @@
                                     <div class="product-box-2 bg-white alt-box my-2">  
                                         <div class="position-relative overflow-hidden">
                                             <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center">
-                                                <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                                @if (!empty($product->featured_img))
+                                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                                @else
+                                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+
+                                                @endif
                                             </a>
                                             <div class="product-btns clearfix">
                                                 <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" tabindex="0">
@@ -221,10 +226,26 @@
     </section>
     @endif
 
+    <div class="mb-4">
+        <div class="container">
+            <div class="row gutters-10 ">
+                @foreach (\App\Banner::where('position', 1)->where('published', 1)->get() as $key => $banner)
+                    <div class="col-lg-{{ 12/count(\App\Banner::where('position', 1)->where('published', 1)->get()) }}">
+                        <div class="media-banner mb-3 mb-lg-0">
+                            <a href="{{ $banner->url }}" target="_blank" class="banner-container">
+                                <img src="{{ asset('frontend/images/placeholder-rect.jpg') }}" data-src="{{ asset($banner->photo) }}" alt="{{ env('APP_NAME') }} promo" class="img-fluid lazyload">
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
     {{-- <div class="mb-4 ">
         <div class="container">
             <div class="row gutters-10">
-                @foreach (\App\FlashDeal::all() as $key => $flashdeal)
+                @foreach (\App\FlashDeal::where('status',1)->get() as $key => $flashdeal)
                     <div class="col-lg-4">
                         <div class="media-banner mb-3 mb-lg-0">
                             <a href="{{ route('flash-deal-details', $flashdeal->slug) }}" target="_blank" class="banner-container">
