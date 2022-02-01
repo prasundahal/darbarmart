@@ -41,9 +41,7 @@
 						<label class="col-sm-3 control-label" for="product">{{__('Product')}}</label>
 						<div class="col-sm-9">
 							<select class="form-control demo-select2-placeholder" name="product_id[]" id="product_id" multiple="multiple">
-                                {{-- @foreach(\App\Product::where('published',1)->get() as $product)
-                                <option value="{{$product->id}}">{{__($product->name)}}</option>
-                            @endforeach --}}
+
 							</select>
 						</div>
 					</div>
@@ -61,14 +59,6 @@
                     <div class="form-group">
 						<label class="col-sm-3 control-label" for="seller">{{__('Seller')}}</label>
 						<div class="col-sm-9">
-                            
-							{{-- <select class="form-control" name="seller">
-								<option value="" selected disabled>{{ ('Select Seller') }}</option>
-                                
-								@foreach (\App\Shop::all() as $seller)
-									<option value="{{ $seller->id }}">{{ $seller->name }}</option>
-								@endforeach
-							</select> --}}
                             <select class="form-control demo-select2-placeholder" name="seller_id" id="seller_id">
                                 <option value=""></option>
                                 @foreach(\App\Seller::with('user')->get() as $seller)

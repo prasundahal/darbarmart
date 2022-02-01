@@ -722,4 +722,9 @@ class HomeController extends Controller
         $states = State::where('country_id', $request->country_id)->pluck('name', 'id');
         return response()->json($states);
     }
+
+    public function flash_deals(){
+        $flash_deals=FlashDeal::where('status',1)->get();
+        return view('frontend.flashdeals',compact('flash_deals'));
+    }
 }
