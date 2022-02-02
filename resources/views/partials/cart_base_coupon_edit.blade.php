@@ -14,6 +14,14 @@ $coupon_det = json_decode($coupon->details);
         </div>
     </div>
 
+    <div class="form-group">
+        <label class="col-lg-3 control-label" for="coupon_code">{{ __('New Customer Coupon') }}</label>
+        <div class="col-lg-9">
+            <input type="hidden" name="newCustomerCoupon" value='0'>
+            <input type="checkbox" id="newCustomerCoupon" name="newCustomerCoupon" value='1' {{ $coupon->new_customer == 1 ? 'checked' : '' }}>
+        </div>
+    </div>
+
 
     <div class="form-group">
         <label class="col-lg-3 control-label">{{ __('Minimum Shopping') }}</label>
@@ -70,6 +78,14 @@ $coupon_det = json_decode($coupon->details);
         </div>
         <br/>
         <div class="row">
+            <label class="col-md-2 control-label" for="coupon_code">{{ __('New Customer Coupon') }}</label>
+            <div class="col-md-10">
+                <input type="hidden" name="newCustomerCoupon" value='0'>
+                <input type="checkbox" id="newCustomerCoupon" name="newCustomerCoupon" value='1' {{ $coupon->new_customer == 1 ? 'checked' : '' }}>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
             <label class="col-md-2 control-label">{{ __('Minimum Shopping') }}</label>
             <div class="col-md-10">
                 <input type="number" min="0" step="0.01" name="min_buy" class="form-control"
@@ -102,7 +118,7 @@ $coupon_det = json_decode($coupon->details);
         <div class="row">
             <label class="col-md-2 control-label" for="start_date">{{ __('Date') }}</label>
             <div class="col-md-10">
-                <div id="demo-dp-range">
+                <div id="frontend-demo-dp-range">
                     <div class="input-daterange input-group" id="datepicker">
                         <input type="text" class="form-control" name="start_date"
                             value="{{ date('m/d/Y', $coupon->start_date) }}">

@@ -82,6 +82,7 @@
             </div>
         </div>
     </section>
+    
     <section id="category" class="d-md-block d-none">
       <div class="container">
         <div class="grid-container slick-slider">
@@ -140,10 +141,12 @@
 
     @php
         $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
+        
        
     @endphp
 
-    @if($flash_deal != null && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date) 
+    @if($flash_deal != null && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date)
+    
     <section class="mb-4">
 
         <div class="container">
@@ -156,57 +159,61 @@
                         <div class="countdown countdown--style-1 countdown--style-1-v1 " data-countdown-date="{{ date('m/d/Y', $flash_deal->end_date) }}" data-countdown-label="show"></div>
                     </div>
                     <ul class="inline-links float-right">
-                        <li><a href="{{ route('flash-deal-details', $flash_deal->slug) }}" class="active">View More</a></li>
+                        <li><a href="{{ route('flash-deals') }}" class="active">View More</a></li>
                     </ul>
                 </div>
                 <div class="caorusel-box arrow-round gutters-5">
                     <div class="slick-carousel" data-slick-items="6" data-slick-xl-items="5" data-slick-lg-items="4"  data-slick-md-items="3" data-slick-sm-items="2" data-slick-xs-items="2">
-                    @foreach ($flash_deal->flash_deal_products as $key => $flash_deal_product)
-                        @php
-                            $product = \App\Product::find($flash_deal_product->product_id);
-                        @endphp
-                        @if ($product != null && $product->published != 0)
-                            <div class="caorusel-card">
-                                <div class="product-card-2 card card-product shop-cards">
-                                    <div class="card-body p-0">
-                                        <div class="card-image">
-                                            <a href="{{ route('product', $product->slug) }}" class="d-block">
-                                                <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
-                                            </a>
-                                        </div>
+                        @foreach ($flash_deal->flash_deal_products as $key => $flash_deal_product)
+                            @php
+                                $product = \App\Product::find($flash_deal_product->product_id);
+                            @endphp
+                            @if ($product != null && $product->published != 0)
+                                <div class="caorusel-card">
+                                    <div class="product-box-2 bg-white alt-box my-2">  
+                                        <div class="position-relative overflow-hidden">
+                                            <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center">
+                                                @if (!empty($product->featured_img))
+                                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                                @else
+                                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
 
-                                            <div class="p-md-3 p-2">
-                                                <div class="price-box">
-                                                    @if(home_base_price($product->id) != home_discounted_base_price($product->id))
-                                                        <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
-                                                    @endif
-                                                    <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
-                                                </div>
-                                                <div class="star-rating star-rating-sm mt-1">
-                                                    {{ renderStarRating($product->rating) }}
-                                                </div>
-                                                <h2 class="product-title p-0">
-                                                    <a href="{{ route('product', $product->slug) }}" class=" text-truncate">{{ __($product->name) }}</a>
-                                                </h2>
-                                                <div class="product-btns clearfix">
-                                                    <button class="btn add-wishlist mb-2 mt-2" title="Add to Wishlist" onclick="addToWishList({{$product->id}})" tabindex="0">
-                                                        <i class="la la-heart-o"></i>
-                                                    </button>
-                                                    <button class="btn add-compare mb-2" title="Add to Compare" onclick="addToCompare({{$product->id}})" tabindex="0">
-                                                        <i class="la la-refresh"></i>
-                                                    </button>
-                                                    <button class="btn quick-view mb-2" title="Quick view" onclick="showAddToCartModal({{$product->id}})" tabindex="0">
-                                                        <i class="la la-eye"></i>
-                                                    </button>
-                                                </div>
-                                                @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
-                                                    <div class="club-point mt-2 bg-soft-base-1 border-light-base-1 border">
-                                                        {{ __('Club Point') }}:
-                                                        <span class="strong-700 float-right">{{ $product->earn_point }}</span>
-                                                    </div>
                                                 @endif
+                                            </a>
+                                            <div class="product-btns clearfix">
+                                                <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" tabindex="0">
+                                                    <i class="la la-heart-o"></i>
+                                                </button>
+                                                <button class="btn add-compare" title="Add to Compare" onclick="addToCompare({{ $product->id }})" tabindex="0">
+                                                    <i class="la la-refresh"></i>
+                                                </button>
+                                                <button class="btn quick-view" title="Quick view" onclick="showAddToCartModal({{ $product->id }})" tabindex="0">
+                                                    <i class="la la-eye"></i>
+                                                </button>
                                             </div>
                                         </div>
+
+                                        <div class="p-md-3 p-2">
+                                            <div class="price-box">
+                                                @if(home_base_price($product->id) != home_discounted_base_price($product->id))
+                                                    <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
+                                                @endif
+                                                <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
+                                            </div>
+                                            <div class="star-rating star-rating-sm mt-1">
+                                                {{ renderStarRating($product->rating) }}
+                                            </div>
+                                            <h2 class="product-title p-0">
+                                                <a href="{{ route('product', $product->slug) }}" class=" text-truncate">{{ __($product->name) }}</a>
+                                            </h2>
+
+                                            @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
+                                                <div class="club-point mt-2 bg-soft-base-1 border-light-base-1 border">
+                                                    {{ __('Club Point') }}:
+                                                    <span class="strong-700 float-right">{{ $product->earn_point }}</span>
+                                                </div>
+                                            @endif
+                                        </div> 
                                     </div>
                                 </div>
                             @endif
@@ -219,11 +226,26 @@
     </section>
     @endif
 
-    <div class="mb-4 ">
+    <div class="mb-4">
+        <div class="container">
+            <div class="row gutters-10 ">
+                @foreach (\App\Banner::where('position', 1)->where('published', 1)->get() as $key => $banner)
+                    <div class="col-lg-{{ 12/count(\App\Banner::where('position', 1)->where('published', 1)->get()) }}">
+                        <div class="media-banner mb-3 mb-lg-0">
+                            <a href="{{ $banner->url }}" target="_blank" class="banner-container">
+                                <img src="{{ asset('frontend/images/placeholder-rect.jpg') }}" data-src="{{ asset($banner->photo) }}" alt="{{ env('APP_NAME') }} promo" class="img-fluid lazyload">
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    {{-- <div class="mb-4 ">
         <div class="container">
             <div class="row gutters-10">
-                {{-- {{ dd(\App\FlashDeal::all()) }} --}}
-                @foreach (\App\FlashDeal::all() as $key => $flashdeal)
+                @foreach (\App\FlashDeal::where('status',1)->get() as $key => $flashdeal)
                     <div class="col-lg-4">
                         <div class="media-banner mb-3 mb-lg-0">
                             <a href="{{ route('flash-deal-details', $flashdeal->slug) }}" target="_blank" class="banner-container">
@@ -234,7 +256,7 @@
                 @endforeach
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div id="section_featured">
 

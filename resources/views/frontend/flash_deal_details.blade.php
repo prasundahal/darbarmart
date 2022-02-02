@@ -1,11 +1,26 @@
 @extends('frontend.layouts.app')
 
 @section('content')
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <ul class="breadcrumb">
+                    <li><a href="{{ route('home') }}">{{__('Home')}}</a></li>
+                    <li><a href="{{ route('flash-deals') }}">{{__('Flash Deals')}}</a></li>
+                    <li><a href="{{ route('flash-deal-details',$flash_deal->slug) }}">{{__($flash_deal->title)}}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
     @if($flash_deal->status == 1 && strtotime(date('d-m-Y')) <= $flash_deal->end_date)
     <div style="background-color:{{ $flash_deal->background_color }}">
+        @if (!empty($flash_deal->banner))
         <section class="text-center">
-            <img src="{{ asset($flash_deal->banner) }}" alt="{{ $flash_deal->title }}" class="img-fit w-100">
-        </section>
+            <img src="{{ asset($flash_deal->banner) }}" alt="{{ $flash_deal->title }}" class="img-fluid">
+        </section>            
+        @endif
         <section class="pb-4">
             <div class="container">
                 <div class="text-center my-4 text-{{ $flash_deal->text_color }}">
@@ -23,8 +38,13 @@
                                     <div class="card-body p-0">
 
                                         <div class="card-image">
-                                            <a href="{{ route('product', $product->slug) }}" class="d-block text-center" >
-                                                <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->flash_deal_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                            <a href="{{ route('product', $product->slug) }}" class="d-block text-center">
+                                                @if (!empty($product->flash_deal_img))
+                                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->flash_deal_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                                @else
+                                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                                    
+                                                @endif
                                             </a>
                                         </div>
 

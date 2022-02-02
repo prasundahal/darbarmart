@@ -59,9 +59,14 @@
 @endsection
 
 @section('script')
-<script type="text/javascript">
 
-    // coupon_form();
+{{-- <script src="{{ asset('plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script> --}}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.demo-select2').select2();
+    });
+
 
     function coupon_form(){
         var coupon_type = $('#coupon_type').val();
@@ -69,14 +74,13 @@
 		$.post('{{ route('seller.coupon.get_coupon_form') }}',{_token:'{{ csrf_token() }}', coupon_type:coupon_type}, function(data){
             $('#coupon_form').html(data);
 
-            $('#demo-dp-range .input-daterange').datepicker({
+            $('#frontend-demo-dp-range .input-daterange').datepicker({
                 startDate: '-0d',
                 todayBtn: "linked",
                 autoclose: true,
                 todayHighlight: true
-        	});
+            });
 		});
     }
-
 </script>
 @endsection

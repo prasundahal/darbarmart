@@ -41,8 +41,16 @@
                     <div class="form-group" id="product">
 						<label class="col-sm-3 control-label" for="product">{{__('Product')}}</label>
 						<div class="col-sm-9">
-							<select class="form-control demo-select2-placeholder" name="product_id" id="product_id">
-
+                            <?php 
+                                $pages=\App\Page::where('id',$page->id)->first();
+                                $array = explode('!!', $pages->product_id); 
+                                $products=\App\Product::where('category_id',$pages->category_id)->get();
+                                
+                            ?>
+							<select class="form-control demo-select2-placeholder" name="product_id[]" id="product_id" multiple="multiple">
+                                @foreach ($products as $product)
+                                    <option value="{{$product->id}}"  <?php if(in_array($product->id,$array)) echo 'selected' ?>>{{$product->name}}</option>
+                                @endforeach
 							</select>
 						</div>
 					</div>
@@ -52,7 +60,7 @@
 							<select class="form-control demo-select2-placeholder" name="brand_id">
 								<option value=""></option>
 								@foreach (\App\Brand::all() as $brand)
-									<option value="{{ $brand->id }}">{{ $brand->name }}</option>
+									<option value="{{ $brand->id }}" <?php if($page->brand_id == $brand->id) echo "selected"; ?>>{{ $brand->name }}</option>
 								@endforeach
 							</select>
 						</div>
@@ -64,7 +72,7 @@
                                 <option value=""></option>
                                 @foreach(\App\Seller::with('user')->get() as $seller)
                                     @isset($seller->user->name)
-                                        <option value="{{$seller->user_id}}">{{__($seller->user->name)}}</option>
+                                        <option value="{{$seller->user_id}}" <?php if($page->seller_id == $seller->id) echo "selected"; ?>>{{__($seller->user->name)}}</option>
                                     @endisset
                                 @endforeach
 							</select>
@@ -125,7 +133,12 @@
 		$.post('{{ route('products.get_products_by_category') }}',{_token:'{{ csrf_token() }}', category_id:category_id}, function(data){
 		    $('#product_id').html(null);
 		    for (var i = 0; i < data.length; i++) {
+                // $option = $('<option></option>').val(data[i].id).html(data[i].name); //first initialize variable
 		        $('#product_id').append($('<option>', {
+                    // if(data[i].id == '157') {
+                    //     $option = $option.attr('selected','selected'),
+                    //     $("#product_id").append($option)
+                    // }
 		            value: data[i].id,
 		            text: data[i].name
 		        }));

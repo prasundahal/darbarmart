@@ -25,6 +25,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-sm-3 control-label" for="delivery_charge">{{__('Delivery Charge')}}</label>
+                    <div class="col-sm-9">
+                        <input type="number" min="0" value="0" step="0.01" placeholder="{{__('Delivery Charge')}}" name="delivery_charge" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-lg-3 control-label" for="state">{{__('State')}}</label>
                     <div class="col-lg-9">
                         <select name="state" class="form-control demo-select2" required>

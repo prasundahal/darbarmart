@@ -40,7 +40,7 @@
                     <div class="form-group" id="product">
 						<label class="col-sm-3 control-label" for="product">{{__('Product')}}</label>
 						<div class="col-sm-9">
-							<select class="form-control demo-select2-placeholder" name="product_id" id="product_id">
+							<select class="form-control demo-select2-placeholder" name="product_id[]" id="product_id" multiple="multiple">
 
 							</select>
 						</div>
@@ -59,14 +59,6 @@
                     <div class="form-group">
 						<label class="col-sm-3 control-label" for="seller">{{__('Seller')}}</label>
 						<div class="col-sm-9">
-                            
-							{{-- <select class="form-control" name="seller">
-								<option value="" selected disabled>{{ ('Select Seller') }}</option>
-                                
-								@foreach (\App\Shop::all() as $seller)
-									<option value="{{ $seller->id }}">{{ $seller->name }}</option>
-								@endforeach
-							</select> --}}
                             <select class="form-control demo-select2-placeholder" name="seller_id" id="seller_id">
                                 <option value=""></option>
                                 @foreach(\App\Seller::with('user')->get() as $seller)
@@ -137,19 +129,5 @@
 		});
 	});
 
-    // $('#product_id').on('change', function() {
-	//     var product_id = $('#product_id').val();
-	// 	$.post('{{ route('sellers.get_sellers_by_product') }}',{_token:'{{ csrf_token() }}', product_id:product_id}, function(data){
-	// 	    $('#seller_id').html(null);
-	// 	    for (var i = 0; i < data.length; i++) {
-	// 	        $('#seller_id').append($('<option>', {
-	// 	            value: data[i].id,
-	// 	            text: data[i].name
-	// 	        }));
-	// 	        $('.demo-select2').select2();
-	// 	    }
-	// 	});
-	// });
-    
     </script>
 @endsection
