@@ -44,9 +44,11 @@ class PageController extends Controller
             $page->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->slug));
             $page->content = $request->content;
             $page->category_id = $request->category_id;
-            // $page->product_id = $request->product_id;
-            $page->product_id=implode('!!', $request['product_id']);
-            // dd($page->product_id);
+            if($request['product_id'] == null){
+            }
+            else{
+                $page->product_id=implode('!!', $request['product_id']);
+            }
             $page->brand_id = $request->brand_id;
             $page->seller_id = $request->seller_id;
             $page->meta_title = $request->meta_title;
@@ -145,9 +147,9 @@ class PageController extends Controller
     }
 
     public function show_custom_page($slug){
-        $page = Page::where('slug', $slug)->first();
-        if($page != null){
-            return view('frontend.custom_page', compact('page'));
+        $pages = Page::where('slug', $slug)->get();
+        if($pages != null){
+            return view('frontend.custom_page', compact('pages'));
         }
         abort(404);
     }
