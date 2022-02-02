@@ -84,8 +84,7 @@
                                 <a href="{{ route('product', $product->slug) }}" target="_blank" class="media-block">
                                     <div class="media-left">
                                         @if ($product->photos != null)
-                                            <img loading="lazy"  class="img-md" src="{{ asset(json_decode($product->photos)[0])}}" alt="Image">
-                                                
+                                            <img loading="lazy"  class="img-md" src="{{ asset(isset(json_decode($product->photos)[0]) ? json_decode($product->photos)[0] : 'img/nothing-found.jpg')}}" alt="Image">
                                         @endif 
                                     </div>
                                     <div class="media-body">{{ __($product->name) }}</div>
