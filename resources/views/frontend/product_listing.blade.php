@@ -250,7 +250,7 @@
                             </div>
                             <div class="col-xl-7 offset-xl-1">
                                 <div class="row no-gutters">
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <div class="sort-by-box px-1">
                                             <div class="form-group">
                                                 <label>{{__('Sort by')}}</label>
@@ -263,7 +263,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <div class="sort-by-box px-1">
                                             <div class="form-group">
                                                 <label>{{__('Brands')}}</label>
@@ -276,7 +276,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <div class="sort-by-box px-1">
                                             <div class="form-group">
                                                 <label>{{__('Sellers')}}</label>
@@ -286,6 +286,19 @@
                                                         @if ($seller->user != null && $seller->user->shop != null)
                                                             <option value="{{ $seller->id }}" @isset($seller_id) @if ($seller_id == $seller->id) selected @endif @endisset>{{ $seller->user->shop->name }}</option>
                                                         @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="sort-by-box px-1">
+                                            <div class="form-group">
+                                                <label>{{__('Locations')}}</label>
+                                                <select class="form-control sortSelect" data-placeholder="{{__('All Locations')}}" name="location" onchange="filter()">
+                                                    <option value="">{{__('All Locations')}}</option>
+                                                    @foreach (\App\Location::all() as $location)
+                                                        <option value="{{ $location->id }}" @isset($location_id) @if ($location_id == $location->id) selected @endif @endisset>{{ $location->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
