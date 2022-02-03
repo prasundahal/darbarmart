@@ -110,7 +110,7 @@
                                                 @endphp
 
                                                     @foreach ($locations as $location)
-                                                        <option value="{{$location->name}}" <?php if(in_array($location->name,$array)) echo 'selected' ?> >{{$location->state}} > {{$location->name}}</option> 
+                                                        <option value="{{$location->id}}" <?php if(in_array($location->id,$array)) echo 'selected' ?> >{{$location->state}} > {{$location->name}}</option> 
                                                         
                                                     @endforeach 
                                                     
